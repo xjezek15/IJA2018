@@ -10,16 +10,16 @@ import java.util.Stack;
 
 public class Move extends java.lang.Object
 {
-    private Figure movedFigure;
+    private Figure fromFigure;
     private Field from;
-    private Field moveTo;
+    private Field to;
     private Figure capturedFigure;
 
-    public Move(Figure movedFigure, Field from, Field moveTo, Figure capturedFigure)
+    public Move(Figure fromFigure, Field from, Field to, Figure capturedFigure)
     {
-        this.movedFigure = movedFigure;
+        this.fromFigure = fromFigure;
         this.from = from;
-        this.moveTo = moveTo;
+        this.to = to;
         this.capturedFigure = capturedFigure;
     }
 
@@ -28,14 +28,14 @@ public class Move extends java.lang.Object
         return this.from;
     }
 
-    public Field getMoveToField()
+    public Field getToField()
     {
-        return this.moveTo;
+        return this.to;
     }
 
-    public Figure getFigure()
+    public Figure getFromFigure()
     {
-        return this.movedFigure;
+        return this.fromFigure;
     }
 
     public Figure getCapturedFigure()

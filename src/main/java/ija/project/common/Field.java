@@ -4,6 +4,8 @@
  */
 package ija.project.common;
 
+import ija.project.utilities.Location;
+
 public interface Field 
 {
     public static enum Direction
@@ -23,10 +25,9 @@ public interface Field
     void addNextField(Field.Direction dirs, Field field);
     Field nextField(Field.Direction dirs);
     boolean isEmpty();
-    // 0 = col, 1 = row
-    int[] getLocation();
-    Figure get();
+    Location getLocation();
+    Figure getFigure();
     boolean putFigure(Figure figure);
-    boolean putFigure(Figure figure, int[] location);
-    boolean remove(Figure figure);
+    boolean removeFigure(Figure figure);
+    String getState();
 }

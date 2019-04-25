@@ -6,6 +6,7 @@
 
 package ija.project.common;
 
+import ija.project.utilities.Location;
 import java.util.Stack;
 
 public class GameClass extends java.lang.Object implements Game
@@ -14,94 +15,84 @@ public class GameClass extends java.lang.Object implements Game
 
     public GameClass()
     {
-        moveStack = new Stack<Move>();
+        moveStack = new Stack<>();
     }
 
+    @Override
     public void undo()
     {
+        if (moveStack.empty()) return;
+        
         Move move = moveStack.pop();
 
         Field from = move.getFromField();
-        from.putFigure(move.getFigure(), from.getLocation());
-        Field moveTo = move.getMoveToField();
-        moveTo.remove(move.getFigure());
+        from.putFigure(move.getFromFigure());
+        Field to = move.getToField();
+        to.removeFigure(move.getFromFigure());
         if (move.getCapturedFigure() != null)
         {
-            moveTo.putFigure(move.getCapturedFigure(), moveTo.getLocation());   
+            to.putFigure(move.getCapturedFigure());   
         }           
     }
 
-    public boolean move(Figure figure, Field field)
+    @Override
+    public boolean move(Field from, Field to)
     {
         boolean canMove = false;
 
-        if (field == null || figure == null)
+        if (from == null || to == null)
         {
             return false;
         }
+        
+        Figure fromFigure = from.getFigure();
 
-        boolean moveToEmpty = field.isEmpty();
-        Field from = null;
-
+        if (fromFigure == null)
+        {
+            return false;
+        }
+        
+        boolean toEmpty = to.isEmpty();
 
         // check if figure can move
-        if (figure.getType() == Figure.Pawn)
+        if (fromFigure.getType() == Figure.Pawn)
         {
-            from = findField(figure, field);
-            if (from != null && moveToEmpty)
-            {
-                canMove = true;
-            }
-            else
-            {
-                return false;
-            }
+            canMove = canMovePawn(from, to);
         }
-        else if (figure.getType() == Figure.Rook)
+        else if (fromFigure.getType() == Figure.Rook)
         {
-            from = findField(figure, field, Field.D);
-            if (from != null)
-            {
-                canMove = true;
-            }
-            else
-            {
-                return false;
-            }
+            canMove = canMove(from, from, to, Field.D);
         }
-        else if (figure.getType() == Figure.Disk)
+        else if (fromFigure.getType() == Figure.Bishop)
         {
-            if (figure.isBlack())
-            {
-                from = findFieldDisk(figure, field, Field.LU);
-            }
-            else
-            {
-                from = findFieldDisk(figure, field, Field.LD);
-            }
-            
-            if (from != null)
-            {
-                canMove = true;
-            }
-            else
-            {
-                return false;
-            }
+            canMove = canMove(from, from, to, Field.LD);
+        }
+        else if (fromFigure.getType() == Figure.Queen)
+        {
+            canMove = canMove(from, from, to, Field.D);
+        }
+        else if (fromFigure.getType() == Figure.King)
+        {
+            canMove = canMoveKing(from, to, Field.D);
+        }
+        else if (fromFigure.getType() == Figure.Knight)
+        {
+            throw new UnsupportedOperationException("Move with Knight not implemented");
         }
 
         if (canMove)
         {
             Figure capturedFigure = null;
 
-            if (figure.getType() == Figure.Rook && !moveToEmpty)
+            // not empty
+            if (!toEmpty)
             {
-                if (field.get().isBlack())
+                if (fromFigure.isBlack())
                 {
-                    if (!figure.isBlack())
+                    if (!to.getFigure().isBlack())
                     {
-                        capturedFigure = field.get();
-                        field.remove(capturedFigure);
+                        capturedFigure = to.getFigure();
+                        to.removeFigure(capturedFigure);
                     }
                     else
                     {
@@ -110,10 +101,10 @@ public class GameClass extends java.lang.Object implements Game
                 }
                 else
                 {
-                    if (figure.isBlack())
+                    if (to.getFigure().isBlack())
                     {
-                        capturedFigure = field.get();
-                        field.remove(capturedFigure);
+                        capturedFigure = to.getFigure();
+                        to.removeFigure(capturedFigure);
                     }
                     else
                     {
@@ -122,11 +113,11 @@ public class GameClass extends java.lang.Object implements Game
                 }
             }
 
-            if (from.remove(figure))
+            if (from.removeFigure(fromFigure))
             {
-                if (field.putFigure(figure, field.getLocation()))
+                if (to.putFigure(fromFigure))
                 {
-                    Move move = new Move(figure, from, field, capturedFigure);
+                    Move move = new Move(fromFigure, from, to, capturedFigure);
                     move.push(this.moveStack);
                     return true;
                 }
@@ -135,118 +126,126 @@ public class GameClass extends java.lang.Object implements Game
 
         return false;
     }
-
-    // find pawn
-    private Field findField(Figure figure, Field moveTo)
+    
+    private boolean canMovePawnForward(boolean isBlack, Field from, Field to)
     {
-        Field from = null;
-        if (figure.isBlack())
+        Location fromLocation = from.getLocation();
+        Location toLocation = to.getLocation();  
+        
+        int fromRow = isBlack ? 6 : 1;
+        int forward1 = isBlack ? 5 : 2;
+        int forward2 = isBlack ? 4 : 3;
+        Field.Direction direction = isBlack ? Field.Direction.D : Field.Direction.U;
+        
+        // same column
+        if (fromLocation.getCol() == toLocation.getCol())
         {
-            from = moveTo.nextField(Field.U);
-        }
-        else
-        {
-            from = moveTo.nextField(Field.D);
+            // to is empty
+            if (!to.isEmpty()) return false;
+            
+            // one field
+            if (toLocation.getRow() == forward1) return true;
+            
+            // from row is initial
+            if (fromLocation.getRow() == fromRow)
+            {         
+                // two fields
+                if (toLocation.getRow() == forward2)
+                {
+                    // middle field is empty
+                    if (from.nextField(direction).isEmpty()) return true;
+                }
+            }
         }
         
-
-        if (from != null)
-        {
-            if (from.get().equals(figure))
-            {
-                return from;
-            }
-        }
-        
-        return null;        
-    }
-
-    // find rook
-    private Field findField(Figure figure, Field field, Field.Direction dirs)
-    {
-        Field nextField = field.nextField(dirs);
-
-        if (nextField == null)
-        {
-            dirs = determineNextDirection(figure, dirs);
-
-            if (dirs == null)
-            {
-                return null;
-            }
-
-            return findField(figure, field, dirs);
-        }
-
-        Figure nextFieldFigure = nextField.get();
-
-        if (nextFieldFigure == null)
-        {
-            return findField(figure, nextField, dirs);
-        }
-
-        if (nextFieldFigure.equals(figure))
-        {
-            return nextField;
-        }
-        else
-        {
-            dirs = determineNextDirection(figure, dirs);
-
-            if (dirs == null)
-            {
-                return null;
-            }
-
-            return findField(figure, field, dirs);
-        }
+        return false;
     }
     
-    // find disk
-    private Field findFieldDisk(Figure figure, Field field, Field.Direction dirs)
+    private boolean canMovePawnSideways(boolean isBlack, Field from, Field to)
     {
-        Field nextField = field.nextField(dirs);
-
-        if (nextField == null)
+        Field.Direction directionL = isBlack ? Field.Direction.LD : Field.Direction.LU;
+        Field.Direction directionR = isBlack ? Field.Direction.RD : Field.Direction.RU;
+        Figure toFigure = to.getFigure();
+        
+        if (toFigure == null) return false;
+        
+        // figures are different color
+        if (from.getFigure().isBlack() != to.getFigure().isBlack())
         {
-            dirs = determineNextDirection(figure, dirs);
+            return from.nextField(directionL).equals(to) || from.nextField(directionR).equals(to);
+        }         
+        
+        return false;
+    }
 
-            if (dirs == null)
-            {
-                return null;
-            }
-
-            return findFieldDisk(figure, field, dirs);
-        }
-
-        Figure nextFieldFigure = nextField.get();
-
-        if (nextFieldFigure == null)
+    private boolean canMovePawn(Field from, Field to)
+    {   
+        if (from.getFigure().isBlack())
         {
-            dirs = determineNextDirection(figure, dirs);
-
-            if (dirs == null)
-            {
-                return null;
-            }
-
-            return findFieldDisk(figure, field, dirs);
-        }
-
-        if (nextFieldFigure.equals(figure))
-        {
-            return nextField;
+            if (canMovePawnForward(true, from, to)) return true;
+            return canMovePawnSideways(true, from, to);            
         }
         else
         {
-            dirs = determineNextDirection(figure, dirs);
+            if (canMovePawnForward(false, from, to)) return true;
+            return canMovePawnSideways(false, from, to);
+        }       
+    }
+    
+    private boolean canMoveKing(Field from, Field to, Field.Direction dirs)
+    {
+        Field nextField = from.nextField(dirs);
+        
+        if (nextField == null || !nextField.equals(to))
+        {
+            dirs = determineNextDirection(from.getFigure(), dirs);
 
             if (dirs == null)
             {
-                return null;
+                return false;
+            }
+            
+            return canMoveKing(from, to, dirs);
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+//    in case of failure, this is the problem
+    private boolean canMove(Field source, Field from, Field to, Field.Direction dirs)
+    {
+        Field nextField = from.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            dirs = determineNextDirection(source.getFigure(), dirs);
+
+            if (dirs == null)
+            {
+                return false;
             }
 
-            return findFieldDisk(figure, field, dirs);
+            return canMove(source, source, to, dirs);
+        }
+
+        if (nextField.equals(to)) return true;
+
+        if (nextField.isEmpty())
+        {
+            return canMove(source, nextField, to, dirs);
+        }
+        else
+        {
+            dirs = determineNextDirection(source.getFigure(), dirs);
+
+            if (dirs == null)
+            {
+                return false;
+            }
+
+            return canMove(source, source, to, dirs);
         }
     }
 
@@ -271,32 +270,62 @@ public class GameClass extends java.lang.Object implements Game
                 return null;
             } 
         }
-        else if (figure.getType().equals(Figure.Disk))
+        else if (figure.getType().equals(Figure.Bishop))
         {
-            if (figure.isBlack())
+            if (dirs == Field.LD)
             {
-                if (dirs == Field.LU)
-                {
-                    return Field.RU;
-                } 
-                else
-                {
-                    return null;
-                } 
+                return Field.LU;
+            }
+            else if (dirs == Field.LU)
+            {
+                return Field.RU;
+            }
+            else if (dirs == Field.RU)
+            {
+                return Field.RD;
             }
             else
             {
-                if (dirs == Field.LD)
-                {
-                    return Field.RD;
-                } 
-                else
-                {
-                    return null;
-                } 
-            }            
+                return null;
+            } 
+        }
+        else if (figure.getType().equals(Figure.King) || figure.getType().equals(Figure.Queen))
+        {
+            if (dirs == Field.D)
+            {
+                return Field.LD;
+            }
+            else if (dirs == Field.LD)
+            {
+                return Field.L;
+            }
+            else if (dirs == Field.L)
+            {
+                return Field.LU;
+            }
+            else if (dirs == Field.LU)
+            {
+                return Field.U;
+            } 
+            else if (dirs == Field.U)
+            {
+                return Field.RU;
+            }
+            else if (dirs == Field.RU)
+            {
+                return Field.R;
+            }
+            else if (dirs == Field.R)
+            {
+                return Field.RD;
+            }
+            else
+            {
+                return null;
+            } 
         }
 
         return null;
+
     }
 }
