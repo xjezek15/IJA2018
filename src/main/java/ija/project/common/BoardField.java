@@ -6,23 +6,22 @@
 
 package ija.project.common;
 
+import ija.project.utilities.Location;
+
 public class BoardField extends java.lang.Object implements Field
 {
     private Figure figure;
     private Field surroundingFields[];
-    private int col;
-    private int row;
+    private Location location;
     private boolean isBlack;
     
     public BoardField(int col, int row, boolean isBlack)
     {
-        this.col = col;
-        this.row = row;
-        this.isBlack = isBlack;
-
         this.figure = null;
-        
         this.surroundingFields = new Field[8];
+         
+        this.location = new Location(col, row);
+        this.isBlack = isBlack;
     }
 
     public boolean isEmpty()
@@ -30,15 +29,12 @@ public class BoardField extends java.lang.Object implements Field
         return this.figure == null;
     }
 
-    public int[] getLocation()
+    public Location getLocation()
     {
-        int[] location = new int[2];
-        location[0] = this.col;
-        location[1] = this.row;
-        return location;
+        return this.location;
     }
 
-    public Figure get()
+    public Figure getFigure()
     {
         if (isEmpty())
         {
@@ -52,32 +48,18 @@ public class BoardField extends java.lang.Object implements Field
     
     public boolean putFigure(Figure figure)
     {
-        if (!isEmpty())
+        if (isEmpty())
         {
-            return false;
-        }
-        else
-        {         
             this.figure = figure;
             return true;
         }
-    }
-
-    public boolean putFigure(Figure figure, int[] location)
-    {
-        if (!isEmpty())
+        else
         {
             return false;
         }
-        else
-        {         
-            this.figure = figure;
-            this.figure.updateLocation(location);
-            return true;
-        }
     }
 
-    public boolean remove(Figure figure)
+    public boolean removeFigure(Figure figure)
     {
         if (isEmpty() || !this.figure.equals(figure))
         {
@@ -138,5 +120,66 @@ public class BoardField extends java.lang.Object implements Field
         }
 
         return -1;
+    }
+    
+    @Override
+    public String getState()
+    {
+        String colour;
+        String type;
+        
+        if (this.figure == null)
+        {
+            colour = "E";       
+        }
+        else if (this.figure.isBlack())
+        {
+            colour = "B";
+        }
+        else
+        {
+            colour = "W";
+        }
+        
+        if (this.figure != null)
+        {
+            if (this.figure.getType() == Figure.Rook)
+            {
+                type = "R";
+            }
+            else if (this.figure.getType() == Figure.Pawn)
+            {
+                type = "P";
+            }
+            else if (this.figure.getType() == Figure.Knight)
+            {
+                type = "K";
+            }
+            else if (this.figure.getType() == Figure.Bishop)
+            {
+                type = "B";
+            }
+            else if (this.figure.getType() == Figure.Queen)
+            {
+                type = "Q";
+            }
+            else if (this.figure.getType() == Figure.King)
+            {
+                type = "KK";
+            }
+            else
+            {
+                type = "O";
+            }
+        }
+        else
+        {
+            type = "E";
+        } 
+        
+        int col = this.location.getCol() + 1;
+        int row = this.location.getRow() + 1;
+        
+        return type + "[" + colour + "]" + col + ":" + row;
     }
 }
