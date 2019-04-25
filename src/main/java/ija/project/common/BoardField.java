@@ -122,6 +122,7 @@ public class BoardField extends java.lang.Object implements Field
         return -1;
     }
     
+    @Override
     public String getState()
     {
         String colour;
@@ -129,7 +130,7 @@ public class BoardField extends java.lang.Object implements Field
         
         if (this.figure == null)
         {
-            colour = "E";
+            colour = "E";       
         }
         else if (this.figure.isBlack())
         {
@@ -139,35 +140,42 @@ public class BoardField extends java.lang.Object implements Field
         {
             colour = "W";
         }
-
-        if (this.figure.getType() == Figure.Rook)
+        
+        if (this.figure != null)
         {
-            type = "R";
-        }
-        else if (this.figure.getType() == Figure.Pawn)
-        {
-            type = "P";
-        }
-        else if (this.figure.getType() == Figure.Knight)
-        {
-            type = "K";
-        }
-        else if (this.figure.getType() == Figure.Bishop)
-        {
-            type = "B";
-        }
-        else if (this.figure.getType() == Figure.Queen)
-        {
-            type = "Q";
-        }
-        else if (this.figure.getType() == Figure.King)
-        {
-            type = "KK";
+            if (this.figure.getType() == Figure.Rook)
+            {
+                type = "R";
+            }
+            else if (this.figure.getType() == Figure.Pawn)
+            {
+                type = "P";
+            }
+            else if (this.figure.getType() == Figure.Knight)
+            {
+                type = "K";
+            }
+            else if (this.figure.getType() == Figure.Bishop)
+            {
+                type = "B";
+            }
+            else if (this.figure.getType() == Figure.Queen)
+            {
+                type = "Q";
+            }
+            else if (this.figure.getType() == Figure.King)
+            {
+                type = "KK";
+            }
+            else
+            {
+                type = "O";
+            }
         }
         else
         {
             type = "E";
-        }
+        } 
         
         int col = this.location.getCol() + 1;
         int row = this.location.getRow() + 1;

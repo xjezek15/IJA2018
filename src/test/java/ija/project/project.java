@@ -91,4 +91,51 @@ public class project
         assertEquals("KK[W]5:1", board.getField(5, 1).getState());   
         assertEquals("KK[B]5:8", board.getField(5, 8).getState());
     }
+    
+    @Test
+    public void movePawnForward()
+    {
+        assertFalse(game.move(board.getField(1, 2), board.getField(4, 3)));
+        assertFalse(game.move(board.getField(4, 2), board.getField(4, 1)));
+        assertFalse(game.move(board.getField(4, 2), board.getField(4, 2)));
+        assertFalse(game.move(board.getField(4, 2), board.getField(3, 3)));
+        assertFalse(game.move(board.getField(4, 2), board.getField(5, 3)));
+        
+        assertTrue(game.move(board.getField(4, 2), board.getField(4, 3)));
+        assertEquals("E[E]4:2", board.getField(4, 2).getState());   
+        assertEquals("P[W]4:3", board.getField(4, 3).getState());   
+        
+        assertTrue(game.move(board.getField(3, 2), board.getField(3, 4)));
+        assertEquals("E[E]3:2", board.getField(3, 2).getState());   
+        assertEquals("P[W]3:4", board.getField(3, 4).getState());   
+        
+        assertTrue(game.move(board.getField(4, 7), board.getField(4, 6)));
+        assertEquals("E[E]4:7", board.getField(4, 7).getState());   
+        assertEquals("P[B]4:6", board.getField(4, 6).getState());   
+        
+        assertTrue(game.move(board.getField(5, 7), board.getField(5, 5)));
+        assertEquals("E[E]5:7", board.getField(5, 7).getState());   
+        assertEquals("P[B]5:5", board.getField(5, 5).getState());   
+    }
+    
+    @Test
+    public void capturingFigures()
+    {
+        // move white pawn
+        assertTrue(game.move(board.getField(4, 2), board.getField(4, 4)));        
+        
+        // move black pawn
+        assertTrue(game.move(board.getField(3, 7), board.getField(3, 5)));
+        
+        // capture black pawn
+        assertTrue(game.move(board.getField(4, 4), board.getField(3, 5)));
+         
+        assertEquals("E[E]4:4", board.getField(4, 4).getState());  
+        assertEquals("P[W]3:5", board.getField(3, 5).getState());  
+        
+        game.undo();
+        
+        assertEquals("P[W]4:4", board.getField(4, 4).getState());  
+        assertEquals("P[B]3:5", board.getField(3, 5).getState());  
+    }
 }
