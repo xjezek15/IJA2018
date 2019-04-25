@@ -5,15 +5,10 @@
  */
 package ija.project;
 
-import ija.project.common.Field;
-import ija.project.common.Figure;
-import ija.project.common.FigureClass;
 import ija.project.common.Game;
 import ija.project.game.Board;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,12 +23,26 @@ public class project
         
     }
     
-    @Test
-    public void testSomething()
+    private Board board;
+    private Game game;
+    
+    @BeforeEach
+    public void initialize()
     {
-        Board board = new Board(8);
-        Game game = GameFactory.createChessGame(board);    
-        
+        board = new Board(8);
+        game = GameFactory.createChessGame(board);
+    }
+    
+    @AfterEach
+    public void tearDown()
+    {
+        board = null;
+        game = null;
+    }
+    
+    @Test
+    public void allFiguresAreInPlace()
+    {                
         for (int col = 1; col <= 8; col++)
         {
             // checks if all white pawns are in place
