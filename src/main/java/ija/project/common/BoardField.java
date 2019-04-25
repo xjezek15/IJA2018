@@ -4,7 +4,7 @@
  * @author Jan Ježek (xjezek15)
  */
 
-package ija2018.project.board;
+package ija.project.common;
 
 public class BoardField extends java.lang.Object implements Field
 {
@@ -38,7 +38,7 @@ public class BoardField extends java.lang.Object implements Field
         return location;
     }
 
-    public Figure getFigure()
+    public Figure get()
     {
         if (isEmpty())
         {
@@ -49,7 +49,7 @@ public class BoardField extends java.lang.Object implements Field
             return this.figure;
         }
     }
-
+    
     public boolean putFigure(Figure figure)
     {
         if (!isEmpty())
@@ -57,8 +57,22 @@ public class BoardField extends java.lang.Object implements Field
             return false;
         }
         else
-        {
+        {         
             this.figure = figure;
+            return true;
+        }
+    }
+
+    public boolean putFigure(Figure figure, int[] location)
+    {
+        if (!isEmpty())
+        {
+            return false;
+        }
+        else
+        {         
+            this.figure = figure;
+            this.figure.updateLocation(location);
             return true;
         }
     }

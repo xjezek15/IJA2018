@@ -1,8 +1,8 @@
 /*
  * IJA 2018/2019
- * Projekt
+ * Ukol 1
  */
-package ija2018.project.board;
+package ija.project.common;
 
 public interface Field 
 {
@@ -23,8 +23,10 @@ public interface Field
     void addNextField(Field.Direction dirs, Field field);
     Field nextField(Field.Direction dirs);
     boolean isEmpty();
+    // 0 = col, 1 = row
     int[] getLocation();
-    Figure getFigure();
+    Figure get();
     boolean putFigure(Figure figure);
+    boolean putFigure(Figure figure, int[] location);
     boolean remove(Figure figure);
 }

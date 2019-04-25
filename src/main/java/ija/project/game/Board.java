@@ -1,19 +1,23 @@
 /**
  * IJA 2018/2019
- * Projekt
+ * Úkol 2
  * @author Jan Ježek (xjezek15)
  */
 
-package ija2018.project.board;
+package ija.project.game;
+
+import ija.project.common.BoardField;
+import ija.project.common.Field;
+import ija.project.common.Figure;
 
 public class Board extends java.lang.Object
 {
     private int size;
     private Field board[][];
 
-    public Board() 
+    public Board(int size) 
     {
-        this.size = 8;
+        this.size = size;
         this.board = new Field[this.size][this.size];
         boolean isBlack = false;
 
@@ -90,31 +94,11 @@ public class Board extends java.lang.Object
                 }
             }
         }
+    }
 
-        // adding figures
-        for (int col = 0; col < this.size; col++) 
-        {
-            this.board[col][1].putFigure(new Figure(false, Figure.Pawn));
-            this.board[col][6].putFigure(new Figure(true, Figure.Pawn));
-        }
-
-        this.board[0][0].putFigure(new Figure(false, Figure.Rook));
-        this.board[1][0].putFigure(new Figure(false, Figure.Knight));
-        this.board[2][0].putFigure(new Figure(false, Figure.Bishop));
-        this.board[3][0].putFigure(new Figure(false, Figure.Queen));
-        this.board[4][0].putFigure(new Figure(false, Figure.King));
-        this.board[5][0].putFigure(new Figure(false, Figure.Bishop));
-        this.board[6][0].putFigure(new Figure(false, Figure.Knight));
-        this.board[7][0].putFigure(new Figure(false, Figure.Rook));
-
-        this.board[0][7].putFigure(new Figure(true, Figure.Rook));
-        this.board[1][7].putFigure(new Figure(true, Figure.Knight));
-        this.board[2][7].putFigure(new Figure(true, Figure.Bishop));
-        this.board[3][7].putFigure(new Figure(true, Figure.Queen));
-        this.board[4][7].putFigure(new Figure(true, Figure.King));
-        this.board[5][7].putFigure(new Figure(true, Figure.Bishop));
-        this.board[6][7].putFigure(new Figure(true, Figure.Knight));
-        this.board[7][7].putFigure(new Figure(true, Figure.Rook));
+    public boolean addFigure(int col, int row, Figure figure)
+    {
+        return this.board[col][row].putFigure(figure);
     }
 
     public Field getField(int col, int row)
