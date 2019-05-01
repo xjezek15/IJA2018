@@ -1,6 +1,6 @@
 /**
  * IJA 2018/2019
- * Úkol 2
+ * Projekt
  * @author Jan Ježek (xjezek15)
  */
 
@@ -8,14 +8,14 @@ package ija.project.common;
 
 import java.util.Stack;
 
-public class Move extends java.lang.Object
+public class Move extends java.lang.Object implements IMove
 {
-    private Figure fromFigure;
-    private Field from;
-    private Field to;
-    private Figure capturedFigure;
+    private IFigure fromFigure;
+    private IField from;
+    private IField to;
+    private IFigure capturedFigure;
 
-    public Move(Figure fromFigure, Field from, Field to, Figure capturedFigure)
+    public Move(IFigure fromFigure, IField from, IField to, IFigure capturedFigure)
     {
         this.fromFigure = fromFigure;
         this.from = from;
@@ -23,27 +23,27 @@ public class Move extends java.lang.Object
         this.capturedFigure = capturedFigure;
     }
 
-    public Field getFromField()
+    public IField getFromField()
     {
         return this.from;
     }
 
-    public Field getToField()
+    public IField getToField()
     {
         return this.to;
     }
 
-    public Figure getFromFigure()
+    public IFigure getFromFigure()
     {
         return this.fromFigure;
     }
 
-    public Figure getCapturedFigure()
+    public IFigure getCapturedFigure()
     {
         return this.capturedFigure;
     }
 
-    public Move push(Stack<Move> stack)
+    public IMove push(Stack<IMove> stack)
     {
         return stack.push(this);
     }

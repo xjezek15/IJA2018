@@ -1,21 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * IJA 2018/2019
+ * Projekt
+ * @author Jan Ježek (xjezek15)
  */
+
 package ija.project;
 
-import ija.project.common.Game;
 import ija.project.game.Board;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import ija.project.common.IGame;
+import ija.project.game.IBoard;
 
-/**
- *
- * @author janje
- */
 public class project 
 {
     public project() 
@@ -23,8 +21,8 @@ public class project
         
     }
     
-    private Board board;
-    private Game game;
+    private IBoard board;
+    private IGame game;
     
     @BeforeEach
     public void initialize()

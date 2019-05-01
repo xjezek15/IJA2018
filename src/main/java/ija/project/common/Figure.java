@@ -1,26 +1,29 @@
 /**
  * IJA 2018/2019
- * Úkol 2
+ * Projekt
  * @author Jan Ježek (xjezek15)
  */
 
 package ija.project.common;
 
-public interface Figure
+public class Figure extends java.lang.Object implements IFigure
 {
-    public static enum Type
+    private boolean isBlack;
+    private IFigure.Type type;
+
+    public Figure(boolean isBlack, IFigure.Type type) 
     {
-        Rook, Pawn, Bishop, Knight, Queen, King;
+        this.isBlack = isBlack;
+        this.type = type;
     }
 
-    public static final Figure.Type Rook    = Type.Rook;
-    public static final Figure.Type Pawn    = Type.Pawn;
-    public static final Figure.Type Bishop  = Type.Bishop;
-    public static final Figure.Type Knight  = Type.Knight;
-    public static final Figure.Type Queen   = Type.Queen;
-    public static final Figure.Type King    = Type.King;
-    
+    public boolean isBlack()
+    {
+        return this.isBlack;
+    }
 
-    boolean isBlack();
-    Figure.Type getType();    
+    public IFigure.Type getType() 
+    {
+        return this.type;
+    }
 }
