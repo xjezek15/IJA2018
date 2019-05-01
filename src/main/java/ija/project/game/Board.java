@@ -1,24 +1,24 @@
 /**
  * IJA 2018/2019
- * Úkol 2
+ * Projekt
  * @author Jan Ježek (xjezek15)
  */
 
 package ija.project.game;
 
-import ija.project.common.BoardField;
 import ija.project.common.Field;
-import ija.project.common.Figure;
+import ija.project.common.IField;
+import ija.project.common.IFigure;
 
-public class Board extends java.lang.Object
+public class Board extends java.lang.Object implements IBoard
 {
     private int size;
-    private Field board[][];
+    private IField board[][];
 
     public Board(int size) 
     {
         this.size = size;
-        this.board = new Field[this.size][this.size];
+        this.board = new IField[this.size][this.size];
         boolean isBlack = false;
 
         // creating fields
@@ -44,7 +44,7 @@ public class Board extends java.lang.Object
                     isBlack = true;
                 }
 
-                this.board[col][row] = new BoardField(col, row, isBlack);
+                this.board[col][row] = new Field(col, row, isBlack);
             }    
         }
 
@@ -55,53 +55,53 @@ public class Board extends java.lang.Object
             {
                 if (col != this.size - 1) 
                 {
-                    this.board[col][row].addNextField(Field.R, this.board[col + 1][row]);
+                    this.board[col][row].addNextField(IField.R, this.board[col + 1][row]);
                 }
 
                 if (col > 0)
                 {
-                    this.board[col][row].addNextField(Field.L, this.board[col - 1][row]);
+                    this.board[col][row].addNextField(IField.L, this.board[col - 1][row]);
                 }
 
                 if (row != this.size - 1)
                 {
-                    this.board[col][row].addNextField(Field.U, this.board[col][row + 1]);
+                    this.board[col][row].addNextField(IField.U, this.board[col][row + 1]);
                 }
 
                 if (row > 0)
                 {
-                    this.board[col][row].addNextField(Field.D, this.board[col][row - 1]);
+                    this.board[col][row].addNextField(IField.D, this.board[col][row - 1]);
                 }
 
                 if (col != 0 && row != 0)
                 {
-                    this.board[col][row].addNextField(Field.LD, this.board[col - 1][row - 1]);
+                    this.board[col][row].addNextField(IField.LD, this.board[col - 1][row - 1]);
                 }
 
                 if (col != this.size - 1 && row != 0)
                 {
-                    this.board[col][row].addNextField(Field.RD, this.board[col + 1][row - 1]);
+                    this.board[col][row].addNextField(IField.RD, this.board[col + 1][row - 1]);
                 }
 
                 if (col != 0 && row != this.size - 1)
                 {
-                    this.board[col][row].addNextField(Field.LU, this.board[col - 1][row + 1]);
+                    this.board[col][row].addNextField(IField.LU, this.board[col - 1][row + 1]);
                 }
 
                 if (col != this.size - 1 && row != this.size - 1)
                 {
-                    this.board[col][row].addNextField(Field.RU, this.board[col + 1][row + 1]);
+                    this.board[col][row].addNextField(IField.RU, this.board[col + 1][row + 1]);
                 }
             }
         }
     }
 
-    public boolean addFigure(int col, int row, Figure figure)
+    public boolean addFigure(int col, int row, IFigure figure)
     {
         return this.board[col][row].putFigure(figure);
     }
 
-    public Field getField(int col, int row)
+    public IField getField(int col, int row)
     {
         if (col == 0 || row == 0)
         {
