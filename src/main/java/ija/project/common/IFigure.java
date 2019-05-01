@@ -13,12 +13,12 @@ public interface IFigure
         Rook, Pawn, Bishop, Knight, Queen, King;
     }
 
-    public static final IFigure.Type Rook    = Type.Rook;
-    public static final IFigure.Type Pawn    = Type.Pawn;
-    public static final IFigure.Type Bishop  = Type.Bishop;
-    public static final IFigure.Type Knight  = Type.Knight;
-    public static final IFigure.Type Queen   = Type.Queen;
-    public static final IFigure.Type King    = Type.King;
+    public static final IFigure.Type ROOK    = Type.Rook;
+    public static final IFigure.Type PAWN    = Type.Pawn;
+    public static final IFigure.Type BISHOP  = Type.Bishop;
+    public static final IFigure.Type KNIGHT  = Type.Knight;
+    public static final IFigure.Type QUEEN   = Type.Queen;
+    public static final IFigure.Type KING    = Type.King;
     
 
     boolean isBlack();

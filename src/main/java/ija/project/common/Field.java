@@ -143,27 +143,27 @@ public class Field extends java.lang.Object implements IField
         
         if (this.figure != null)
         {
-            if (this.figure.getType() == IFigure.Rook)
+            if (this.figure.getType() == IFigure.ROOK)
             {
                 type = "R";
             }
-            else if (this.figure.getType() == IFigure.Pawn)
+            else if (this.figure.getType() == IFigure.PAWN)
             {
                 type = "P";
             }
-            else if (this.figure.getType() == IFigure.Knight)
+            else if (this.figure.getType() == IFigure.KNIGHT)
             {
                 type = "K";
             }
-            else if (this.figure.getType() == IFigure.Bishop)
+            else if (this.figure.getType() == IFigure.BISHOP)
             {
                 type = "B";
             }
-            else if (this.figure.getType() == IFigure.Queen)
+            else if (this.figure.getType() == IFigure.QUEEN)
             {
                 type = "Q";
             }
-            else if (this.figure.getType() == IFigure.King)
+            else if (this.figure.getType() == IFigure.KING)
             {
                 type = "KK";
             }

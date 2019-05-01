@@ -20,37 +20,37 @@ public abstract class GameFactory extends java.lang.Object
         // adding pawns
         for (int col = 0; col < board.getSize(); col++) 
         {
-            board.addFigure(col, 1, new Figure(false, IFigure.Pawn));
-            board.addFigure(col, 6, new Figure(true, IFigure.Pawn));
+            board.addFigure(col, 1, new Figure(false, IFigure.PAWN));
+            board.addFigure(col, 6, new Figure(true, IFigure.PAWN));
         }
 
         // adding rooks
-        board.addFigure(0, 0, new Figure(false, IFigure.Rook));
-        board.addFigure(7, 0, new Figure(false, IFigure.Rook));
+        board.addFigure(0, 0, new Figure(false, IFigure.ROOK));
+        board.addFigure(7, 0, new Figure(false, IFigure.ROOK));
 
-        board.addFigure(0, 7, new Figure(true, IFigure.Rook));
-        board.addFigure(7, 7, new Figure(true, IFigure.Rook));
+        board.addFigure(0, 7, new Figure(true, IFigure.ROOK));
+        board.addFigure(7, 7, new Figure(true, IFigure.ROOK));
         
         // adding bishops
-        board.addFigure(1, 0, new Figure(false, IFigure.Bishop));
-        board.addFigure(6, 0, new Figure(false, IFigure.Bishop));
+        board.addFigure(1, 0, new Figure(false, IFigure.BISHOP));
+        board.addFigure(6, 0, new Figure(false, IFigure.BISHOP));
 
-        board.addFigure(1, 7, new Figure(true, IFigure.Bishop));
-        board.addFigure(6, 7, new Figure(true, IFigure.Bishop));
+        board.addFigure(1, 7, new Figure(true, IFigure.BISHOP));
+        board.addFigure(6, 7, new Figure(true, IFigure.BISHOP));
         
         // adding knights
-        board.addFigure(2, 0, new Figure(false, IFigure.Knight));
-        board.addFigure(5, 0, new Figure(false, IFigure.Knight));
+        board.addFigure(2, 0, new Figure(false, IFigure.KNIGHT));
+        board.addFigure(5, 0, new Figure(false, IFigure.KNIGHT));
 
-        board.addFigure(2, 7, new Figure(true, IFigure.Knight));
-        board.addFigure(5, 7, new Figure(true, IFigure.Knight));
+        board.addFigure(2, 7, new Figure(true, IFigure.KNIGHT));
+        board.addFigure(5, 7, new Figure(true, IFigure.KNIGHT));
         
         // adding king and queen
-        board.addFigure(4, 0, new Figure(false, IFigure.King));
-        board.addFigure(3, 0, new Figure(false, IFigure.Queen));
+        board.addFigure(4, 0, new Figure(false, IFigure.KING));
+        board.addFigure(3, 0, new Figure(false, IFigure.QUEEN));
 
-        board.addFigure(4, 7, new Figure(true, IFigure.King));
-        board.addFigure(3, 7, new Figure(true, IFigure.Queen));
+        board.addFigure(4, 7, new Figure(true, IFigure.KING));
+        board.addFigure(3, 7, new Figure(true, IFigure.QUEEN));
 
         return new Game();
     }

@@ -11,9 +11,10 @@ import java.util.Stack;
 public class Move extends java.lang.Object implements IMove
 {
     private IFigure fromFigure;
+    private IFigure capturedFigure;
     private IField from;
     private IField to;
-    private IFigure capturedFigure;
+   
 
     public Move(IFigure fromFigure, IField from, IField to, IFigure capturedFigure)
     {

@@ -4,8 +4,9 @@
  * @author Jan Ježek (xjezek15)
  */
 
-package ija.project;
+package ija.project.tests;
 
+import ija.project.GameFactory;
 import ija.project.game.Board;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import ija.project.common.IGame;
 import ija.project.game.IBoard;
 
-public class project 
+public class LogicTests 
 {
-    public project() 
+    public LogicTests() 
     {
         
     }

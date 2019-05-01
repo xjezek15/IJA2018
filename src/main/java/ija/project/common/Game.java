@@ -55,27 +55,27 @@ public class Game extends java.lang.Object implements IGame
         boolean toEmpty = to.isEmpty();
 
         // check if figure can move
-        if (fromFigure.getType() == IFigure.Pawn)
+        if (fromFigure.getType() == IFigure.PAWN)
         {
             canMove = canMovePawn(from, to);
         }
-        else if (fromFigure.getType() == IFigure.Rook)
+        else if (fromFigure.getType() == IFigure.ROOK)
         {
             canMove = canMove(from, from, to, IField.D);
         }
-        else if (fromFigure.getType() == IFigure.Bishop)
+        else if (fromFigure.getType() == IFigure.BISHOP)
         {
             canMove = canMove(from, from, to, IField.LD);
         }
-        else if (fromFigure.getType() == IFigure.Queen)
+        else if (fromFigure.getType() == IFigure.QUEEN)
         {
             canMove = canMove(from, from, to, IField.D);
         }
-        else if (fromFigure.getType() == IFigure.King)
+        else if (fromFigure.getType() == IFigure.KING)
         {
             canMove = canMoveKing(from, to, IField.D);
         }
-        else if (fromFigure.getType() == IFigure.Knight)
+        else if (fromFigure.getType() == IFigure.KNIGHT)
         {
             throw new UnsupportedOperationException("Move with Knight not implemented");
         }
@@ -251,7 +251,7 @@ public class Game extends java.lang.Object implements IGame
 
     private IField.Direction determineNextDirection(IFigure figure, IField.Direction dirs)
     {
-        if (figure.getType().equals(IFigure.Rook))
+        if (figure.getType().equals(IFigure.ROOK))
         {
             if (dirs == IField.D)
             {
@@ -270,7 +270,7 @@ public class Game extends java.lang.Object implements IGame
                 return null;
             } 
         }
-        else if (figure.getType().equals(IFigure.Bishop))
+        else if (figure.getType().equals(IFigure.BISHOP))
         {
             if (dirs == IField.LD)
             {
@@ -289,7 +289,7 @@ public class Game extends java.lang.Object implements IGame
                 return null;
             } 
         }
-        else if (figure.getType().equals(IFigure.King) || figure.getType().equals(IFigure.Queen))
+        else if (figure.getType().equals(IFigure.KING) || figure.getType().equals(IFigure.QUEEN))
         {
             if (dirs == IField.D)
             {
