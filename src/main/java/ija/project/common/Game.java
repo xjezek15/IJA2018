@@ -34,48 +34,54 @@ public class Game extends java.lang.Object implements IGame
             to.putFigure(move.getCapturedFigure());   
         }           
     }
+    
+    @Override
+    public boolean move(Figure.Type type, IField to)
+    {
+        return false;
+    }
 
     @Override
     public boolean move(IField from, IField to)
     {
-        boolean canMove = false;
-
-        if (from == null || to == null)
-        {
-            return false;
-        }
+        if (from == null) return false;
         
         IFigure fromFigure = from.getFigure();
 
-        if (fromFigure == null)
-        {
-            return false;
-        }
+        if (fromFigure == null) return false;
         
+        return false;
+    }
+    
+    private boolean doMove(Figure.Type type, boolean isBlack, IField to)
+    {
+        if (to == null) return false;
+        
+        boolean canMove = false;
         boolean toEmpty = to.isEmpty();
 
         // check if figure can move
-        if (fromFigure.getType() == IFigure.PAWN)
+        if (type == IFigure.PAWN)
         {
-            canMove = canMovePawn(from, to);
+            canMove = canMovePawn(isBlack, to);
         }
-        else if (fromFigure.getType() == IFigure.ROOK)
+        else if (type == IFigure.ROOK)
         {
             canMove = canMove(from, from, to, IField.D);
         }
-        else if (fromFigure.getType() == IFigure.BISHOP)
+        else if (type == IFigure.BISHOP)
         {
             canMove = canMove(from, from, to, IField.LD);
         }
-        else if (fromFigure.getType() == IFigure.QUEEN)
+        else if (type == IFigure.QUEEN)
         {
             canMove = canMove(from, from, to, IField.D);
         }
-        else if (fromFigure.getType() == IFigure.KING)
+        else if (type == IFigure.KING)
         {
             canMove = canMoveKing(from, to, IField.D);
         }
-        else if (fromFigure.getType() == IFigure.KNIGHT)
+        else if (type == IFigure.KNIGHT)
         {
             throw new UnsupportedOperationException("Move with Knight not implemented");
         }
@@ -127,69 +133,57 @@ public class Game extends java.lang.Object implements IGame
         return false;
     }
     
-    private boolean canMovePawnForward(boolean isBlack, IField from, IField to)
+    private boolean canMovePawnForward(boolean isBlack, IField to)
     {
-        Location fromLocation = from.getLocation();
-        Location toLocation = to.getLocation();  
+        // to is not empty
+        if (!to.isEmpty()) return false;
+
+        IField.Direction direction = isBlack ? IField.Direction.U : IField.Direction.D;
         
-        int fromRow = isBlack ? 6 : 1;
-        int forward1 = isBlack ? 5 : 2;
-        int forward2 = isBlack ? 4 : 3;
-        IField.Direction direction = isBlack ? IField.Direction.D : IField.Direction.U;
+        IField nextField = to.nextField(direction);
         
-        // same column
-        if (fromLocation.getCol() == toLocation.getCol())
-        {
-            // to is empty
-            if (!to.isEmpty()) return false;
-            
-            // one field
-            if (toLocation.getRow() == forward1) return true;
-            
-            // from row is initial
-            if (fromLocation.getRow() == fromRow)
-            {         
-                // two fields
-                if (toLocation.getRow() == forward2)
-                {
-                    // middle field is empty
-                    if (from.nextField(direction).isEmpty()) return true;
-                }
-            }
-        }
+        if (nextField == null) return false;        
+        if (nextField.getFigure().getType() == IFigure.PAWN && nextField.getFigure().isBlack() == isBlack) return true;
+        if (!nextField.isEmpty()) return false;
         
-        return false;
+        nextField = nextField.nextField(direction);
+        
+        if (nextField == null) return false;       
+        return nextField.getFigure().getType() == IFigure.PAWN && nextField.getFigure().isBlack() == isBlack;
     }
     
-    private boolean canMovePawnSideways(boolean isBlack, IField from, IField to)
+    private boolean canMovePawnSideways(boolean fromIsBlack, IField to)
     {
-        IField.Direction directionL = isBlack ? IField.Direction.LD : IField.Direction.LU;
-        IField.Direction directionR = isBlack ? IField.Direction.RD : IField.Direction.RU;
-        IFigure toFigure = to.getFigure();
+        IField.Direction directionL = fromIsBlack ? IField.Direction.LU : IField.Direction.LD;
+        IField.Direction directionR = fromIsBlack ? IField.Direction.RU : IField.Direction.RD;
         
-        if (toFigure == null) return false;
+        if (to.isEmpty()) return false;
         
-        // figures are different color
-        if (from.getFigure().isBlack() != to.getFigure().isBlack())
+        boolean toIsBlack = to.getFigure().isBlack();
+        
+        if (fromIsBlack != !toIsBlack) return false;
+        
+        IField nextField = to.nextField(directionL);
+        
+        if (!nextField.isEmpty())
         {
-            return from.nextField(directionL).equals(to) || from.nextField(directionR).equals(to);
-        }         
+            if (nextField.getFigure().getType() == IFigure.PAWN) return true;            
+        }
+        
+        nextField = to.nextField(directionR);
+        
+        if (!nextField.isEmpty())
+        {
+            if (nextField.getFigure().getType() == IFigure.PAWN) return true;            
+        }
         
         return false;
     }
 
-    private boolean canMovePawn(IField from, IField to)
+    private boolean canMovePawn(boolean isBlack, IField to)
     {   
-        if (from.getFigure().isBlack())
-        {
-            if (canMovePawnForward(true, from, to)) return true;
-            return canMovePawnSideways(true, from, to);            
-        }
-        else
-        {
-            if (canMovePawnForward(false, from, to)) return true;
-            return canMovePawnSideways(false, from, to);
-        }       
+        if (canMovePawnForward(isBlack, to)) return true;
+        return canMovePawnSideways(isBlack, to);                
     }
     
     private boolean canMoveKing(IField from, IField to, IField.Direction dirs)
