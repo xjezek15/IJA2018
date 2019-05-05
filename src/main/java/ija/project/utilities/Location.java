@@ -8,8 +8,8 @@ package ija.project.utilities;
 
 public class Location 
 {
-    private final int col;
-    private final int row;
+    private int col;
+    private int row;
     
     public static int determineColumn(char column)
     {

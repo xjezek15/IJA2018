@@ -7,10 +7,11 @@
 package ija.project.parser;
 
 import ija.project.utilities.MoveDisplay;
-import java.util.List;
+import java.io.File;
+import java.io.IOException;
 
 
 public interface IInput 
 {
-    List<MoveDisplay> getListOfMoves();
+//    MoveDisplay[] loadMoves(File file) throws IOException;
 }

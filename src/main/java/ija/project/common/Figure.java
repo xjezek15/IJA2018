@@ -8,8 +8,8 @@ package ija.project.common;
 
 public class Figure extends java.lang.Object implements IFigure
 {
-    private final boolean isBlack;
-    private final IFigure.Type type;
+    private boolean isBlack;
+    private IFigure.Type type;
 
     public Figure(boolean isBlack, IFigure.Type type) 
     {
@@ -17,13 +17,11 @@ public class Figure extends java.lang.Object implements IFigure
         this.type = type;
     }
 
-    @Override
     public boolean isBlack()
     {
         return this.isBlack;
     }
 
-    @Override
     public IFigure.Type getType() 
     {
         return this.type;

@@ -1,5 +1,16 @@
 package ija.project.gui;
 
+import ija.project.GameFactory;
+import ija.project.common.IFigure;
+import ija.project.common.IGame;
+import ija.project.game.Board;
+import ija.project.game.IBoard;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,6 +22,11 @@ package ija.project.gui;
  * @author simon
  */
 public class ChessBoardPanel extends javax.swing.JPanel {
+
+    private JButton FromButton;
+    private JButton ToButton;
+    boolean first = true;
+    boolean move = false;
     
     
     
@@ -19,7 +35,8 @@ public class ChessBoardPanel extends javax.swing.JPanel {
      */
     public ChessBoardPanel() {
         initComponents();
-        //setDefaultPositions();
+        setDefaultPositions();
+        addAction();
     }
 
     /**
@@ -116,307 +133,132 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         jPanel1.setBackground(java.awt.Color.white);
 
         A8.setBackground(java.awt.Color.white);
-        A8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                A8ActionPerformed(evt);
-            }
-        });
 
-        B8.setBackground(java.awt.Color.black);
-        B8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B8ActionPerformed(evt);
-            }
-        });
+        B8.setBackground(java.awt.Color.darkGray);
 
         C8.setBackground(java.awt.Color.white);
 
-        D8.setBackground(java.awt.Color.black);
-        D8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D8ActionPerformed(evt);
-            }
-        });
+        D8.setBackground(java.awt.Color.darkGray);
 
         E8.setBackground(java.awt.Color.white);
 
-        F8.setBackground(java.awt.Color.black);
-        F8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F8ActionPerformed(evt);
-            }
-        });
+        F8.setBackground(java.awt.Color.darkGray);
 
         G8.setBackground(java.awt.Color.white);
 
-        H8.setBackground(java.awt.Color.black);
-        H8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H8ActionPerformed(evt);
-            }
-        });
+        H8.setBackground(java.awt.Color.darkGray);
 
-        A7.setBackground(java.awt.Color.black);
+        A7.setBackground(java.awt.Color.darkGray);
 
         B7.setBackground(java.awt.Color.white);
-        B7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B7ActionPerformed(evt);
-            }
-        });
 
-        C7.setBackground(java.awt.Color.black);
+        C7.setBackground(java.awt.Color.darkGray);
 
         D7.setBackground(java.awt.Color.white);
-        D7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D7ActionPerformed(evt);
-            }
-        });
 
-        E7.setBackground(java.awt.Color.black);
+        E7.setBackground(java.awt.Color.darkGray);
 
         F7.setBackground(java.awt.Color.white);
-        F7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F7ActionPerformed(evt);
-            }
-        });
 
-        G7.setBackground(java.awt.Color.black);
+        G7.setBackground(java.awt.Color.darkGray);
 
         H7.setBackground(java.awt.Color.white);
-        H7.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H7ActionPerformed(evt);
-            }
-        });
 
         A6.setBackground(java.awt.Color.white);
 
-        B6.setBackground(java.awt.Color.black);
-        B6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B6ActionPerformed(evt);
-            }
-        });
+        B6.setBackground(java.awt.Color.darkGray);
 
         C6.setBackground(java.awt.Color.white);
 
-        D6.setBackground(java.awt.Color.black);
-        D6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D6ActionPerformed(evt);
-            }
-        });
+        D6.setBackground(java.awt.Color.darkGray);
 
         E6.setBackground(java.awt.Color.white);
 
-        F6.setBackground(java.awt.Color.black);
-        F6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F6ActionPerformed(evt);
-            }
-        });
+        F6.setBackground(java.awt.Color.darkGray);
 
         G6.setBackground(java.awt.Color.white);
 
-        H6.setBackground(java.awt.Color.black);
-        H6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H6ActionPerformed(evt);
-            }
-        });
+        H6.setBackground(java.awt.Color.darkGray);
 
-        A5.setBackground(java.awt.Color.black);
+        A5.setBackground(java.awt.Color.darkGray);
 
         B5.setBackground(java.awt.Color.white);
-        B5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B5ActionPerformed(evt);
-            }
-        });
 
-        C5.setBackground(java.awt.Color.black);
+        C5.setBackground(java.awt.Color.darkGray);
 
         D5.setBackground(java.awt.Color.white);
-        D5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D5ActionPerformed(evt);
-            }
-        });
 
-        E5.setBackground(java.awt.Color.black);
+        E5.setBackground(java.awt.Color.darkGray);
 
         F5.setBackground(java.awt.Color.white);
-        F5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F5ActionPerformed(evt);
-            }
-        });
 
-        G5.setBackground(java.awt.Color.black);
+        G5.setBackground(java.awt.Color.darkGray);
 
         H5.setBackground(java.awt.Color.white);
-        H5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H5ActionPerformed(evt);
-            }
-        });
 
         A4.setBackground(java.awt.Color.white);
 
-        B4.setBackground(java.awt.Color.black);
-        B4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B4ActionPerformed(evt);
-            }
-        });
+        B4.setBackground(java.awt.Color.darkGray);
 
         C4.setBackground(java.awt.Color.white);
 
-        D4.setBackground(java.awt.Color.black);
-        D4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D4ActionPerformed(evt);
-            }
-        });
+        D4.setBackground(java.awt.Color.darkGray);
 
         E4.setBackground(java.awt.Color.white);
 
-        F4.setBackground(java.awt.Color.black);
-        F4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F4ActionPerformed(evt);
-            }
-        });
+        F4.setBackground(java.awt.Color.darkGray);
 
         G4.setBackground(java.awt.Color.white);
 
-        H4.setBackground(java.awt.Color.black);
-        H4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H4ActionPerformed(evt);
-            }
-        });
+        H4.setBackground(java.awt.Color.darkGray);
 
-        A3.setBackground(java.awt.Color.black);
-        A3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                A3ActionPerformed(evt);
-            }
-        });
+        A3.setBackground(java.awt.Color.darkGray);
 
         B3.setBackground(java.awt.Color.white);
-        B3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B3ActionPerformed(evt);
-            }
-        });
 
-        C3.setBackground(java.awt.Color.black);
+        C3.setBackground(java.awt.Color.darkGray);
 
         D3.setBackground(java.awt.Color.white);
-        D3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D3ActionPerformed(evt);
-            }
-        });
 
-        E3.setBackground(java.awt.Color.black);
+        E3.setBackground(java.awt.Color.darkGray);
 
         F3.setBackground(java.awt.Color.white);
-        F3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F3ActionPerformed(evt);
-            }
-        });
 
-        G3.setBackground(java.awt.Color.black);
+        G3.setBackground(java.awt.Color.darkGray);
 
         H3.setBackground(java.awt.Color.white);
-        H3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H3ActionPerformed(evt);
-            }
-        });
 
         A2.setBackground(java.awt.Color.white);
 
-        B2.setBackground(java.awt.Color.black);
-        B2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B2ActionPerformed(evt);
-            }
-        });
+        B2.setBackground(java.awt.Color.darkGray);
 
         C2.setBackground(java.awt.Color.white);
 
-        D2.setBackground(java.awt.Color.black);
-        D2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D2ActionPerformed(evt);
-            }
-        });
+        D2.setBackground(java.awt.Color.darkGray);
 
         E2.setBackground(java.awt.Color.white);
-        E2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                E2ActionPerformed(evt);
-            }
-        });
 
-        F2.setBackground(java.awt.Color.black);
-        F2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F2ActionPerformed(evt);
-            }
-        });
+        F2.setBackground(java.awt.Color.darkGray);
 
         G2.setBackground(java.awt.Color.white);
 
-        H2.setBackground(java.awt.Color.black);
-        H2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H2ActionPerformed(evt);
-            }
-        });
+        H2.setBackground(java.awt.Color.darkGray);
 
-        A1.setBackground(java.awt.Color.black);
+        A1.setBackground(java.awt.Color.darkGray);
 
         B1.setBackground(java.awt.Color.white);
-        B1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                B1ActionPerformed(evt);
-            }
-        });
 
-        C1.setBackground(java.awt.Color.black);
+        C1.setBackground(java.awt.Color.darkGray);
 
         D1.setBackground(java.awt.Color.white);
-        D1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                D1ActionPerformed(evt);
-            }
-        });
 
-        E1.setBackground(java.awt.Color.black);
+        E1.setBackground(java.awt.Color.darkGray);
 
         F1.setBackground(java.awt.Color.white);
-        F1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                F1ActionPerformed(evt);
-            }
-        });
 
-        G1.setBackground(java.awt.Color.black);
+        G1.setBackground(java.awt.Color.darkGray);
 
         H1.setBackground(java.awt.Color.white);
-        H1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                H1ActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -767,146 +609,6 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void H1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H1ActionPerformed
-
-    private void F1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F1ActionPerformed
-
-    private void D1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D1ActionPerformed
-
-    private void B1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B1ActionPerformed
-
-    private void H2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H2ActionPerformed
-
-    private void F2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F2ActionPerformed
-
-    private void D2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D2ActionPerformed
-
-    private void B2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B2ActionPerformed
-
-    private void H3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H3ActionPerformed
-
-    private void F3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F3ActionPerformed
-
-    private void D3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D3ActionPerformed
-
-    private void B3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B3ActionPerformed
-
-    private void H4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H4ActionPerformed
-
-    private void F4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F4ActionPerformed
-
-    private void D4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D4ActionPerformed
-
-    private void B4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B4ActionPerformed
-
-    private void H5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H5ActionPerformed
-
-    private void F5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F5ActionPerformed
-
-    private void D5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D5ActionPerformed
-
-    private void B5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B5ActionPerformed
-
-    private void H6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H6ActionPerformed
-
-    private void F6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F6ActionPerformed
-
-    private void D6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D6ActionPerformed
-
-    private void B6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B6ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B6ActionPerformed
-
-    private void H7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H7ActionPerformed
-
-    private void F7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F7ActionPerformed
-
-    private void D7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D7ActionPerformed
-
-    private void B7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B7ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B7ActionPerformed
-
-    private void H8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_H8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_H8ActionPerformed
-
-    private void F8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_F8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_F8ActionPerformed
-
-    private void D8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_D8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_D8ActionPerformed
-
-    private void B8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_B8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_B8ActionPerformed
-
-    private void A8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A8ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_A8ActionPerformed
-
-    private void E2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_E2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_E2ActionPerformed
-
-    private void A3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_A3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_A3ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton A1;
@@ -991,6 +693,217 @@ public class ChessBoardPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
-
+        
+    private void chooseImgType(IFigure fig, JButton button)
+    {
+        if(fig == null)
+        {
+            ImageIcon imgEmpty = new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/empty.png");
+            button.setIcon(imgEmpty);
+            return;
+        }
+            
+        IFigure.Type type = fig.getType();
+        
+        ImageIcon imgBishopBlack =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_bishop.png");
+        ImageIcon imgRookBlack =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_tower.png");
+        ImageIcon imgQueenBlack =    new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_queen.png");
+        ImageIcon imgPawnBlack =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_pawn.png");
+        ImageIcon imgKnightBlack =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_knight.png");
+        ImageIcon imgKingBlack =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_king.png");
+        
+        ImageIcon imgBishopWhite =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_bishop.png");
+        ImageIcon imgRookWhite =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_tower.png");
+        ImageIcon imgQueenWhite =    new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_queen.png");
+        ImageIcon imgPawnWhite =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_pawn.png");
+        ImageIcon imgKnightWhite =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_knight.png");
+        ImageIcon imgKingWhite =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_king.png");
+        
+        if(fig.isBlack())
+        {
+            if(type.equals(IFigure.BISHOP))        button.setIcon(imgBishopBlack);
+            else if(type.equals(IFigure.KING))     button.setIcon(imgKingBlack);
+            else if(type.equals(IFigure.KNIGHT))   button.setIcon(imgKnightBlack);
+            else if(type.equals(IFigure.PAWN))     button.setIcon(imgPawnBlack);
+            else if(type.equals(IFigure.QUEEN))    button.setIcon(imgQueenBlack);
+            else if(type.equals(IFigure.ROOK))     button.setIcon(imgRookBlack);
+        }
+        else if(!fig.isBlack())
+        {
+            if(type.equals(IFigure.BISHOP))        button.setIcon(imgBishopWhite);
+            else if(type.equals(IFigure.KING))     button.setIcon(imgKingWhite);
+            else if(type.equals(IFigure.KNIGHT))   button.setIcon(imgKnightWhite);
+            else if(type.equals(IFigure.PAWN))     button.setIcon(imgPawnWhite);
+            else if(type.equals(IFigure.QUEEN))    button.setIcon(imgQueenWhite);
+            else if(type.equals(IFigure.ROOK))     button.setIcon(imgRookWhite);
+        }
+    }
+    
+    
+    private void chooseImgCol(int col, IFigure fig, JButton buttons[])
+    {
+        switch (col)
+        {
+            case 1:
+                chooseImgType(fig, buttons[0]);
+                break;
+            case 2:
+                chooseImgType(fig, buttons[1]);
+                break;                                        
+            case 3:
+                chooseImgType(fig, buttons[2]);
+                break;
+            case 4:
+                chooseImgType(fig, buttons[3]);
+                break;
+            case 5:
+                chooseImgType(fig, buttons[4]);
+                break;
+            case 6:
+                chooseImgType(fig, buttons[5]);
+                break;
+            case 7:
+                chooseImgType(fig, buttons[6]);
+                break;
+            case 8:
+                chooseImgType(fig, buttons[7]);
+                break;
+        }
+    }
+    
+    private JButton[][] fillButtons()
+    {
+        JButton[][] buttons = new JButton[8][8];
        
+        
+        for(int i = 0; i < 8; i++)
+        {
+            switch(i)
+            {
+                case 0:
+                    buttons[i] = new JButton[] {A1,A2,A3,A4,A5,A6,A7,A8};
+                    break;
+                case 1:
+                    buttons[i] = new JButton[] {B1,B2,B3,B4,B5,B6,B7,B8};
+                    break;
+                case 2:
+                    buttons[i] = new JButton[] {C1,C2,C3,C4,C5,C6,C7,C8};
+                    break;
+                case 3:
+                    buttons[i] = new JButton[] {D1,D2,D3,D4,D5,D6,D7,D8};
+                    break;
+                case 4:
+                    buttons[i] = new JButton[] {E1,E2,E3,E4,E5,E6,E7,E8};
+                    break;
+                case 5:
+                    buttons[i] = new JButton[] {F1,F2,F3,F4,F5,F6,F7,F8};
+                    break;
+                case 6:
+                    buttons[i] = new JButton[] {G1,G2,G3,G4,G5,G6,G7,G8};
+                    break;
+                case 7:
+                    buttons[i] = new JButton[] {H1,H2,H3,H4,H5,H6,H7,H8};
+                    break;
+                    
+            }
+        }
+        
+        return buttons;
+    }
+    
+    public void setDefaultPositions()
+    {
+            IBoard board = new Board(8);
+            IGame game =  GameFactory.createChessGame(board);
+            
+            JButton[][] buttons = fillButtons();
+            
+           for(int col = 1; col <= 8; col++){
+               for(int row = 1; row <= 8; row++){
+                   
+                   IFigure fig = board.getField(col, row).getFigure();
+                   
+                   switch(col)
+                        {
+                            case 1: // A
+                                chooseImgCol(row, fig, buttons[0]);
+                                break;
+                            case 2: // B
+                                chooseImgCol(row, fig, buttons[1]);
+                                break;
+                            case 3: // C
+                                chooseImgCol(row, fig, buttons[2]);
+                                break;
+                            case 4: // D
+                                chooseImgCol(row, fig, buttons[3]);
+                                break;
+                            case 5: // E
+                                chooseImgCol(row, fig, buttons[4]);
+                                break;
+                            case 6: // F
+                                chooseImgCol(row, fig, buttons[5]);
+                                break;
+                            case 7: // G
+                                chooseImgCol(row, fig, buttons[6]);
+                                break;
+                            case 8: // H
+                                chooseImgCol(row, fig, buttons[7]);
+                                break;
+                        }
+               }
+            
+           }           
+       }
+    
+    private void saveFromButton(JButton from){
+        this.FromButton = from;
+    }
+    
+    private void saveToButton(JButton to){
+        this.ToButton = to;
+    }
+    
+    private void saveButtons(JButton but){
+        if(this.first)
+        {
+            saveFromButton(but);
+            first = false;
+        }
+        else
+        {
+            saveToButton(but);
+            first = true;
+            move = true;
+        }
+    }
+    
+    private void simpleMove(){
+        if(!move)
+            return;
+        
+        Icon icon = this.FromButton.getIcon();
+        this.ToButton.setIcon(icon);
+        
+        ImageIcon imgEmpty = new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/empty.png");
+        this.FromButton.setIcon(imgEmpty);
+        
+        move = false;
+    }                                       
+    
+    private void addAction()
+    {
+        Component[] components = jPanel1.getComponents();
+        for(Component component : components)
+        {
+            if(component instanceof JButton)
+            {
+                JButton button = (JButton) component;
+                button.addActionListener((ActionEvent e) -> {
+                    saveButtons((JButton) e.getSource());
+                    simpleMove();
+                });
+            }
+        }
+        
+    }                                         
 }
