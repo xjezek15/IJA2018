@@ -11,29 +11,30 @@ import ija.project.utilities.Location;
 public class Field extends java.lang.Object implements IField
 {
     private IFigure figure;
-    private IField surroundingFields[];
-    private Location location;
-    private boolean isBlack;
+    private final IField surroundingFields[];
+    private final Location location;
     
-    public Field(int col, int row, boolean isBlack)
+    public Field(int col, int row)
     {
         this.figure = null;
         this.surroundingFields = new IField[8];
          
         this.location = new Location(col, row);
-        this.isBlack = isBlack;
     }
 
+    @Override
     public boolean isEmpty()
     {
         return this.figure == null;
     }
 
+    @Override
     public Location getLocation()
     {
         return this.location;
     }
 
+    @Override
     public IFigure getFigure()
     {
         if (isEmpty())
@@ -46,6 +47,7 @@ public class Field extends java.lang.Object implements IField
         }
     }
     
+    @Override
     public boolean putFigure(IFigure figure)
     {
         if (isEmpty())
@@ -59,6 +61,7 @@ public class Field extends java.lang.Object implements IField
         }
     }
 
+    @Override
     public boolean removeFigure(IFigure figure)
     {
         if (isEmpty() || !this.figure.equals(figure))
@@ -70,6 +73,7 @@ public class Field extends java.lang.Object implements IField
         return true;
     }
 
+    @Override
     public void addNextField(IField.Direction dirs, IField field)
     {
         if (nextField(dirs) == null)
@@ -78,6 +82,7 @@ public class Field extends java.lang.Object implements IField
         }
     }
 
+    @Override
     public IField nextField(IField.Direction dirs)
     {
         int directionIndex = determineDirection(dirs);

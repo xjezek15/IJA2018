@@ -11,7 +11,6 @@ import ija.project.common.IField;
 import ija.project.common.IFigure;
 import ija.project.common.IFigure.Type;
 import ija.project.common.IGame;
-import ija.project.common.IMove;
 import ija.project.game.Board;
 import ija.project.game.IBoard;
 import ija.project.utilities.Location;
@@ -23,13 +22,11 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class Input implements IInput
 {
-    private List<MoveDisplay> list;
+    private final List<MoveDisplay> list;
     private int movesCounter = 1;
     private final char[] figures = new char[] {'K', 'D', 'V', 'S', 'J', 'p'};
     
@@ -37,6 +34,12 @@ public class Input implements IInput
     {
         this.list = loadMoves(file);
     }
+
+    @Override
+    public List<MoveDisplay> getListOfMoves() 
+    {
+        return this.list;
+    }  
     
     private List<MoveDisplay> loadMoves(File file) throws IOException 
     {
@@ -74,7 +77,7 @@ public class Input implements IInput
                 if (whiteMove.getLocationFrom() == null)
                 {
                     fieldTo = board.getField(whiteMove.getLocationTo().getCol(), whiteMove.getLocationTo().getRow());
-                    game.move(fieldTo);
+                    game.move(false, whiteMove.getFigureTypeFrom(), fieldTo);
                     
                     throw new UnsupportedOperationException("Short moves not implemented.");
                 }
@@ -92,7 +95,7 @@ public class Input implements IInput
                 if (blackMove.getLocationFrom() == null)
                 {                                       
                     fieldTo = board.getField(blackMove.getLocationTo().getCol(), blackMove.getLocationTo().getRow());
-                    game.move(fieldTo);
+                    game.move(true, blackMove.getFigureTypeFrom(), fieldTo);
                     
                     throw new UnsupportedOperationException("Short moves not implemented.");
                 }
@@ -105,8 +108,13 @@ public class Input implements IInput
                     
                     game.move(fieldFrom, fieldTo);
                 }
-               
-                moveDisplayList.add(new MoveDisplay(line, check, mate, board));
+                
+                Board test = new Board(8);
+                Object clone = test.clone();
+                
+                IBoard newBoard = board.clone();
+                
+                moveDisplayList.add(new MoveDisplay(line, check, mate, ));
 
 
                 this.movesCounter++;

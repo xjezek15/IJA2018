@@ -10,10 +10,10 @@ import java.util.Stack;
 
 public class Move extends java.lang.Object implements IMove
 {
-    private IFigure fromFigure;
-    private IFigure capturedFigure;
-    private IField from;
-    private IField to;
+    private final IFigure fromFigure;
+    private final IFigure capturedFigure;
+    private final IField from;
+    private final IField to;
    
 
     public Move(IFigure fromFigure, IField from, IField to, IFigure capturedFigure)
@@ -24,28 +24,27 @@ public class Move extends java.lang.Object implements IMove
         this.capturedFigure = capturedFigure;
     }
 
+    @Override
     public IField getFromField()
     {
         return this.from;
     }
 
+    @Override
     public IField getToField()
     {
         return this.to;
     }
 
+    @Override
     public IFigure getFromFigure()
     {
         return this.fromFigure;
     }
 
+    @Override
     public IFigure getCapturedFigure()
     {
         return this.capturedFigure;
-    }
-
-    public IMove push(Stack<IMove> stack)
-    {
-        return stack.push(this);
     }
 }
