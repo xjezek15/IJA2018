@@ -107,14 +107,9 @@ public class Input implements IInput
                     if (fieldFrom.getFigure().getType() != blackMove.getFigureTypeFrom()) return null;
                     
                     game.move(fieldFrom, fieldTo);
-                }
+                }                                
                 
-                Board test = new Board(8);
-                Object clone = test.clone();
-                
-                IBoard newBoard = board.clone();
-                
-                moveDisplayList.add(new MoveDisplay(line, check, mate, ));
+//                moveDisplayList.add(new MoveDisplay(line, check, mate, ));
 
 
                 this.movesCounter++;
