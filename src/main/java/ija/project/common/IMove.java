@@ -14,5 +14,4 @@ public interface IMove
     IField getToField();
     IFigure getFromFigure();
     IFigure getCapturedFigure();
-    IMove push(Stack<IMove> stack);
 }
