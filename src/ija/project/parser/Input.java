@@ -123,7 +123,7 @@ public class Input implements IInput
         return null;
     }
     
-    private ParsedMove parseMove(String move)
+    public ParsedMove parseMove(String move)
     {
         State state = State.START;
         Type figureTypeFrom = null;

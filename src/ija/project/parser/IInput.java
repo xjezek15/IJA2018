@@ -7,6 +7,7 @@
 package ija.project.parser;
 
 import ija.project.utilities.MoveDisplay;
+import ija.project.utilities.ParsedMove;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -16,4 +17,5 @@ public interface IInput
 {
     void saveMoves(File file) throws IOException;
     List<MoveDisplay> getMoves();
+    ParsedMove parseMove(String move);
 }
