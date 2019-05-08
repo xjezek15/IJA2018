@@ -26,17 +26,25 @@ public class ChessBoardPanel extends javax.swing.JPanel {
 
     private JButton FromButton;
     private JButton ToButton;
-    boolean first = true;
-    boolean move = false;
-    
-    
+    private boolean first = true;
+    private boolean move = false;
+    private IBoard board;
+    private IGame game;
+
+    public IBoard getBoard() {
+        return board;
+    }
+
+    public IGame getGame() {
+        return game;
+    }
     
     /**
      * Creates new form ChessBoardPanel
      */
     public ChessBoardPanel() {
         initComponents();
-        setDefaultPositions();
+        loadPositions(true);
         addAction();
     }
 
@@ -697,16 +705,18 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         
     private void chooseImgType(IFigure fig, JButton button)
     {
+        String path = Paths.get("").toAbsolutePath().toString();
+        
         if(fig == null)
         {
-            ImageIcon imgEmpty = new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/empty.png");
+            ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
             button.setIcon(imgEmpty);
             return;
         }
             
         IFigure.Type type = fig.getType();
         
-        String path = Paths.get("").toAbsolutePath().toString();
+        
         
         ImageIcon imgBishopBlack =   new ImageIcon(path + "/lib/icons/black_bishop.png");
         ImageIcon imgRookBlack =     new ImageIcon(path + "/lib/icons/black_tower.png");
@@ -814,11 +824,14 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         return buttons;
     }
     
-    public void setDefaultPositions()
+    public void loadPositions(boolean reset)
     {
-            IBoard board = new Board(8);
-            IGame game =  GameFactory.createChessGame(board);
-            
+        if(reset)
+        {
+            board = new Board(8);
+            game =  GameFactory.createChessGame(board);
+        }   
+        
             JButton[][] buttons = fillButtons();
             
            for(int col = 1; col <= 8; col++){
@@ -880,14 +893,14 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         }
     }
     
-    private void simpleMove(){
+    public void Move(){
         if(!move)
             return;
         
         Icon icon = this.FromButton.getIcon();
         this.ToButton.setIcon(icon);
         
-        ImageIcon imgEmpty = new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/empty.png");
+        ImageIcon imgEmpty = new ImageIcon(Paths.get("").toAbsolutePath().toString() + "/lib/icons/empty.png");
         this.FromButton.setIcon(imgEmpty);
         
         move = false;
@@ -903,7 +916,7 @@ public class ChessBoardPanel extends javax.swing.JPanel {
                 JButton button = (JButton) component;
                 button.addActionListener((ActionEvent e) -> {
                     saveButtons((JButton) e.getSource());
-                    simpleMove();
+                    Move();
                 });
             }
         }

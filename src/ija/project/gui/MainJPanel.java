@@ -1,15 +1,20 @@
 package ija.project.gui;
 
+import ija.project.common.IGame;
+import ija.project.common.IMove;
+import ija.project.game.IBoard;
 import ija.project.gui.ChessBoardPanel;
 import ija.project.parser.IInput;
 import ija.project.parser.Input;
 import ija.project.utilities.MoveDisplay;
+import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.text.BadLocationException;
 
 
 /*
@@ -24,11 +29,15 @@ import java.util.logging.Logger;
  */
 public class MainJPanel extends javax.swing.JPanel {
     
+    List <MoveDisplay> moves;
+    int moveCounter = 0;
+    
     /**
      * Creates new form MainJPanel
      */
     public MainJPanel() {
         initComponents();
+        jTextArea1.setEditable(false);
     }
 
     /**
@@ -40,17 +49,23 @@ public class MainJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        textArea1 = new java.awt.TextArea();
-        RedoButton = new java.awt.Button();
-        ResetButton = new java.awt.Button();
         UndoButton = new java.awt.Button();
+        ResetButton = new java.awt.Button();
+        NextButton = new java.awt.Button();
         LoadButton = new java.awt.Button();
         StopButton = new java.awt.Button();
         AutoPlayButton = new java.awt.Button();
         textField1 = new java.awt.TextField();
         chessBoardPanel1 = new ija.project.gui.ChessBoardPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
-        RedoButton.setLabel("Redo");
+        UndoButton.setLabel("Undo");
+        UndoButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UndoButtonActionPerformed(evt);
+            }
+        });
 
         ResetButton.setLabel("Reset");
         ResetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -59,7 +74,12 @@ public class MainJPanel extends javax.swing.JPanel {
             }
         });
 
-        UndoButton.setLabel("Undo");
+        NextButton.setLabel("Next");
+        NextButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NextButtonActionPerformed(evt);
+            }
+        });
 
         LoadButton.setLabel("Load");
         LoadButton.addActionListener(new java.awt.event.ActionListener() {
@@ -75,23 +95,32 @@ public class MainJPanel extends javax.swing.JPanel {
         textField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         textField1.setText("10 ms");
 
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTextArea1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTextArea1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(ResetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(157, 157, 157)
-                        .addComponent(RedoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(155, 155, 155)
-                        .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(chessBoardPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(chessBoardPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -100,7 +129,7 @@ public class MainJPanel extends javax.swing.JPanel {
                                 .addComponent(AutoPlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(10, 10, 10)
                         .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(textArea1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,17 +137,17 @@ public class MainJPanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(chessBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(RedoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ResetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(AutoPlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -132,9 +161,11 @@ public class MainJPanel extends javax.swing.JPanel {
         try {
             input = new Input(new File(path + "/data/input.txt"));
             
-            List <MoveDisplay> moves = input.getMoves();
-            
-            textArea1.setText(moves.get(0).getMoveText());
+            jTextArea1.setText("");
+            jTextArea1.setForeground(Color.black);
+            moves = input.getMoves();
+            for(MoveDisplay move : moves)
+                jTextArea1.append(move.getMoveText() + "\n");
             
         } catch (IOException ex) {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -144,19 +175,61 @@ public class MainJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_LoadButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
-       chessBoardPanel1.setDefaultPositions();
+       chessBoardPanel1.loadPositions(true);
     }//GEN-LAST:event_ResetButtonActionPerformed
+
+    private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
+        
+    }//GEN-LAST:event_UndoButtonActionPerformed
+
+    private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
+        if(moves.size() <= moveCounter || moves.isEmpty() )
+        {
+            jTextArea1.setForeground(Color.red);
+            jTextArea1.setText("ERROR");
+            return;
+        }
+        
+        jTextArea1.setForeground(Color.black);
+        
+        MoveDisplay move = moves.get(moveCounter++);
+        IMove wMove = move.getWhiteMove();
+        IMove bMove = move.getBlackMove();
+        
+        IGame game = chessBoardPanel1.getGame();
+        
+        game.move(wMove.getFromField(), wMove.getToField());
+        game.move(bMove.getFromField(), bMove.getToField());
+
+        chessBoardPanel1.loadPositions(false);
+        
+    }//GEN-LAST:event_NextButtonActionPerformed
+
+    private void jTextArea1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea1MouseClicked
+        int line;
+        try {
+            line = jTextArea1.getLineOfOffset( jTextArea1.getCaretPosition() );
+            int start = jTextArea1.getLineStartOffset( line );
+            int end = jTextArea1.getLineEndOffset( line );
+            String text = jTextArea1.getDocument().getText(start, end - start);
+            System.out.print(text);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jTextArea1MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button AutoPlayButton;
     private java.awt.Button LoadButton;
-    private java.awt.Button RedoButton;
+    private java.awt.Button NextButton;
     private java.awt.Button ResetButton;
     private java.awt.Button StopButton;
     private java.awt.Button UndoButton;
     private ija.project.gui.ChessBoardPanel chessBoardPanel1;
-    private java.awt.TextArea textArea1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 
