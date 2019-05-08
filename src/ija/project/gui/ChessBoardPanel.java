@@ -5,6 +5,10 @@ import ija.project.common.IFigure;
 import ija.project.common.IGame;
 import ija.project.game.Board;
 import ija.project.game.IBoard;
+import ija.project.parser.IInput;
+import ija.project.parser.Input;
+import ija.project.utilities.Location;
+import ija.project.utilities.ParsedMove;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.nio.file.Paths;
@@ -968,24 +972,55 @@ public class ChessBoardPanel extends javax.swing.JPanel {
 //        this.FromButton.setIcon(imgEmpty);
 //        
 //        move = false;
-        
-        
+
         String from = this.FromButton.getName().toLowerCase();
         String to = this.ToButton.getName().toLowerCase();
         String s = "";
         Icon icon = this.FromButton.getIcon();
         
-        if(icon.equals(imgBishopBlack) || icon.equals(imgBishopWhite))      s = "S";
-        else if(icon.equals(imgRookBlack) || icon.equals(imgRookWhite))     s = "V"; 
-        else if(icon.equals(imgKingBlack) || icon.equals(imgKingWhite))     s = "K";
-        else if(icon.equals(imgQueenBlack) || icon.equals(imgQueenWhite))   s = "D"; 
-        else if(icon.equals(imgKnightBlack) || icon.equals(imgKnightWhite)) s = "J";
-        else if(icon.equals(imgPawnBlack) || icon.equals(imgPawnWhite))     s = "p"; 
+        if(first)
+        {
+           if(icon.equals(imgBishopBlack))          s = "S";
+           else if(icon.equals(imgRookBlack))       s = "V"; 
+           else if(icon.equals(imgKingBlack))       s = "K";
+           else if(icon.equals(imgQueenBlack))      s = "D"; 
+           else if(icon.equals(imgKnightBlack))     s = "J";
+           else if(icon.equals(imgPawnBlack))       s = "p"; 
+           //inac false
+        }
+        else{
+           if(icon.equals(imgBishopWhite))          s = "S";
+           else if(icon.equals(imgRookWhite))       s = "V";
+           else if(icon.equals(imgKingWhite))       s = "K";
+           else if(icon.equals(imgQueenWhite))      s = "D"; 
+           else if(icon.equals(imgKnightWhite))     s = "J";
+           else if(icon.equals(imgPawnWhite))       s = "p"; 
+           //inac false
+        }
         
+               
         s = s + from + to;
         
-        II
+        IInput input = new Input();
         
+        ParsedMove move =  input.parseMove(s);
+        
+        Location locationFrom = move.getLocationFrom();
+        Location  locationTo = move.getLocationTo();
+        
+        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())));
+        
+        if(first)
+        // number. tah 
+            first = false;
+        else
+            //tah \n
+            first = true;
+        //pridat do move listu 
+        //move list pridat do jTextArea1
+        
+        
+        loadPositions(false);
     }                                       
     
     private void addAction()

@@ -1,9 +1,7 @@
 package ija.project.gui;
 
 import ija.project.common.IGame;
-import ija.project.common.IMove;
 import ija.project.game.IBoard;
-import ija.project.gui.ChessBoardPanel;
 import ija.project.parser.IInput;
 import ija.project.parser.Input;
 import ija.project.utilities.Location;
@@ -33,6 +31,7 @@ public class MainJPanel extends javax.swing.JPanel {
     
     List <MoveDisplay> moves;
     int moveCounter = 0;
+    String newText;
     
     /**
      * Creates new form MainJPanel
@@ -103,6 +102,7 @@ public class MainJPanel extends javax.swing.JPanel {
         textField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         textField1.setText("2000");
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -174,7 +174,8 @@ public class MainJPanel extends javax.swing.JPanel {
         IInput input;
         
         try {
-            input = new Input(new File(path + "/data/input.txt"));
+            input = new Input();
+            input.loadMoves(new File(path + "/data/input.txt"));
             
             jTextArea1.setText("");
             jTextArea1.setForeground(Color.black);
@@ -297,10 +298,17 @@ public class MainJPanel extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     
-    private void printErr(String err)
+    public void printErr(String err)
     {
         jTextArea1.setForeground(Color.red);
         jTextArea1.setText(err);
     }
+    
+    public void vypis(String text)
+    {
+        jTextArea1.append(text);
+    }
+    
+    
     
 }
