@@ -7,11 +7,9 @@
 package ija.project.parser;
 
 import ija.project.GameFactory;
-import ija.project.common.IField;
 import ija.project.common.IFigure;
 import ija.project.common.IFigure.Type;
 import ija.project.common.IGame;
-import ija.project.common.IMove;
 import ija.project.game.Board;
 import ija.project.game.IBoard;
 import ija.project.utilities.Location;

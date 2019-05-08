@@ -10,7 +10,6 @@ import java.util.Stack;
 
 public interface IMove 
 {
-    IMove deepCopy();
     IField getFromField();
     IField getToField();
     IFigure getFromFigure();

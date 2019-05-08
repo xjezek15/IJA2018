@@ -20,46 +20,6 @@ public class Field extends java.lang.Object implements IField
         this.surroundingFields = new IField[8];
         this.location = new Location(col, row);
     }
-    
-    public Field(IFigure figure, IField[] surroundingFields, Location location)
-    {
-        this.figure = figure;
-        this.surroundingFields = surroundingFields;
-        this.location = location;
-    }
-    
-    private IField[] deepCopySurroundingFields()
-    {
-        IField[] copy = new IField[8];
-        
-        for (int i = 0; i < copy.length; i++) 
-        {
-            if (surroundingFields[i] != null)
-                copy[i] = surroundingFields[i].deepCopy();         
-        }
-        
-        return copy;
-    }
-    
-    @Override
-    public IField deepCopy()
-    {
-        return new Field(this.figure, this.surroundingFields, this.location);        
-    }
-    
-    @Override
-    public IFigure swapFigure(IFigure figure)
-    {
-        IFigure old = this.figure;
-        this.figure = figure;
-        return old;
-    }
-
-    @Override
-    public IField[] getSurroundingFields() 
-    {
-        return this.surroundingFields;
-    }
    
     @Override
     public boolean isEmpty()
