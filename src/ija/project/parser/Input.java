@@ -86,9 +86,11 @@ public class Input implements IInput
                     fieldFrom = board.getField(whiteMove.getLocationFrom().getCol(), whiteMove.getLocationFrom().getRow());
                     fieldTo = board.getField(whiteMove.getLocationTo().getCol(), whiteMove.getLocationTo().getRow());
                     
-                    if (fieldFrom.getFigure().getType() != whiteMove.getFigureTypeFrom()) return null;
+                    if (fieldFrom.getFigure().getType() != whiteMove.getFigureTypeFrom()) 
+                        return null;
                     
-                    game.move(fieldFrom, fieldTo);
+                    if (!game.move(fieldFrom, fieldTo))
+                        return null;
                 }
                 
                 IMove whiteIMove = game.getLastMove();
@@ -108,7 +110,8 @@ public class Input implements IInput
                     
                     if (fieldFrom.getFigure().getType() != blackMove.getFigureTypeFrom()) return null;
                     
-                    game.move(fieldFrom, fieldTo);
+                    if (!game.move(fieldFrom, fieldTo))
+                        return null;
                 }
                 
                 IMove blackIMove = game.getLastMove();
@@ -206,9 +209,9 @@ public class Input implements IInput
                     else return null;
                     break;
                 case FROM_FIGURE_COLUMN:
-                    if (element >= 1 && element <= 8)
+                    if (element >= '1' && element <= '8')
                     {
-                        rowFrom = element;
+                        rowFrom = Integer.parseInt(String.valueOf(element));
                         state = State.FROM_FIGURE_ROW;
                     }
                     else return null;
@@ -251,9 +254,9 @@ public class Input implements IInput
                     else return null;
                     break;
                 case TO_FIGURE_COLUMN:
-                    if (element >= 1 && element <= 8)
+                    if (element >= '1' && element <= '8')
                     {
-                        rowTo = element;
+                        rowTo = Integer.parseInt(String.valueOf(element));
                         state = State.TO_FIGURE_ROW;
                     }
                     else return null;

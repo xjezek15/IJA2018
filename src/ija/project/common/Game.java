@@ -20,6 +20,9 @@ public class Game extends java.lang.Object implements IGame
     
     public IMove getLastMove()
     {
+        if (moveStack.empty())
+            return null;
+        
         return this.moveStack.lastElement();
     }
 
@@ -55,7 +58,7 @@ public class Game extends java.lang.Object implements IGame
 
         if (fromFigure == null) return false;
         
-        return false;
+        return doMove(fromFigure.getType(), fromFigure.isBlack(), to);
     }
     
     private boolean doMove(Figure.Type type, boolean isBlack, IField to)
@@ -98,38 +101,23 @@ public class Game extends java.lang.Object implements IGame
             // not empty
             if (!toEmpty)
             {
-            //    if (fromFigure.isBlack())
+                if (!to.getFigure().isBlack())
                 {
-                    if (!to.getFigure().isBlack())
-                    {
-                        capturedFigure = to.getFigure();
-                        to.removeFigure(capturedFigure);
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    capturedFigure = to.getFigure();
+                    to.removeFigure(capturedFigure);
                 }
-               // else
+                else
                 {
-                    if (to.getFigure().isBlack())
-                    {
-                        capturedFigure = to.getFigure();
-                        to.removeFigure(capturedFigure);
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return false;
                 }
             }
 
-          //  if (from.removeFigure(fromFigure))
+            if (from.removeFigure(fromFigure))
             {
-           //     if (to.putFigure(fromFigure))
+                if (to.putFigure(fromFigure))
                 {
-           //         IMove move = new Move(fromFigure, from, to, capturedFigure);
-            //        move.push(this.moveStack);
+                    IMove move = new Move(fromFigure, from, to, capturedFigure);
+                    move.push(this.moveStack);
                     return true;
                 }
             }
@@ -147,14 +135,26 @@ public class Game extends java.lang.Object implements IGame
         
         IField nextField = to.nextField(direction);
         
-        if (nextField == null) return false;        
-        if (nextField.getFigure().getType() == IFigure.PAWN && nextField.getFigure().isBlack() == isBlack) return true;
+        if (nextField == null) return false; 
+        IFigure nextFieldFigure;
+        nextFieldFigure = nextField.getFigure();
+        if (nextFieldFigure != null)
+            if (nextFieldFigure.getType() == IFigure.PAWN)         
+                if (nextFieldFigure.isBlack() == isBlack)
+                    return true;          
+        
         if (!nextField.isEmpty()) return false;
         
         nextField = nextField.nextField(direction);
         
-        if (nextField == null) return false;       
-        return nextField.getFigure().getType() == IFigure.PAWN && nextField.getFigure().isBlack() == isBlack;
+        if (nextField == null) return false;     
+        nextFieldFigure = nextField.getFigure();
+        if (nextFieldFigure != null)
+            if (nextFieldFigure.getType() == IFigure.PAWN)         
+                if (nextFieldFigure.isBlack() == isBlack)
+                    return true;   
+
+        return false;
     }
     
     private boolean canMovePawnSideways(boolean fromIsBlack, IField to)

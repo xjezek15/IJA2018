@@ -7,6 +7,7 @@ import ija.project.game.Board;
 import ija.project.game.IBoard;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.nio.file.Paths;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -705,19 +706,21 @@ public class ChessBoardPanel extends javax.swing.JPanel {
             
         IFigure.Type type = fig.getType();
         
-        ImageIcon imgBishopBlack =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_bishop.png");
-        ImageIcon imgRookBlack =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_tower.png");
-        ImageIcon imgQueenBlack =    new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_queen.png");
-        ImageIcon imgPawnBlack =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_pawn.png");
-        ImageIcon imgKnightBlack =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_knight.png");
-        ImageIcon imgKingBlack =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/black_king.png");
+        String path = Paths.get("").toAbsolutePath().toString();
         
-        ImageIcon imgBishopWhite =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_bishop.png");
-        ImageIcon imgRookWhite =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_tower.png");
-        ImageIcon imgQueenWhite =    new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_queen.png");
-        ImageIcon imgPawnWhite =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_pawn.png");
-        ImageIcon imgKnightWhite =   new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_knight.png");
-        ImageIcon imgKingWhite =     new ImageIcon("/home/simon/Plocha/VUT/IJA/Projekt/src/main/java/ija/project/gui/icons/white_king.png");
+        ImageIcon imgBishopBlack =   new ImageIcon(path + "/lib/icons/black_bishop.png");
+        ImageIcon imgRookBlack =     new ImageIcon(path + "/lib/icons/black_tower.png");
+        ImageIcon imgQueenBlack =    new ImageIcon(path + "/lib/icons/black_queen.png");
+        ImageIcon imgPawnBlack =     new ImageIcon(path + "/lib/icons/black_pawn.png");
+        ImageIcon imgKnightBlack =   new ImageIcon(path + "/lib/icons/black_knight.png");
+        ImageIcon imgKingBlack =     new ImageIcon(path + "/lib/icons/black_king.png");
+        
+        ImageIcon imgBishopWhite =   new ImageIcon(path + "/lib/icons/white_bishop.png");
+        ImageIcon imgRookWhite =     new ImageIcon(path + "/lib/icons/white_tower.png");
+        ImageIcon imgQueenWhite =    new ImageIcon(path + "/lib/icons/white_queen.png");
+        ImageIcon imgPawnWhite =     new ImageIcon(path + "/lib/icons/white_pawn.png");
+        ImageIcon imgKnightWhite =   new ImageIcon(path + "/lib/icons/white_knight.png");
+        ImageIcon imgKingWhite =     new ImageIcon(path + "/lib/icons/white_king.png");
         
         if(fig.isBlack())
         {
