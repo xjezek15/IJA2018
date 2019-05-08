@@ -12,39 +12,20 @@ import ija.project.common.IFigure;
 
 public class Board extends java.lang.Object implements IBoard
 {
-    private int size;
-    private IField board[][];
+    private final int size;
+    private final IField board[][];
 
     public Board(int size) 
     {
         this.size = size;
         this.board = new IField[this.size][this.size];
-        boolean isBlack = false;
 
         // creating fields
         for (int row = 0; row < this.size; row++) 
         {
-            if (row % 2 == 0)
-            {
-                isBlack = true;
-            }
-            else
-            {
-                isBlack = false;
-            }
-
             for (int col = 0; col < this.size; col++) 
             {
-                if (col % 2 == 0 && isBlack)
-                {
-                    isBlack = false;
-                }
-                else
-                {
-                    isBlack = true;
-                }
-
-                this.board[col][row] = new Field(col, row, isBlack);
+                this.board[col][row] = new Field(col, row);
             }    
         }
 
@@ -96,11 +77,13 @@ public class Board extends java.lang.Object implements IBoard
         }
     }
 
+    @Override
     public boolean addFigure(int col, int row, IFigure figure)
     {
         return this.board[col][row].putFigure(figure);
     }
 
+    @Override
     public IField getField(int col, int row)
     {
         if (col == 0 || row == 0)
@@ -118,6 +101,7 @@ public class Board extends java.lang.Object implements IBoard
         }
     }
 
+    @Override
     public int getSize()
     {
         return this.size;
