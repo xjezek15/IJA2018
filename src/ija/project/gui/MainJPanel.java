@@ -6,7 +6,9 @@ import ija.project.game.IBoard;
 import ija.project.gui.ChessBoardPanel;
 import ija.project.parser.IInput;
 import ija.project.parser.Input;
+import ija.project.utilities.Location;
 import ija.project.utilities.MoveDisplay;
+import ija.project.utilities.ParsedMove;
 import java.awt.Color;
 import java.io.File;
 import java.io.IOException;
@@ -59,6 +61,7 @@ public class MainJPanel extends javax.swing.JPanel {
         chessBoardPanel1 = new ija.project.gui.ChessBoardPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
+        jLabel1 = new javax.swing.JLabel();
 
         UndoButton.setLabel("Undo");
         UndoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -91,9 +94,14 @@ public class MainJPanel extends javax.swing.JPanel {
         StopButton.setLabel("Stop");
 
         AutoPlayButton.setLabel("Autoplay");
+        AutoPlayButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AutoPlayButtonActionPerformed(evt);
+            }
+        });
 
         textField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textField1.setText("10 ms");
+        textField1.setText("2000");
 
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
@@ -103,6 +111,9 @@ public class MainJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane1.setViewportView(jTextArea1);
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("ms");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,15 +132,19 @@ public class MainJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(10, 10, 10)
-                                .addComponent(AutoPlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(AutoPlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(110, 110, 110)
+                                .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)))
                         .addGap(10, 10, 10)
                         .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,18 +153,18 @@ public class MainJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(chessBoardPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(ResetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(AutoPlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(LoadButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(AutoPlayButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(NextButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(textField1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -176,30 +191,63 @@ public class MainJPanel extends javax.swing.JPanel {
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
        chessBoardPanel1.loadPositions(true);
+       jTextArea1.setText("");
+       jTextArea1.setForeground(Color.black);
+       moveCounter = 0;
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
+        if(moveCounter == 0)
+            return;
         
+        IGame game = chessBoardPanel1.getGame();
+       
+        game.undo();
+        game.undo();
+        
+        moveCounter--;
+        
+        chessBoardPanel1.loadPositions(false);
     }//GEN-LAST:event_UndoButtonActionPerformed
 
     private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
         if(moves.size() <= moveCounter || moves.isEmpty() )
         {
-            jTextArea1.setForeground(Color.red);
-            jTextArea1.setText("ERROR");
+            printErr("ERROR: Overfloat moves stack");
             return;
         }
         
         jTextArea1.setForeground(Color.black);
         
         MoveDisplay move = moves.get(moveCounter++);
-        IMove wMove = move.getWhiteMove();
-        IMove bMove = move.getBlackMove();
+        ParsedMove wMove = move.getWhiteMove();
+        ParsedMove bMove = move.getBlackMove();
         
         IGame game = chessBoardPanel1.getGame();
+        IBoard board = chessBoardPanel1.getBoard();
         
-        game.move(wMove.getFromField(), wMove.getToField());
-        game.move(bMove.getFromField(), bMove.getToField());
+        Location locationFrom;
+        Location locationTo;
+        
+
+        locationFrom = wMove.getLocationFrom();
+        locationTo = wMove.getLocationTo();
+        
+        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
+        {
+            printErr("ERROR: Bad move");
+            return;
+        }
+        
+        
+        locationFrom = bMove.getLocationFrom();
+        locationTo = bMove.getLocationTo();
+        
+        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
+        {
+            printErr("ERROR: Bad move");
+            return;
+        }
 
         chessBoardPanel1.loadPositions(false);
         
@@ -219,6 +267,20 @@ public class MainJPanel extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jTextArea1MouseClicked
 
+    private void AutoPlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoPlayButtonActionPerformed
+        int sleep = Integer.parseInt(textField1.getText());
+        
+        for(int i = 0; i < moves.size(); i++)
+        {
+            NextButtonActionPerformed(evt);
+            try {
+                Thread.sleep(sleep);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }//GEN-LAST:event_AutoPlayButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private java.awt.Button AutoPlayButton;
@@ -228,9 +290,17 @@ public class MainJPanel extends javax.swing.JPanel {
     private java.awt.Button StopButton;
     private java.awt.Button UndoButton;
     private ija.project.gui.ChessBoardPanel chessBoardPanel1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 
+    
+    private void printErr(String err)
+    {
+        jTextArea1.setForeground(Color.red);
+        jTextArea1.setText(err);
+    }
+    
 }

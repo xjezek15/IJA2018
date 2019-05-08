@@ -30,7 +30,24 @@ public class ChessBoardPanel extends javax.swing.JPanel {
     private boolean move = false;
     private IBoard board;
     private IGame game;
+    
+    String path = Paths.get("").toAbsolutePath().toString();
+    ImageIcon imgBishopBlack =   new ImageIcon(path + "/lib/icons/black_bishop.png");
+    ImageIcon imgRookBlack =     new ImageIcon(path + "/lib/icons/black_tower.png");
+    ImageIcon imgQueenBlack =    new ImageIcon(path + "/lib/icons/black_queen.png");
+    ImageIcon imgPawnBlack =     new ImageIcon(path + "/lib/icons/black_pawn.png");
+    ImageIcon imgKnightBlack =   new ImageIcon(path + "/lib/icons/black_knight.png");
+    ImageIcon imgKingBlack =     new ImageIcon(path + "/lib/icons/black_king.png");
 
+    ImageIcon imgBishopWhite =   new ImageIcon(path + "/lib/icons/white_bishop.png");
+    ImageIcon imgRookWhite =     new ImageIcon(path + "/lib/icons/white_tower.png");
+    ImageIcon imgQueenWhite =    new ImageIcon(path + "/lib/icons/white_queen.png");
+    ImageIcon imgPawnWhite =     new ImageIcon(path + "/lib/icons/white_pawn.png");
+    ImageIcon imgKnightWhite =   new ImageIcon(path + "/lib/icons/white_knight.png");
+    ImageIcon imgKingWhite =     new ImageIcon(path + "/lib/icons/white_king.png");
+
+    ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
+    
     public IBoard getBoard() {
         return board;
     }
@@ -142,132 +159,196 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         jPanel1.setBackground(java.awt.Color.white);
 
         A8.setBackground(java.awt.Color.white);
+        A8.setName("A8"); // NOI18N
 
         B8.setBackground(java.awt.Color.darkGray);
+        B8.setName("B8"); // NOI18N
 
         C8.setBackground(java.awt.Color.white);
+        C8.setName("C8"); // NOI18N
 
         D8.setBackground(java.awt.Color.darkGray);
+        D8.setName("D8"); // NOI18N
 
         E8.setBackground(java.awt.Color.white);
+        E8.setName("E8"); // NOI18N
 
         F8.setBackground(java.awt.Color.darkGray);
+        F8.setName("F8"); // NOI18N
 
         G8.setBackground(java.awt.Color.white);
+        G8.setName("G8"); // NOI18N
 
         H8.setBackground(java.awt.Color.darkGray);
+        H8.setName("H8"); // NOI18N
 
         A7.setBackground(java.awt.Color.darkGray);
+        A7.setName("A7"); // NOI18N
 
         B7.setBackground(java.awt.Color.white);
+        B7.setName("B7"); // NOI18N
 
         C7.setBackground(java.awt.Color.darkGray);
+        C7.setName("C7"); // NOI18N
 
         D7.setBackground(java.awt.Color.white);
+        D7.setName("D7"); // NOI18N
 
         E7.setBackground(java.awt.Color.darkGray);
+        E7.setName("E7"); // NOI18N
 
         F7.setBackground(java.awt.Color.white);
+        F7.setName("F7"); // NOI18N
 
         G7.setBackground(java.awt.Color.darkGray);
+        G7.setName("G7"); // NOI18N
 
         H7.setBackground(java.awt.Color.white);
+        H7.setName("H7"); // NOI18N
 
         A6.setBackground(java.awt.Color.white);
+        A6.setName("A6"); // NOI18N
 
         B6.setBackground(java.awt.Color.darkGray);
+        B6.setName("B6"); // NOI18N
 
         C6.setBackground(java.awt.Color.white);
+        C6.setName("C6"); // NOI18N
 
         D6.setBackground(java.awt.Color.darkGray);
+        D6.setName("D6"); // NOI18N
 
         E6.setBackground(java.awt.Color.white);
+        E6.setName("E6"); // NOI18N
 
         F6.setBackground(java.awt.Color.darkGray);
+        F6.setName("F6"); // NOI18N
 
         G6.setBackground(java.awt.Color.white);
+        G6.setName("G6"); // NOI18N
 
         H6.setBackground(java.awt.Color.darkGray);
+        H6.setName("H6"); // NOI18N
 
         A5.setBackground(java.awt.Color.darkGray);
+        A5.setName("A5"); // NOI18N
 
         B5.setBackground(java.awt.Color.white);
+        B5.setName("B5"); // NOI18N
 
         C5.setBackground(java.awt.Color.darkGray);
+        C5.setName("C5"); // NOI18N
 
         D5.setBackground(java.awt.Color.white);
+        D5.setName("D5"); // NOI18N
 
         E5.setBackground(java.awt.Color.darkGray);
+        E5.setName("E5"); // NOI18N
 
         F5.setBackground(java.awt.Color.white);
+        F5.setName("F5"); // NOI18N
 
         G5.setBackground(java.awt.Color.darkGray);
+        G5.setName("G5"); // NOI18N
 
         H5.setBackground(java.awt.Color.white);
+        H5.setName("H5"); // NOI18N
 
         A4.setBackground(java.awt.Color.white);
+        A4.setName("A4"); // NOI18N
 
         B4.setBackground(java.awt.Color.darkGray);
+        B4.setName("B4"); // NOI18N
 
         C4.setBackground(java.awt.Color.white);
+        C4.setName("C4"); // NOI18N
 
         D4.setBackground(java.awt.Color.darkGray);
+        D4.setName("D4"); // NOI18N
 
         E4.setBackground(java.awt.Color.white);
+        E4.setName("E4"); // NOI18N
 
         F4.setBackground(java.awt.Color.darkGray);
+        F4.setName("F4"); // NOI18N
 
         G4.setBackground(java.awt.Color.white);
+        G4.setName("G4"); // NOI18N
 
         H4.setBackground(java.awt.Color.darkGray);
+        H4.setName("H4"); // NOI18N
 
         A3.setBackground(java.awt.Color.darkGray);
+        A3.setName("A3"); // NOI18N
 
         B3.setBackground(java.awt.Color.white);
+        B3.setName("B3"); // NOI18N
 
         C3.setBackground(java.awt.Color.darkGray);
+        C3.setName("C3"); // NOI18N
 
         D3.setBackground(java.awt.Color.white);
+        D3.setName("D3"); // NOI18N
 
         E3.setBackground(java.awt.Color.darkGray);
+        E3.setName("E3"); // NOI18N
 
         F3.setBackground(java.awt.Color.white);
+        F3.setName("F3"); // NOI18N
 
         G3.setBackground(java.awt.Color.darkGray);
+        G3.setName("G3"); // NOI18N
 
         H3.setBackground(java.awt.Color.white);
+        H3.setName("H3"); // NOI18N
 
         A2.setBackground(java.awt.Color.white);
+        A2.setName("A2"); // NOI18N
 
         B2.setBackground(java.awt.Color.darkGray);
+        B2.setName("B2"); // NOI18N
 
         C2.setBackground(java.awt.Color.white);
+        C2.setName("C2"); // NOI18N
 
         D2.setBackground(java.awt.Color.darkGray);
+        D2.setName("D2"); // NOI18N
 
         E2.setBackground(java.awt.Color.white);
+        E2.setName("E2"); // NOI18N
 
         F2.setBackground(java.awt.Color.darkGray);
+        F2.setName("F2"); // NOI18N
 
         G2.setBackground(java.awt.Color.white);
+        G2.setName("G2"); // NOI18N
 
         H2.setBackground(java.awt.Color.darkGray);
+        H2.setName("H2"); // NOI18N
 
         A1.setBackground(java.awt.Color.darkGray);
+        A1.setName("A1"); // NOI18N
 
         B1.setBackground(java.awt.Color.white);
+        B1.setName("B1"); // NOI18N
 
         C1.setBackground(java.awt.Color.darkGray);
+        C1.setName("C1"); // NOI18N
 
         D1.setBackground(java.awt.Color.white);
+        D1.setName("D1"); // NOI18N
 
         E1.setBackground(java.awt.Color.darkGray);
+        E1.setName("E1"); // NOI18N
 
         F1.setBackground(java.awt.Color.white);
+        F1.setName("F1"); // NOI18N
 
         G1.setBackground(java.awt.Color.darkGray);
+        G1.setName("G1"); // NOI18N
 
         H1.setBackground(java.awt.Color.white);
+        H1.setName("H1"); // NOI18N
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -705,33 +786,16 @@ public class ChessBoardPanel extends javax.swing.JPanel {
         
     private void chooseImgType(IFigure fig, JButton button)
     {
-        String path = Paths.get("").toAbsolutePath().toString();
+        
         
         if(fig == null)
         {
-            ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
             button.setIcon(imgEmpty);
             return;
         }
             
         IFigure.Type type = fig.getType();
-        
-        
-        
-        ImageIcon imgBishopBlack =   new ImageIcon(path + "/lib/icons/black_bishop.png");
-        ImageIcon imgRookBlack =     new ImageIcon(path + "/lib/icons/black_tower.png");
-        ImageIcon imgQueenBlack =    new ImageIcon(path + "/lib/icons/black_queen.png");
-        ImageIcon imgPawnBlack =     new ImageIcon(path + "/lib/icons/black_pawn.png");
-        ImageIcon imgKnightBlack =   new ImageIcon(path + "/lib/icons/black_knight.png");
-        ImageIcon imgKingBlack =     new ImageIcon(path + "/lib/icons/black_king.png");
-        
-        ImageIcon imgBishopWhite =   new ImageIcon(path + "/lib/icons/white_bishop.png");
-        ImageIcon imgRookWhite =     new ImageIcon(path + "/lib/icons/white_tower.png");
-        ImageIcon imgQueenWhite =    new ImageIcon(path + "/lib/icons/white_queen.png");
-        ImageIcon imgPawnWhite =     new ImageIcon(path + "/lib/icons/white_pawn.png");
-        ImageIcon imgKnightWhite =   new ImageIcon(path + "/lib/icons/white_knight.png");
-        ImageIcon imgKingWhite =     new ImageIcon(path + "/lib/icons/white_king.png");
-        
+              
         if(fig.isBlack())
         {
             if(type.equals(IFigure.BISHOP))        button.setIcon(imgBishopBlack);
@@ -894,16 +958,34 @@ public class ChessBoardPanel extends javax.swing.JPanel {
     }
     
     public void Move(){
-        if(!move)
-            return;
+//        if(!move)
+//            return;
+//        
+//        Icon icon = this.FromButton.getIcon();
+//        this.ToButton.setIcon(icon);
+//        
+//        ImageIcon imgEmpty = new ImageIcon(Paths.get("").toAbsolutePath().toString() + "/lib/icons/empty.png");
+//        this.FromButton.setIcon(imgEmpty);
+//        
+//        move = false;
         
+        
+        String from = this.FromButton.getName().toLowerCase();
+        String to = this.ToButton.getName().toLowerCase();
+        String s = "";
         Icon icon = this.FromButton.getIcon();
-        this.ToButton.setIcon(icon);
         
-        ImageIcon imgEmpty = new ImageIcon(Paths.get("").toAbsolutePath().toString() + "/lib/icons/empty.png");
-        this.FromButton.setIcon(imgEmpty);
+        if(icon.equals(imgBishopBlack) || icon.equals(imgBishopWhite))      s = "S";
+        else if(icon.equals(imgRookBlack) || icon.equals(imgRookWhite))     s = "V"; 
+        else if(icon.equals(imgKingBlack) || icon.equals(imgKingWhite))     s = "K";
+        else if(icon.equals(imgQueenBlack) || icon.equals(imgQueenWhite))   s = "D"; 
+        else if(icon.equals(imgKnightBlack) || icon.equals(imgKnightWhite)) s = "J";
+        else if(icon.equals(imgPawnBlack) || icon.equals(imgPawnWhite))     s = "p"; 
         
-        move = false;
+        s = s + from + to;
+        
+        II
+        
     }                                       
     
     private void addAction()

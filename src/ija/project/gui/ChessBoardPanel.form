@@ -361,6 +361,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A8" noResource="true"/>
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="ChessBoardPanel_A8"/>
@@ -371,6 +372,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C8">
@@ -378,6 +380,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D8">
@@ -385,6 +388,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E8">
@@ -392,6 +396,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F8">
@@ -399,6 +404,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G8">
@@ -406,6 +412,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H8">
@@ -413,6 +420,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H8" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A7">
@@ -420,6 +428,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B7">
@@ -427,6 +436,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C7">
@@ -434,6 +444,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D7">
@@ -441,6 +452,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E7">
@@ -448,6 +460,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F7">
@@ -455,6 +468,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G7">
@@ -462,6 +476,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H7">
@@ -469,6 +484,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H7" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A6">
@@ -476,6 +492,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B6">
@@ -483,6 +500,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C6">
@@ -490,6 +508,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D6">
@@ -497,6 +516,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E6">
@@ -504,6 +524,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F6">
@@ -511,6 +532,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G6">
@@ -518,6 +540,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H6">
@@ -525,6 +548,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H6" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A5">
@@ -532,6 +556,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B5">
@@ -539,6 +564,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C5">
@@ -546,6 +572,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D5">
@@ -553,6 +580,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E5">
@@ -560,6 +588,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F5">
@@ -567,6 +596,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G5">
@@ -574,6 +604,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H5">
@@ -581,6 +612,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H5" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A4">
@@ -588,6 +620,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B4">
@@ -595,6 +628,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C4">
@@ -602,6 +636,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D4">
@@ -609,6 +644,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E4">
@@ -616,6 +652,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F4">
@@ -623,6 +660,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G4">
@@ -630,6 +668,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H4">
@@ -637,6 +676,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H4" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A3">
@@ -644,6 +684,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B3">
@@ -651,6 +692,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C3">
@@ -658,6 +700,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D3">
@@ -665,6 +708,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E3">
@@ -672,6 +716,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F3">
@@ -679,6 +724,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G3">
@@ -686,6 +732,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H3">
@@ -693,6 +740,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H3" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A2">
@@ -700,6 +748,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B2">
@@ -707,6 +756,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C2">
@@ -714,6 +764,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D2">
@@ -721,6 +772,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E2">
@@ -728,6 +780,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F2">
@@ -735,6 +788,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G2">
@@ -742,6 +796,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H2">
@@ -749,6 +804,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H2" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="A1">
@@ -756,6 +812,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="A1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="B1">
@@ -763,6 +820,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="B1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="C1">
@@ -770,6 +828,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="C1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="D1">
@@ -777,6 +836,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="D1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="E1">
@@ -784,6 +844,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="E1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="F1">
@@ -791,6 +852,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="F1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="G1">
@@ -798,6 +860,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="40" green="40" id="darkGray" palette="1" red="40" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="G1" noResource="true"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="H1">
@@ -805,6 +868,7 @@
             <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
               <Color blue="ff" green="ff" id="white" palette="1" red="ff" type="palette"/>
             </Property>
+            <Property name="name" type="java.lang.String" value="H1" noResource="true"/>
           </Properties>
         </Component>
       </SubComponents>
