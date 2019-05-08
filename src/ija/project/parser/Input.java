@@ -26,14 +26,9 @@ import java.util.List;
 
 public class Input implements IInput
 {
-    private final List<MoveDisplay> list;
+    private final List<MoveDisplay> list = null;
     private int movesCounter = 1;
     private final char[] figures = new char[] {'K', 'D', 'V', 'S', 'J', 'p'};
-    
-    public Input(File file) throws IOException 
-    {
-        this.list = loadMoves(file);
-    }
     
     @Override
     public void saveMoves(File file) throws IOException
@@ -51,7 +46,8 @@ public class Input implements IInput
         return this.list;
     }
     
-    private List<MoveDisplay> loadMoves(File file) throws IOException 
+    @Override
+    public List<MoveDisplay> loadMoves(File file) throws IOException 
     {
         IBoard board = new Board(8);
         IGame game = GameFactory.createChessGame(board);  
