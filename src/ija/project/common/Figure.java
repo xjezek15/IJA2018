@@ -17,11 +17,13 @@ public class Figure extends java.lang.Object implements IFigure
         this.type = type;
     }
 
+    @Override
     public boolean isBlack()
     {
         return this.isBlack;
     }
 
+    @Override
     public IFigure.Type getType() 
     {
         return this.type;

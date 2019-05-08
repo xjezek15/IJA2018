@@ -64,60 +64,8 @@ public class Input implements IInput
                 ParsedMove whiteMove = parseMove(components[1]);
                 ParsedMove blackMove = parseMove(components[2]);                                                            
                 if (whiteMove == null || blackMove == null) return null;
-
-                boolean check = false;
-                boolean mate  = false;
-
-                if (whiteMove.isCheck() || blackMove.isCheck()) check = true;
-                if (whiteMove.isMate() || blackMove.isMate()) mate = true;
-                
-                IField fieldFrom;
-                IField fieldTo;
-                
-                // white plays
-                if (whiteMove.getLocationFrom() == null)
-                {
-                    fieldTo = board.getField(whiteMove.getLocationTo().getCol(), whiteMove.getLocationTo().getRow());
-                  //  game.move(fieldTo);
-                    
-                    throw new UnsupportedOperationException("Short moves not implemented.");
-                }
-                else
-                {
-                    fieldFrom = board.getField(whiteMove.getLocationFrom().getCol(), whiteMove.getLocationFrom().getRow());
-                    fieldTo = board.getField(whiteMove.getLocationTo().getCol(), whiteMove.getLocationTo().getRow());
-                    
-                    if (fieldFrom.getFigure().getType() != whiteMove.getFigureTypeFrom()) 
-                        return null;
-                    
-                    if (!game.move(fieldFrom, fieldTo))
-                        return null;
-                }
-                
-                IMove whiteIMove = game.getLastMove();
-                
-                // black plays
-                if (blackMove.getLocationFrom() == null)
-                {                                       
-                    fieldTo = board.getField(blackMove.getLocationTo().getCol(), blackMove.getLocationTo().getRow());
-                   // game.move(fieldTo);
-                    
-                    throw new UnsupportedOperationException("Short moves not implemented.");
-                }
-                else
-                {
-                    fieldFrom = board.getField(blackMove.getLocationFrom().getCol(), blackMove.getLocationFrom().getRow());
-                    fieldTo = board.getField(blackMove.getLocationTo().getCol(), blackMove.getLocationTo().getRow());
-                    
-                    if (fieldFrom.getFigure().getType() != blackMove.getFigureTypeFrom()) return null;
-                    
-                    if (!game.move(fieldFrom, fieldTo))
-                        return null;
-                }
-                
-                IMove blackIMove = game.getLastMove();
-               
-                moveDisplayList.add(new MoveDisplay(line, whiteIMove.deepCopy(), blackIMove.deepCopy(), check, mate));
+                               
+                moveDisplayList.add(new MoveDisplay(line, whiteMove, blackMove));
 
                 this.movesCounter++;
             }

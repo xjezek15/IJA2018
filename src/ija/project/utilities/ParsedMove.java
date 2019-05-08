@@ -10,13 +10,13 @@ import ija.project.common.IFigure;
 
 public class ParsedMove 
 {
-    private IFigure.Type figureTypeFrom;
-    private IFigure.Type figureTypeTo;
-    private Location locationFrom;
-    private Location locationTo;
-    private boolean capture;
-    private boolean check;
-    private boolean mate;
+    private final IFigure.Type figureTypeFrom;
+    private final IFigure.Type figureTypeTo;
+    private final Location locationFrom;
+    private final Location locationTo;
+    private final boolean capture;
+    private final boolean check;
+    private final boolean mate;
     
     public ParsedMove(IFigure.Type figureTypeTo, Location locationTo, boolean capture, boolean  check, boolean mate) 
     {
