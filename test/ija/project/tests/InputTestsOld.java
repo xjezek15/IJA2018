@@ -16,9 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class InputTests 
+public class InputTestsOld 
 {
-    public InputTests() 
+    public InputTestsOld() 
     {
         
     }

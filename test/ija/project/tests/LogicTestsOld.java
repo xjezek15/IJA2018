@@ -15,9 +15,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import ija.project.common.IGame;
 import ija.project.game.IBoard;
 
-public class LogicTests 
+public class LogicTestsOld 
 {
-    public LogicTests() 
+    public LogicTestsOld() 
     {
         
     }
