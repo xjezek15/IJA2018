@@ -24,9 +24,11 @@ public interface IField
     public static final IField.Direction RU = Direction.RU;
     public static final IField.Direction U = Direction.U;
 
+    IField deepCopy();
     void addNextField(IField.Direction dirs, IField field);
     IField nextField(IField.Direction dirs);
     boolean isEmpty();
+    IField[] getSurroundingFields();
     Location getLocation();
     IFigure getFigure();
     boolean putFigure(IFigure figure);

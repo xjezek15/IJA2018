@@ -117,7 +117,7 @@ public class Input implements IInput
                 
                 IMove blackIMove = game.getLastMove();
                
-                moveDisplayList.add(new MoveDisplay(line, whiteIMove, blackIMove, check, mate));
+                moveDisplayList.add(new MoveDisplay(line, whiteIMove.deepCopy(), blackIMove.deepCopy(), check, mate));
 
                 this.movesCounter++;
             }
