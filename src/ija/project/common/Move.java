@@ -27,7 +27,15 @@ public class Move extends java.lang.Object implements IMove
     @Override
     public IMove deepCopy()
     {
-        return new Move(fromFigure, to.deepCopy(), from.deepCopy(), capturedFigure);
+        IField fromField = from.deepCopy();
+        IField toField = to.deepCopy();
+        
+        
+        // swap figures
+        IFigure swapedFigure = fromField.swapFigure(toField.getFigure());
+        toField.swapFigure(swapedFigure);
+        
+        return new Move(fromFigure, fromField, toField, capturedFigure);
     }
 
     @Override

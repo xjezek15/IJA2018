@@ -29,6 +29,14 @@ public class Field extends java.lang.Object implements IField
         copy.putFigure(this.figure);
         return copy;
     }
+    
+    @Override
+    public IFigure swapFigure(IFigure figure)
+    {
+        IFigure old = this.figure;
+        this.figure = figure;
+        return old;
+    }
 
     @Override
     public IField[] getSurroundingFields() 

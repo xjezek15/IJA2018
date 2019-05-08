@@ -25,6 +25,7 @@ public interface IField
     public static final IField.Direction U = Direction.U;
 
     IField deepCopy();
+    IFigure swapFigure(IFigure figure);
     void addNextField(IField.Direction dirs, IField field);
     IField nextField(IField.Direction dirs);
     boolean isEmpty();
