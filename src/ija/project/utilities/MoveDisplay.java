@@ -24,4 +24,29 @@ public class MoveDisplay
         this.check = check;
         this.mate = mate;
     }     
+
+    public String getMoveText() 
+    {
+        return moveText;
+    }
+
+    public IMove getWhiteMove() 
+    {
+        return whiteMove;
+    }
+
+    public IMove getBlackMove() 
+    {
+        return blackMove;
+    }
+
+    public boolean isCheck() 
+    {
+        return check;
+    }
+
+    public boolean isMate() 
+    {
+        return mate;
+    }
 }
