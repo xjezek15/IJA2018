@@ -32,18 +32,18 @@ public abstract class GameFactory extends java.lang.Object
         board.addFigure(7, 7, new Figure(true, IFigure.ROOK));
         
         // adding bishops
-        board.addFigure(1, 0, new Figure(false, IFigure.BISHOP));
-        board.addFigure(6, 0, new Figure(false, IFigure.BISHOP));
+        board.addFigure(2, 0, new Figure(false, IFigure.BISHOP));
+        board.addFigure(5, 0, new Figure(false, IFigure.BISHOP));
 
-        board.addFigure(1, 7, new Figure(true, IFigure.BISHOP));
-        board.addFigure(6, 7, new Figure(true, IFigure.BISHOP));
+        board.addFigure(2, 7, new Figure(true, IFigure.BISHOP));
+        board.addFigure(5, 7, new Figure(true, IFigure.BISHOP));
         
         // adding knights
-        board.addFigure(2, 0, new Figure(false, IFigure.KNIGHT));
-        board.addFigure(5, 0, new Figure(false, IFigure.KNIGHT));
+        board.addFigure(1, 0, new Figure(false, IFigure.KNIGHT));
+        board.addFigure(6, 0, new Figure(false, IFigure.KNIGHT));
 
-        board.addFigure(2, 7, new Figure(true, IFigure.KNIGHT));
-        board.addFigure(5, 7, new Figure(true, IFigure.KNIGHT));
+        board.addFigure(1, 7, new Figure(true, IFigure.KNIGHT));
+        board.addFigure(6, 7, new Figure(true, IFigure.KNIGHT));
         
         // adding king and queen
         board.addFigure(4, 0, new Figure(false, IFigure.KING));

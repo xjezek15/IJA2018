@@ -6,7 +6,7 @@
 
 package ija.project.common;
 
-import ija.project.utilities.Location;
+import static java.lang.Math.abs;
 import java.util.Stack;
 
 public class Game extends java.lang.Object implements IGame
@@ -18,12 +18,13 @@ public class Game extends java.lang.Object implements IGame
         moveStack = new Stack<>();
     }
     
+    @Override
     public IMove getLastMove()
     {
         if (moveStack.empty())
             return null;
-        
-        return this.moveStack.lastElement();
+                    
+        return moveStack.lastElement();
     }
 
     @Override
@@ -44,9 +45,9 @@ public class Game extends java.lang.Object implements IGame
     }
     
     @Override
-    public boolean move(Figure.Type type, IField to)
+    public boolean move(boolean isBlack, Figure.Type type, IField to)
     {
-        return false;
+        return doMove(isBlack, type, to);
     }
 
     @Override
@@ -58,66 +59,86 @@ public class Game extends java.lang.Object implements IGame
 
         if (fromFigure == null) return false;
         
-        return doMove(fromFigure.getType(), fromFigure.isBlack(), to);
+        if (fromFigure.getType().equals(IFigure.PAWN))
+        {
+            int absValue = abs(from.getLocation().getCol() - to.getLocation().getCol());
+            if (absValue != 1 && absValue != 0)
+                return false;
+        }
+                   
+        return doMove(fromFigure.isBlack(), fromFigure.getType(), to);
     }
     
-    private boolean doMove(Figure.Type type, boolean isBlack, IField to)
+    private boolean doMove(boolean isBlack, Figure.Type type, IField to)
     {
         if (to == null) return false;
         
-        boolean canMove = false;
+        IField from = null;
         boolean toEmpty = to.isEmpty();
 
         // check if figure can move
         if (type == IFigure.PAWN)
         {
-            canMove = canMovePawn(isBlack, to);
+            from = canMovePawn(isBlack, to);
         }
         else if (type == IFigure.ROOK)
         {
-         //   canMove = canMove(from, from, to, IField.D);
+            from = canMove(isBlack, type, to, to, IField.D);
         }
         else if (type == IFigure.BISHOP)
         {
-         //   canMove = canMove(from, from, to, IField.LD);
+            from = canMove(isBlack, type, to, to, IField.LD);
         }
         else if (type == IFigure.QUEEN)
         {
-          //  canMove = canMove(from, from, to, IField.D);
+            from = canMove(isBlack, type, to, to, IField.D);
         }
         else if (type == IFigure.KING)
         {
-         //   canMove = canMoveKing(from, to, IField.D);
+            from = canMoveKing(isBlack, to, IField.D);
         }
         else if (type == IFigure.KNIGHT)
         {
             throw new UnsupportedOperationException("Move with Knight not implemented");
         }
 
-        if (canMove)
+        if (from != null)
         {
             IFigure capturedFigure = null;
 
-            // not empty
+            // to is not empty
             if (!toEmpty)
             {
-                if (!to.getFigure().isBlack())
+                if (isBlack)
                 {
-                    capturedFigure = to.getFigure();
-                    to.removeFigure(capturedFigure);
+                    if (!to.getFigure().isBlack())
+                    {
+                        capturedFigure = to.getFigure();
+                        to.removeFigure(capturedFigure);
+                    }
+                    else
+                        return false;
                 }
                 else
                 {
-                    return false;
+                    if (to.getFigure().isBlack())
+                    {
+                        capturedFigure = to.getFigure();
+                        to.removeFigure(capturedFigure);
+                    }
+                    else
+                        return false;
                 }
             }
+            
+            IFigure fromFigure = from.getFigure();
 
             if (from.removeFigure(fromFigure))
             {
                 if (to.putFigure(fromFigure))
                 {
                     IMove move = new Move(fromFigure, from, to, capturedFigure);
-                    move.push(this.moveStack);
+                    this.moveStack.push(move);
                     return true;
                 }
             }
@@ -126,131 +147,126 @@ public class Game extends java.lang.Object implements IGame
         return false;
     }
     
-    private boolean canMovePawnForward(boolean isBlack, IField to)
+    private IField canMovePawnForward(boolean isBlack, IField to)
     {
         // to is not empty
-        if (!to.isEmpty()) return false;
+        if (!to.isEmpty()) 
+            return null;
 
         IField.Direction direction = isBlack ? IField.Direction.U : IField.Direction.D;
         
         IField nextField = to.nextField(direction);
         
-        if (nextField == null) return false; 
-        IFigure nextFieldFigure;
-        nextFieldFigure = nextField.getFigure();
-        if (nextFieldFigure != null)
-            if (nextFieldFigure.getType() == IFigure.PAWN)         
-                if (nextFieldFigure.isBlack() == isBlack)
-                    return true;          
-        
-        if (!nextField.isEmpty()) return false;
-        
-        nextField = nextField.nextField(direction);
-        
-        if (nextField == null) return false;     
-        nextFieldFigure = nextField.getFigure();
-        if (nextFieldFigure != null)
-            if (nextFieldFigure.getType() == IFigure.PAWN)         
-                if (nextFieldFigure.isBlack() == isBlack)
-                    return true;   
-
-        return false;
+        if (nextField == null) 
+            return null;        
+        if (nextField.isEmpty())
+        {
+            nextField = nextField.nextField(direction);
+            
+            if (nextField == null || nextField.isEmpty()) 
+                return null;   
+            
+            if (nextField.getFigure().getType() == IFigure.PAWN && nextField.getFigure().isBlack() == isBlack)
+                return nextField;
+            else
+                return null;
+        }
+        else
+        {
+            if (nextField.getFigure().getType() == IFigure.PAWN && nextField.getFigure().isBlack() == isBlack) 
+                return nextField;
+            else
+                return null;
+        }
     }
     
-    private boolean canMovePawnSideways(boolean fromIsBlack, IField to)
+    private IField canMovePawnSideways(boolean fromIsBlack, IField to)
     {
         IField.Direction directionL = fromIsBlack ? IField.Direction.LU : IField.Direction.LD;
         IField.Direction directionR = fromIsBlack ? IField.Direction.RU : IField.Direction.RD;
         
-        if (to.isEmpty()) return false;
+        if (to.isEmpty()) 
+            return null;
         
         boolean toIsBlack = to.getFigure().isBlack();
         
-        if (fromIsBlack != !toIsBlack) return false;
+        if (fromIsBlack != !toIsBlack) 
+            return null;
         
         IField nextField = to.nextField(directionL);
         
         if (!nextField.isEmpty())
         {
-            if (nextField.getFigure().getType() == IFigure.PAWN) return true;            
+            if (nextField.getFigure().getType() == IFigure.PAWN) 
+                return nextField;            
         }
         
         nextField = to.nextField(directionR);
         
         if (!nextField.isEmpty())
         {
-            if (nextField.getFigure().getType() == IFigure.PAWN) return true;            
+            if (nextField.getFigure().getType() == IFigure.PAWN) 
+                return nextField;            
         }
         
-        return false;
+        return null;
     }
 
-    private boolean canMovePawn(boolean isBlack, IField to)
+    private IField canMovePawn(boolean isBlack, IField to)
     {   
-        if (canMovePawnForward(isBlack, to)) return true;
-        return canMovePawnSideways(isBlack, to);                
+        IField from = canMovePawnForward(isBlack, to);
+        if (from == null)
+            return canMovePawnSideways(isBlack, to);     
+        else
+            return from;
     }
     
-    private boolean canMoveKing(IField from, IField to, IField.Direction dirs)
+    private IField canMoveKing(boolean isBlack, IField to, IField.Direction dirs)
     {
-        IField nextField = from.nextField(dirs);
+        IField nextField = to.nextField(dirs);
         
-        if (nextField == null || !nextField.equals(to))
-        {
-            dirs = determineNextDirection(from.getFigure(), dirs);
-
-            if (dirs == null)
-            {
-                return false;
-            }
-            
-            return canMoveKing(from, to, dirs);
-        }
-        else
-        {
-            return true;
-        }
+        if (nextField != null)
+            if (nextField.getFigure() != null)
+                if (nextField.getFigure().getType() == IFigure.KING && nextField.getFigure().isBlack() == isBlack)
+                    return null;
+        
+        
+        dirs = determineNextDirection(IFigure.KING, dirs);
+        if (dirs == null) 
+            return null;
+        return canMoveKing(isBlack, to, dirs);       
     }
 
 //    in case of failure, this is the problem
-    private boolean canMove(IField source, IField from, IField to, IField.Direction dirs)
+    private IField canMove(boolean isBlack, IFigure.Type type, IField next, IField to, IField.Direction dirs)
     {
-        IField nextField = from.nextField(dirs);
+        IField nextField = next.nextField(dirs);
         
         if (nextField == null)
         {
-            dirs = determineNextDirection(source.getFigure(), dirs);
-
-            if (dirs == null)
-            {
-                return false;
-            }
-
-            return canMove(source, source, to, dirs);
+            dirs = determineNextDirection(type, dirs);
+            if (dirs == null) 
+                return null;
+            return canMove(isBlack, type, to, to, dirs);
         }
 
-        if (nextField.equals(to)) return true;
-
-        if (nextField.isEmpty())
-        {
-            return canMove(source, nextField, to, dirs);
-        }
+        if (nextField.isEmpty()) 
+            return canMove(isBlack, type, nextField, to, dirs);
         else
         {
-            dirs = determineNextDirection(source.getFigure(), dirs);
-
-            if (dirs == null)
-            {
-                return false;
-            }
-
-            return canMove(source, source, to, dirs);
+            if (nextField.getFigure().getType() == type && nextField.getFigure().isBlack() == isBlack)
+                return nextField;
+            
+            dirs = determineNextDirection(type, dirs);
+            if (dirs == null) 
+                return null;
+            return canMove(isBlack, type, to, to, dirs);
         }
     }
 
-    private IField.Direction determineNextDirection(IFigure figure, IField.Direction dirs)
+    private IField.Direction determineNextDirection(IFigure.Type type, IField.Direction dirs)
     {
-        if (figure.getType().equals(IFigure.ROOK))
+        if (type.equals(IFigure.ROOK))
         {
             if (dirs == IField.D)
             {
@@ -269,7 +285,7 @@ public class Game extends java.lang.Object implements IGame
                 return null;
             } 
         }
-        else if (figure.getType().equals(IFigure.BISHOP))
+        else if (type.equals(IFigure.BISHOP))
         {
             if (dirs == IField.LD)
             {
@@ -288,7 +304,7 @@ public class Game extends java.lang.Object implements IGame
                 return null;
             } 
         }
-        else if (figure.getType().equals(IFigure.KING) || figure.getType().equals(IFigure.QUEEN))
+        else if (type.equals(IFigure.KING) || type.equals(IFigure.QUEEN))
         {
             if (dirs == IField.D)
             {
@@ -325,6 +341,5 @@ public class Game extends java.lang.Object implements IGame
         }
 
         return null;
-
     }
 }

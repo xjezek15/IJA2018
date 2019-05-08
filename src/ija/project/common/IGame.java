@@ -9,7 +9,7 @@ package ija.project.common;
 public interface IGame 
 {
     IMove getLastMove();
-    boolean move(Figure.Type type, IField to);
+    boolean move(boolean isBlack, Figure.Type type, IField to);
     boolean move(IField from, IField to);
     void undo();
 }

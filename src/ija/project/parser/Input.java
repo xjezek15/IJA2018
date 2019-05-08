@@ -36,6 +36,7 @@ public class Input implements IInput
         this.list = loadMoves(file);
     }
     
+    @Override
     public List<MoveDisplay> getMoves()
     {
         return this.list;
