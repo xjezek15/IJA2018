@@ -18,6 +18,7 @@ import ija.project.utilities.ParsedMove;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -32,6 +33,16 @@ public class Input implements IInput
     public Input(File file) throws IOException 
     {
         this.list = loadMoves(file);
+    }
+    
+    @Override
+    public void saveMoves(File file) throws IOException
+    {  
+        try (FileWriter fileWriter = new FileWriter(file)) 
+        {
+            for(MoveDisplay move : list)
+                fileWriter.write(move.getMoveText() + "\n");
+        }        
     }
     
     @Override
