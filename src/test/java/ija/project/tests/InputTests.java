@@ -6,18 +6,15 @@
 
 package ija.project.tests;
 
-import ija.project.GameFactory;
-import ija.project.game.Board;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import ija.project.common.IGame;
-import ija.project.game.IBoard;
 import ija.project.parser.IInput;
 import ija.project.parser.Input;
+import ija.project.utilities.MoveDisplay;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 public class InputTests 
 {
@@ -29,9 +26,9 @@ public class InputTests
     private IInput input;
     
     @BeforeEach
-    public void initialize()
+    public void initialize() throws IOException
     {
-        input = new Input();
+        input = new Input(new File("C:/tmp/input.txt"));
     }
     
     @AfterEach
@@ -43,8 +40,6 @@ public class InputTests
     @Test
     public void parseFileTest() throws IOException
     {
-        File file = new File("C:/tmp/input.txt");
-        
-        input.loadMoves(file);
+        List<MoveDisplay> list = input.getMoves();
     }
 }

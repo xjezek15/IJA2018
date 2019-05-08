@@ -23,19 +23,22 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 public class Input implements IInput
 {
-    private List<MoveDisplay> list;
+    private final List<MoveDisplay> list;
     private int movesCounter = 1;
     private final char[] figures = new char[] {'K', 'D', 'V', 'S', 'J', 'p'};
     
     public Input(File file) throws IOException 
     {
         this.list = loadMoves(file);
+    }
+    
+    public List<MoveDisplay> getMoves()
+    {
+        return this.list;
     }
     
     private List<MoveDisplay> loadMoves(File file) throws IOException 
@@ -88,6 +91,8 @@ public class Input implements IInput
                     game.move(fieldFrom, fieldTo);
                 }
                 
+                IMove whiteIMove = game.getLastMove();
+                
                 // black plays
                 if (blackMove.getLocationFrom() == null)
                 {                                       
@@ -105,9 +110,10 @@ public class Input implements IInput
                     
                     game.move(fieldFrom, fieldTo);
                 }
+                
+                IMove blackIMove = game.getLastMove();
                
-                moveDisplayList.add(new MoveDisplay(line, check, mate, board));
-
+                moveDisplayList.add(new MoveDisplay(line, whiteIMove, blackIMove, check, mate));
 
                 this.movesCounter++;
             }

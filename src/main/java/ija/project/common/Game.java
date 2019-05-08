@@ -17,6 +17,11 @@ public class Game extends java.lang.Object implements IGame
     {
         moveStack = new Stack<>();
     }
+    
+    public IMove getLastMove()
+    {
+        return this.moveStack.lastElement();
+    }
 
     @Override
     public void undo()

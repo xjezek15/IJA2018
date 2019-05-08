@@ -6,24 +6,22 @@
 
 package ija.project.utilities;
 
-import ija.project.game.Board;
-import ija.project.game.IBoard;
+import ija.project.common.IMove;
 
 public class MoveDisplay 
 {
-    private String move;
-    private boolean check;
-    private boolean mate;
-    private IBoard board;
+    private final String moveText;
+    private final IMove whiteMove;
+    private final IMove blackMove;
+    private final boolean check;
+    private final boolean mate;
 
-    public MoveDisplay(String move, boolean check, boolean mate, IBoard board) 
+    public MoveDisplay(String moveText, IMove whiteMove, IMove blackMove, boolean check, boolean mate) 
     {
-        this.move = move;
-
-        
-        
+        this.moveText = moveText;
+        this.whiteMove = whiteMove;
+        this.blackMove = blackMove;
         this.check = check;
         this.mate = mate;
-        this.board = board;
     }     
 }
