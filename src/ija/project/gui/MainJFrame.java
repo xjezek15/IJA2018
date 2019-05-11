@@ -1,5 +1,8 @@
 package ija.project.gui;
 
+import java.awt.Toolkit;
+import java.nio.file.Paths;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -17,7 +20,7 @@ public class MainJFrame extends javax.swing.JFrame {
      */
     public MainJFrame() {
         initComponents();
-        //setIconImage(Toolkit.getDefaultToolkit().getImage(Paths.get("").toAbsolutePath().toString() + "/lib/icons/main_ui.png"));
+        setIconImage(Toolkit.getDefaultToolkit().getImage(Paths.get("").toAbsolutePath().toString() + "/lib/icons/main_ui.png"));
         setLocationRelativeTo(null);
     }
 
@@ -71,6 +74,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         MainJPanel jp = new MainJPanel();
         jTabbedPane1.addTab("Game"+i++, jp);
+        jTabbedPane1.setSelectedComponent(jp);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

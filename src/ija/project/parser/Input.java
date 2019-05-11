@@ -18,7 +18,6 @@ import ija.project.utilities.ParsedMove;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -26,18 +25,13 @@ import java.util.List;
 
 public class Input implements IInput
 {
-    private final List<MoveDisplay> list = null;
+    private final List<MoveDisplay> list;
     private int movesCounter = 1;
     private final char[] figures = new char[] {'K', 'D', 'V', 'S', 'J', 'p'};
     
-    @Override
-    public void saveMoves(File file) throws IOException
-    {  
-        try (FileWriter fileWriter = new FileWriter(file)) 
-        {
-            for(MoveDisplay move : list)
-                fileWriter.write(move.getMoveText() + "\n");
-        }        
+    public Input(File file) throws IOException 
+    {
+        this.list = loadMoves(file);
     }
     
     @Override
@@ -119,6 +113,7 @@ public class Input implements IInput
         return null;
     }
     
+    @Override
     public ParsedMove parseMove(String move)
     {
         State state = State.START;

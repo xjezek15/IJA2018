@@ -1,2 +1,6 @@
 1. e2e4 e7e5
 2. Sf1c4 Dd8f6
+3. a2a3 a7a6
+4. b2b3 b7b6
+5. c2c3 c7c6
+6. d2d3 d7d6
