@@ -15,8 +15,7 @@ import java.util.List;
 
 public interface IInput 
 {
-    //void saveMoves(File file) throws IOException;
+    void saveMoves(File file) throws IOException;
     List<MoveDisplay> getMoves();
-    List<MoveDisplay> loadMoves(File file) throws IOException;
     ParsedMove parseMove(String move);
 }
