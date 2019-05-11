@@ -1006,7 +1006,6 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private void vypis(String text)
     {
-        text = text + "\n";
         jTextArea1.append(text);
     }
     
@@ -1264,6 +1263,7 @@ public class MainJPanel extends javax.swing.JPanel {
             
         else
         {
+            s += "\n"; 
             fullMove += s; 
             whiteon = true;
             blackMove = move;
