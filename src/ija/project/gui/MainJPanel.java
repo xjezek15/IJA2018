@@ -24,8 +24,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
-
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,38 +37,36 @@ import javax.swing.text.Highlighter;
  */
 public class MainJPanel extends javax.swing.JPanel {
     
-    List <MoveDisplay> moves;
+    private List <MoveDisplay> moves;
     int moveCounter = 0;
-    String newText;
     
     private JButton FromButton;
     private JButton ToButton;
     private boolean first = true;
     private boolean canmove = false;
     private boolean whiteon = true;
-
     
     private IGame game;
     private IBoard board;
     
-    String path = Paths.get("").toAbsolutePath().toString();
-    ImageIcon imgBishopBlack =   new ImageIcon(path + "/lib/icons/black_bishop.png");
-    ImageIcon imgRookBlack =     new ImageIcon(path + "/lib/icons/black_tower.png");
-    ImageIcon imgQueenBlack =    new ImageIcon(path + "/lib/icons/black_queen.png");
-    ImageIcon imgPawnBlack =     new ImageIcon(path + "/lib/icons/black_pawn.png");
-    ImageIcon imgKnightBlack =   new ImageIcon(path + "/lib/icons/black_knight.png");
-    ImageIcon imgKingBlack =     new ImageIcon(path + "/lib/icons/black_king.png");
+    private final String path = Paths.get("").toAbsolutePath().toString();
+    private final ImageIcon imgBishopBlack =   new ImageIcon(path + "/lib/icons/black_bishop.png");
+    private final ImageIcon imgRookBlack =     new ImageIcon(path + "/lib/icons/black_tower.png");
+    private final ImageIcon imgQueenBlack =    new ImageIcon(path + "/lib/icons/black_queen.png");
+    private final ImageIcon imgPawnBlack =     new ImageIcon(path + "/lib/icons/black_pawn.png");
+    private final ImageIcon imgKnightBlack =   new ImageIcon(path + "/lib/icons/black_knight.png");
+    private final ImageIcon imgKingBlack =     new ImageIcon(path + "/lib/icons/black_king.png");
 
-    ImageIcon imgBishopWhite =   new ImageIcon(path + "/lib/icons/white_bishop.png");
-    ImageIcon imgRookWhite =     new ImageIcon(path + "/lib/icons/white_tower.png");
-    ImageIcon imgQueenWhite =    new ImageIcon(path + "/lib/icons/white_queen.png");
-    ImageIcon imgPawnWhite =     new ImageIcon(path + "/lib/icons/white_pawn.png");
-    ImageIcon imgKnightWhite =   new ImageIcon(path + "/lib/icons/white_knight.png");
-    ImageIcon imgKingWhite =     new ImageIcon(path + "/lib/icons/white_king.png");
+    private final ImageIcon imgBishopWhite =   new ImageIcon(path + "/lib/icons/white_bishop.png");
+    private final ImageIcon imgRookWhite =     new ImageIcon(path + "/lib/icons/white_tower.png");
+    private final ImageIcon imgQueenWhite =    new ImageIcon(path + "/lib/icons/white_queen.png");
+    private final ImageIcon imgPawnWhite =     new ImageIcon(path + "/lib/icons/white_pawn.png");
+    private final ImageIcon imgKnightWhite =   new ImageIcon(path + "/lib/icons/white_knight.png");
+    private final ImageIcon imgKingWhite =     new ImageIcon(path + "/lib/icons/white_king.png");
 
-    ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
+    private final ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
     
-    IInput input = null;
+    private IInput input = null;
         
     private void setInput()
     {
@@ -847,7 +843,6 @@ public class MainJPanel extends javax.swing.JPanel {
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
         ResetButtonActionPerformed(evt);
-        //input.loadMoves();
 
         jTextArea1.setText("");
         jTextArea1.setForeground(Color.black);
@@ -856,8 +851,6 @@ public class MainJPanel extends javax.swing.JPanel {
         {
             jTextArea1.append(move.getMoveText() + "\n");
         }
-        
-        
     }//GEN-LAST:event_LoadButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
@@ -868,28 +861,23 @@ public class MainJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
-        Undo();        
+        Undo();     
+        highlight(moveCounter);
     }//GEN-LAST:event_UndoButtonActionPerformed
 
     private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
-        Next();        
+        Next();  
+        highlight(moveCounter);
     }//GEN-LAST:event_NextButtonActionPerformed
-
     private void jTextArea1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea1MouseClicked
-        int line;
-        jTextArea1.getHighlighter().removeAllHighlights();
-        
         try {
-            line = jTextArea1.getLineOfOffset( jTextArea1.getCaretPosition());
+            int line = jTextArea1.getLineOfOffset( jTextArea1.getCaretPosition());
+            highlight(line + 1); // fix for fce 
             int start = jTextArea1.getLineStartOffset( line );
             int end = jTextArea1.getLineEndOffset( line );
             String text = jTextArea1.getDocument().getText(start, end - start);
             
-            Highlighter.HighlightPainter painter  = new DefaultHighlighter.DefaultHighlightPainter(Color.CYAN);
-            jTextArea1.getHighlighter().addHighlight(start, end, painter);
-            
             int selected_row = Character.getNumericValue(text.charAt(0));
-            
             if(selected_row > moveCounter)
                 for(int i = moveCounter; i < selected_row; i++)
                     Next();
@@ -897,9 +885,6 @@ public class MainJPanel extends javax.swing.JPanel {
             else if(selected_row <= moveCounter)
                 for(int i = moveCounter; i > selected_row; i--)
                     Undo();
-            
-            
-            
         } catch (BadLocationException ex) {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1205,11 +1190,6 @@ public class MainJPanel extends javax.swing.JPanel {
         if(!canmove)
             return;
         
-//        this.ToButton.setIcon(icon);
-//        
-//        ImageIcon imgEmpty = new ImageIcon(Paths.get("").toAbsolutePath().toString() + "/lib/icons/empty.png");
-//        this.FromButton.setIcon(imgEmpty);
-
         if(FromButton == ToButton)
         {
             canmove = false;
@@ -1287,8 +1267,18 @@ public class MainJPanel extends javax.swing.JPanel {
             fullMove += s; 
             whiteon = true;
             blackMove = move;
-            moves.add(new MoveDisplay(fullMove, whiteMove, blackMove));
+            //TODO
+            //vymazat list po uroven kliknutia
+            //nefuguje
+            //moves.add(new MoveDisplay(fullMove, whiteMove, blackMove));
         }
+        
+//        jTextArea1.setText("");
+//        for(MoveDisplay x : moves)
+//        {
+//            jTextArea1.append(x.getMoveText() + "\n");
+//        }
+        
         
         vypis(s);
         FromButton = ToButton = null;
@@ -1333,7 +1323,7 @@ public class MainJPanel extends javax.swing.JPanel {
             printErr("ERROR: Bad move");
             return;
         }
-
+        
         loadPositions(false);
     }
     
@@ -1347,6 +1337,23 @@ public class MainJPanel extends javax.swing.JPanel {
         
         moveCounter--;
         loadPositions(false);
+    }
+    
+    private void highlight(int line)
+    {
+        jTextArea1.getHighlighter().removeAllHighlights();
+        try {
+            int start = jTextArea1.getLineStartOffset( line - 1 );
+            int end = jTextArea1.getLineEndOffset( line - 1 );
+            
+            DefaultHighlighter highlighter =  (DefaultHighlighter)jTextArea1.getHighlighter();
+            DefaultHighlighter.DefaultHighlightPainter painter = new DefaultHighlighter.DefaultHighlightPainter( Color.CYAN );
+            highlighter.setDrawsLayeredHighlights(false);
+            
+            highlighter.addHighlight(start, end, painter);
+        } catch (BadLocationException ex) {
+            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
     private void addAction()
