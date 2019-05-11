@@ -70,6 +70,17 @@ public class MainJPanel extends javax.swing.JPanel {
 
     ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
     
+    IInput input = null;
+        
+    private void setInput()
+    {
+        try {
+            input = new Input(new File(path + "/data/input.txt"));
+        } catch (IOException ex) {
+            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     /**
      * Creates new form MainJPanel
      */
@@ -78,6 +89,7 @@ public class MainJPanel extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         loadPositions(true);
         addAction();
+        setInput();
     }
 
     /**
@@ -835,23 +847,14 @@ public class MainJPanel extends javax.swing.JPanel {
 
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
         ResetButtonActionPerformed(evt);
+        //input.loadMoves();
 
-        try {
-            IInput input = new Input(new File(path + "/data/input.txt"));
-            
-            //input.loadMoves();
-            
-            jTextArea1.setText("");
-            jTextArea1.setForeground(Color.black);
-            moves = input.getMoves();
-            for(MoveDisplay move : moves)
-            {
-                jTextArea1.append(move.getMoveText() + "\n");
-            }
-                
-            
-        } catch (IOException ex) {
-            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        jTextArea1.setText("");
+        jTextArea1.setForeground(Color.black);
+        moves = input.getMoves();
+        for(MoveDisplay move : moves)
+        {
+            jTextArea1.append(move.getMoveText() + "\n");
         }
         
         
@@ -1018,6 +1021,7 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private void vypis(String text)
     {
+        text = text + "\n";
         jTextArea1.append(text);
     }
     
@@ -1195,7 +1199,8 @@ public class MainJPanel extends javax.swing.JPanel {
     }
     
     
-    
+    private ParsedMove whiteMove, blackMove;
+    private String fullMove;
     private void Move(){
         if(!canmove)
             return;
@@ -1256,43 +1261,35 @@ public class MainJPanel extends javax.swing.JPanel {
                
         s = s + sx + from + to;
         
-//        IInput input = null;
-//        try {
-//            input = new Input(new File(path + "/data/input.txt"));
-//        } catch (IOException ex) {
-//            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        
-//        ParsedMove move =  input.parseMove(s);
-//        
-//        Location locationFrom = move.getLocationFrom();
-//        Location  locationTo = move.getLocationTo();
-//        
-//        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
-//        {
-//          System.err.println("Nepovoleny tah!");
-//          canmove = false;
-//          FromButton = ToButton = null;
-//          return;
-//        }
+        ParsedMove move =  input.parseMove(s);
+        
+        Location locationFrom = move.getLocationFrom();
+        Location  locationTo = move.getLocationTo();
+        
+        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
+        {
+          System.err.println("Nepovoleny tah!");
+          canmove = false;
+          FromButton = ToButton = null;
+          return;
+        }
         
         if(whiteon)
         {
-            // number. tah 
             s = ++moveCounter + ". " + s + " ";  // POZOR NA MOVECOUNTER NEZVYSUJE SA PRI TAHU !!!
+            fullMove = s;
             whiteon = false;
+            whiteMove = move;
         }
             
         else
         {
-            //tah \n
-            s = s + "\n";
+            fullMove += s; 
             whiteon = true;
+            blackMove = move;
+            moves.add(new MoveDisplay(fullMove, whiteMove, blackMove));
         }
-        // TODO
-        //pridat do move listu 
         
-        //move list pridat do jTextArea1
         vypis(s);
         FromButton = ToButton = null;
         canmove = false;
