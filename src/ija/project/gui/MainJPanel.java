@@ -1287,7 +1287,7 @@ public class MainJPanel extends javax.swing.JPanel {
         
         if (moveCounter < lineIndex)
         {
-            for (int index = lineIndex; index >= moveCounter - 1; index--) 
+            for (int index = lineIndex - 1; index >= moveCounter - 1; index--) 
             {
                 try {
                     int start = jTextArea1.getLineStartOffset(index);
