@@ -881,6 +881,7 @@ public class MainJPanel extends javax.swing.JPanel {
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
         ResetButtonActionPerformed(evt);
 
+        
         jTextArea1.setText("");
         jTextArea1.setForeground(Color.black);
         try {
@@ -908,6 +909,7 @@ public class MainJPanel extends javax.swing.JPanel {
        moves = null;
        if(checkButton != null)
            checkButton.setBackground(oldColor);
+       endGame(false);
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
@@ -1396,12 +1398,16 @@ public class MainJPanel extends javax.swing.JPanel {
         if(whiteon)
             input.addMove(new MoveDisplay(fullMove, whiteMove, blackMove));
         
+        if(ToButton.getIcon().equals(imgKingBlack) || ToButton.getIcon().equals(imgKingWhite))
+            endGame(true);
+        
         print(resultMove);
         FromButton = ToButton = null;
         canmove = false;
         
         highlight(moveCounter);
         loadPositions(false);
+        
     }
     
     private IField KnightCheck2Move(IField nextField, IField.Direction dir)
@@ -1624,6 +1630,16 @@ public class MainJPanel extends javax.swing.JPanel {
         } catch (BadLocationException ex) {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void endGame(boolean end)
+    {
+        end = !end;
+        JButton[][] buttons = fillButtons();
+            
+           for(int i = 0; i < 8; i++)
+               for(int j = 0; j < 8; j++)
+                   buttons[i][j].setEnabled(end);
     }
     
     private void addAction()
