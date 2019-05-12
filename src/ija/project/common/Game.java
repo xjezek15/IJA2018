@@ -286,6 +286,9 @@ public class Game extends java.lang.Object implements IGame
             return null;        
         if (nextField.isEmpty())
         {
+            if (to.getLocation().getRow() != 3 && to.getLocation().getRow() != 4)
+                return null;
+            
             nextField = nextField.nextField(direction);
             
             if (nextField == null || nextField.isEmpty()) 
