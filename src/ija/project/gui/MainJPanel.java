@@ -1300,6 +1300,7 @@ public class MainJPanel extends javax.swing.JPanel {
         FromButton = ToButton = null;
         canmove = false;
         
+        highlight(moveCounter);
         loadPositions(false);
     }
     
