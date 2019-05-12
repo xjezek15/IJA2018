@@ -36,6 +36,8 @@ public class Input implements IInput
         this.file = file;
     }
     
+    public Input(){}
+    
     @Override
     public void saveMoves(File file) throws IOException
     {  
