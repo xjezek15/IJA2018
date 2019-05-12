@@ -114,7 +114,7 @@ public class Input implements IInput
                     case 'J':
                         return IFigure.KNIGHT;
                         
-                    case 'P':
+                    case 'p':
                         return IFigure.PAWN;
                 }
             }         
