@@ -4,6 +4,7 @@
  * @author Jan Ježek (xjezek15)
  * @author Šimon Šesták (xsesta06)
  */
+
 package ija.project.utilities;
 
 import ija.project.gui.MainJPanel;
