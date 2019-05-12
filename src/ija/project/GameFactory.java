@@ -54,22 +54,4 @@ public abstract class GameFactory extends java.lang.Object
 
         return new Game();
     }
-
-    public static IGame createCheckersGame(Board board)
-    {
-        throw new UnsupportedOperationException("Checkers game not implemented");
-//        for (int col = 0; col < board.getSize(); col++)
-//        {
-//            if (col % 2 == 0)
-//            {
-//                board.addFigure(col, 0, new Figure(false, IFigure.Disk, new int[]{col,0}));
-//            }
-//            else
-//            {
-//                board.addFigure(col, 1, new Figure(false, IFigure.Disk, new int[]{col,1}));
-//            }
-//        }
-//        
-//        return new Game();
-    }
 }
