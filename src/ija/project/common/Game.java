@@ -138,6 +138,8 @@ public class Game extends java.lang.Object implements IGame
                 if (to.putFigure(fromFigure))
                 {
                     boolean check = isCheck(to, to.getFigure().isBlack(), to.getFigure().getType(), IField.Direction.D);
+                    if(check)
+                        System.err.println("Check");
                     IMove move = new Move(fromFigure, from, to, capturedFigure, check);
                     this.moveStack.push(move);
                     return true;
