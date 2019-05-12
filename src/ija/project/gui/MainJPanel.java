@@ -1327,7 +1327,7 @@ public class MainJPanel extends javax.swing.JPanel {
         
         if (nextField == null)
         {
-            dirs = determineNextDirection(type, dirs);
+            dirs = game.determineNextDirection(type, dirs);
             if (dirs == null) 
                 return false;
             return isCheck(from, isBlack, type, dirs);
@@ -1347,7 +1347,7 @@ public class MainJPanel extends javax.swing.JPanel {
 
             if(nextField == null)
             {
-                dirs = determineNextDirection(type, dirs);
+                dirs = game.determineNextDirection(type, dirs);
                 continue;
             }
 
@@ -1360,7 +1360,7 @@ public class MainJPanel extends javax.swing.JPanel {
             }
             else
             {
-                dirs = determineNextDirection(type, dirs);
+                dirs = game.determineNextDirection(type, dirs);
             }
         }
         
