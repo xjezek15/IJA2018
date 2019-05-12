@@ -1,29 +1,41 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * IJA 2018/2019
+ * Projekt
+ * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 package ija.project.utilities;
 
 import ija.project.gui.MainJPanel;
 import java.util.TimerTask;
-/**
- *
- * @author simon
- */
-public class AutoPlayTimer extends TimerTask{
 
+/**
+ * Functionality for autoplay
+ * @author xsesta06
+ */
+public class AutoPlayTimer extends TimerTask
+{
     private final MainJPanel panel;
     private final int rows;
     private int row = 1;
-    public AutoPlayTimer( MainJPanel panel, int rows) {
+    
+    /**
+     * 
+     * @param panel
+     * @param rows
+     */
+    public AutoPlayTimer( MainJPanel panel, int rows) 
+    {
         this.panel = panel;
         this.rows = rows;
     }
     
-    
+    /**
+     * Runs timer
+     */
     @Override
-    public void run() {
+    public void run() 
+    {
         panel.Next();
         panel.highlight(row++);
         if(row >= rows)
@@ -33,6 +45,5 @@ public class AutoPlayTimer extends TimerTask{
             panel.getTimer().purge();
             return;
         }
-}
-
+    }
 }

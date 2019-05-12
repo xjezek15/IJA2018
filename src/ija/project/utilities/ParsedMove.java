@@ -2,12 +2,17 @@
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 
 package ija.project.utilities;
 
 import ija.project.common.IFigure;
 
+/**
+ * Implements parsedMove
+ * @author xjezek15
+ */
 public class ParsedMove 
 {
     private final IFigure.Type figureTypeFrom;
@@ -18,6 +23,14 @@ public class ParsedMove
     private final boolean check;
     private final boolean mate;
     
+    /**
+     * ParsedMove without from location.
+     * @param figureTypeTo
+     * @param locationTo
+     * @param capture
+     * @param check
+     * @param mate
+     */
     public ParsedMove(IFigure.Type figureTypeTo, Location locationTo, boolean capture, boolean  check, boolean mate) 
     {
         this.figureTypeFrom = null;
@@ -29,6 +42,16 @@ public class ParsedMove
         this.mate = mate;
     }
 
+    /**
+     * ParsedMove with from location.
+     * @param figureTypeFrom
+     * @param figureTypeTo
+     * @param locationFrom
+     * @param locationTo
+     * @param capture
+     * @param check
+     * @param mate
+     */
     public ParsedMove(IFigure.Type figureTypeFrom, IFigure.Type figureTypeTo, Location locationFrom, Location locationTo, boolean capture, boolean  check, boolean mate) 
     {
         this.figureTypeFrom = figureTypeFrom;
@@ -40,36 +63,19 @@ public class ParsedMove
         this.mate = mate;
     }
 
-    public boolean isCapture() 
-    {
-        return capture;
-    }
-
-    public boolean isCheck() 
-    {
-        return check;
-    }
-
-    public boolean isMate() 
-    {
-        return mate;
-    }
-
-    public IFigure.Type getFigureTypeFrom() 
-    {
-        return figureTypeFrom;
-    }
-
-    public IFigure.Type getFigureTypeTo() 
-    {
-        return figureTypeTo;
-    }
-
+    /**
+     *
+     * @return location from
+     */
     public Location getLocationFrom() 
     {
         return locationFrom;
     }
 
+    /**
+     *
+     * @return location to
+     */
     public Location getLocationTo() 
     {
         return locationTo;

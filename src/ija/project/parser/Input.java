@@ -2,6 +2,7 @@
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 
 package ija.project.parser;
@@ -24,6 +25,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Implements parsing of input file.
+ * @author xjezek15
+ */
 public class Input implements IInput
 {
     private List<MoveDisplay> list;
@@ -31,13 +36,25 @@ public class Input implements IInput
     private final char[] figures = new char[] {'K', 'D', 'V', 'S', 'J', 'p'};
     private File file = null;
     
+    /**
+     *
+     * @param file
+     */
     public Input(File file)
     {
         this.file = file;
     }
     
+    /**
+     *
+     */
     public Input(){}
     
+    /**
+     * Saves list of moves into file.
+     * @param file
+     * @throws IOException
+     */
     @Override
     public void saveMoves(File file) throws IOException
     {  
@@ -48,16 +65,24 @@ public class Input implements IInput
         }        
     }
     
+    /**
+     *
+     * @return list of moves
+     */
     @Override
     public List<MoveDisplay> getMoves()
     {
         return this.list;
     }
     
+    /**
+     * Loads moves from file into list of moves.
+     * List of moves is null, if input is corrupted.
+     * @throws IOException
+     */
     @Override
     public void loadMoves() throws IOException 
     {
-        IBoard board = new Board(8);
         List<MoveDisplay> moveDisplayList = new ArrayList<>();
         
         FileInputStream fileInputStream = new FileInputStream(this.file);
@@ -86,6 +111,11 @@ public class Input implements IInput
         this.list = moveDisplayList;
     }
     
+    /**
+     * adds move to move list
+     * @param move
+     * @return true if success
+     */
     @Override
     public boolean addMove(MoveDisplay move)
     {
@@ -135,6 +165,11 @@ public class Input implements IInput
         return null;
     }
     
+    /**
+     * Function will parse move into locationFrom, locationTo etc.
+     * @param move
+     * @return ParsedMove if move has valid notation
+     */
     @Override
     public ParsedMove parseMove(String move)
     {
