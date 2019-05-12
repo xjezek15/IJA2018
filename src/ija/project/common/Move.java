@@ -14,21 +14,15 @@ public class Move extends java.lang.Object implements IMove
     private final IFigure capturedFigure;
     private final IField from;
     private final IField to;
-    private final boolean check;
    
 
-    public Move(IFigure fromFigure, IField from, IField to, IFigure capturedFigure, boolean check)
+    public Move(IFigure fromFigure, IField from, IField to, IFigure capturedFigure)
     {
         this.fromFigure = fromFigure;
         this.from = from;
         this.to = to;
         this.capturedFigure = capturedFigure;
-        this.check = check;
     } 
-
-    public boolean isCheck() {
-        return check;
-    }
 
     @Override
     public IField getFromField()

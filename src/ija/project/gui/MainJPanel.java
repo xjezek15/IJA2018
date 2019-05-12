@@ -1,7 +1,6 @@
 package ija.project.gui;
 
 import ija.project.GameFactory;
-import ija.project.common.Field;
 import ija.project.common.IField;
 import ija.project.common.IFigure;
 import ija.project.common.IGame;
@@ -44,9 +43,16 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private JButton FromButton;
     private JButton ToButton;
+    private JButton checkButton;
+    
+    private Color oldColor;
+    
     private boolean first = true;
     private boolean canmove = false;
     private boolean whiteon = true;
+    private boolean blackCheck = false;
+    private boolean whiteCheck = false;
+    
     private ParsedMove whiteMove, blackMove;
     private String fullMove;
     
@@ -1264,19 +1270,31 @@ public class MainJPanel extends javax.swing.JPanel {
         Location  locationTo = move.getLocationTo();
         
         IField toField = board.getField(locationTo.getCol(), locationTo.getRow());
+        IField fromField = board.getField(locationFrom.getCol(), locationFrom.getRow());
+        boolean fromFigureColor = fromField.getFigure().isBlack();
+        IField.Direction dir = IField.Direction.D;
+        IFigure.Type type = fromField.getFigure().getType();
         
-        boolean check = isCheck(toField, toField.getFigure().isBlack(), toField.getFigure().getType(), IField.Direction.D);
+        if(type == IFigure.Type.Bishop)
+            dir = IField.Direction.LD;
+        boolean check = isCheck(toField, fromFigureColor, type, dir);
         
-        if(check)
-            resultMove += "+";
-            //ToButton.setBackground(Color.magenta);
-        
-        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), toField))
+              
+        if(!game.move(fromField, toField))
         {
           printErr("Wrong turn!");
           canmove = false;
           FromButton = ToButton = null;
           return;
+        }
+        
+        if(check)
+        {
+            resultMove += "+";
+            oldColor = ToButton.getBackground();
+            checkButton = ToButton;
+            ToButton.setBackground(Color.magenta);
+            printNotice(fromFigureColor ? "Black: Check" : "White: Check");
         }
         
         if(whiteon)
@@ -1285,6 +1303,11 @@ public class MainJPanel extends javax.swing.JPanel {
             fullMove = resultMove;
             whiteon = false;
             whiteMove = move;
+            if(whiteCheck)
+            {    
+                whiteCheck = false;
+                checkButton.setBackground(oldColor);
+            }
         }          
         else
         {
@@ -1292,6 +1315,19 @@ public class MainJPanel extends javax.swing.JPanel {
             fullMove += resultMove; 
             whiteon = true;
             blackMove = move;
+            if(blackCheck)
+            {
+                blackCheck = false;
+                checkButton.setBackground(oldColor);
+            }
+        }
+        
+        if(check)
+        {            
+            if(fromFigureColor)
+                blackCheck = true;
+            else
+                whiteCheck = true;
         }
         
         int lineIndex = jTextArea1.getLineCount();
@@ -1320,8 +1356,7 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private boolean isCheck(IField from, boolean isBlack, IFigure.Type type, IField.Direction dirs)
     {
-        if(type == IFigure.Type.Bishop)
-            dirs = IField.Direction.LD;
+        
         
         IField nextField = from.nextField(dirs);
         
