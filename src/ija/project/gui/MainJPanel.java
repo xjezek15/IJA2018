@@ -1,6 +1,8 @@
 package ija.project.gui;
 
 import ija.project.GameFactory;
+import ija.project.common.Field;
+import ija.project.common.IField;
 import ija.project.common.IFigure;
 import ija.project.common.IGame;
 import ija.project.game.Board;
@@ -1257,10 +1259,19 @@ public class MainJPanel extends javax.swing.JPanel {
         
         ParsedMove move =  input.parseMove(resultMove);
         
+              
         Location locationFrom = move.getLocationFrom();
         Location  locationTo = move.getLocationTo();
         
-        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
+        IField toField = board.getField(locationTo.getCol(), locationTo.getRow());
+        
+        boolean check = isCheck(toField, toField.getFigure().isBlack(), toField.getFigure().getType(), IField.Direction.D);
+        
+        if(check)
+            resultMove += "+";
+            //ToButton.setBackground(Color.magenta);
+        
+        if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), toField))
         {
           printErr("Wrong turn!");
           canmove = false;
@@ -1305,6 +1316,55 @@ public class MainJPanel extends javax.swing.JPanel {
         
         highlight(moveCounter);
         loadPositions(false);
+    }
+    
+    private boolean isCheck(IField from, boolean isBlack, IFigure.Type type, IField.Direction dirs)
+    {
+        if(type == IFigure.Type.Bishop)
+            dirs = IField.Direction.LD;
+        
+        IField nextField = from.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            dirs = determineNextDirection(type, dirs);
+            if (dirs == null) 
+                return false;
+            return isCheck(from, isBlack, type, dirs);
+        }
+        
+        while(dirs != null)
+        {
+            nextField = from.nextField(dirs);
+            
+            while(nextField != null)
+            {
+                if(nextField.isEmpty())
+                    nextField = nextField.nextField(dirs);
+                else
+                    break;
+            }
+
+            if(nextField == null)
+            {
+                dirs = determineNextDirection(type, dirs);
+                continue;
+            }
+
+            if(nextField.getFigure().getType() == IFigure.Type.King)
+            {
+                if(isBlack != nextField.getFigure().isBlack())
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                dirs = determineNextDirection(type, dirs);
+            }
+        }
+        
+        return false;
     }
     
     private void Next()

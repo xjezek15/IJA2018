@@ -9,6 +9,7 @@ package ija.project.common;
 public interface IGame 
 {
     IMove getLastMove();
+    IField.Direction determineNextDirection(IFigure.Type type, IField.Direction dirs);
     boolean move(boolean isBlack, Figure.Type type, IField to);
     boolean move(IField from, IField to);
     void undo();
