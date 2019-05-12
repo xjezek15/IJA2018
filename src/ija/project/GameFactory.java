@@ -2,19 +2,28 @@
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 
 package ija.project;
 
 import ija.project.common.Figure;
 import ija.project.common.Game;
-import ija.project.game.Board;
 import ija.project.common.IFigure;
 import ija.project.common.IGame;
 import ija.project.game.IBoard;
 
+/**
+ * Abstract class for creating new game of chess
+ * @author xjezek15
+ */
 public abstract class GameFactory extends java.lang.Object
 {
+    /**
+     * Adds all starting figures to board.
+     * @param board
+     * @return game
+     */
     public static IGame createChessGame(IBoard board)
     {
         // adding pawns
