@@ -1,4 +1,4 @@
-    /**
+/**
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
@@ -99,8 +99,7 @@ public class Game extends java.lang.Object implements IGame
         }
         else if (type == IFigure.KNIGHT)
         {
-            from = canMoveKnight();
-            throw new UnsupportedOperationException("Move with Knight not implemented");
+            from = canMoveKnight(isBlack, to);
         }
 
         if (from != null)
@@ -148,7 +147,8 @@ public class Game extends java.lang.Object implements IGame
         return false;
     }
     
-    private IField canMoveKnightR(boolean isBlack, IField to, IField.Direction dirs)
+    // please refactor
+    private IField canMoveKnightUD(boolean isBlack, IField to, IField.Direction dirs)
     {
         IField nextField;
         
@@ -156,41 +156,120 @@ public class Game extends java.lang.Object implements IGame
         
         if (nextField == null)
         {
-            dirs = determineNextDirection(IFigure.Type.Knight, dirs);
-            if (dirs == null) 
-                return null;
+            if (dirs == IField.D)                
+                return canMoveKnightUD(isBlack, to, IField.U);
             else
-                return canMoveKnightR(isBlack, to, dirs);
+                return null;
         }
         
         nextField = nextField.nextField(dirs);
         
         if (nextField == null)
         {
-            dirs = determineNextDirection(IFigure.Type.Knight, dirs);
-            if (dirs == null) 
-                return null;
+            if (dirs == IField.D)
+                return canMoveKnightUD(isBlack, to, IField.U);
             else
-                return canMoveKnightR(isBlack, to, dirs);
+                return null;
         }
         
+        IField nextFieldL = nextField.nextField(IField.L);
+        IFigure figure;
         
+        if (nextFieldL != null)
+        {
+            if (!nextFieldL.isEmpty())     
+            {
+                figure = nextFieldL.getFigure();
+                
+                if (figure.getType() == IFigure.Type.Knight && figure.isBlack() == isBlack)
+                    return nextFieldL;
+            }
+        }
         
-        return null;
+        IField nextFieldR = nextField.nextField(IField.R);
+        
+        if (nextFieldR != null)
+        {
+            if (!nextFieldR.isEmpty())
+            {
+                figure = nextFieldR.getFigure();
+                
+                if (figure.getType() == IFigure.Type.Knight && figure.isBlack() == isBlack)
+                    return nextFieldR;
+            }
+        } 
+        
+        if (dirs == IField.D)
+            return canMoveKnightUD(isBlack, to, IField.U);
+        else
+            return null;
     }
     
-    private IField canMoveKnightL(boolean isBlack, IField to)
+    // please refactor
+    private IField canMoveKnightLR(boolean isBlack, IField to, IField.Direction dirs)
     {
-        return null;
+        IField nextField;
+        
+        nextField = to.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            if (dirs == IField.L)                
+                return canMoveKnightUD(isBlack, to, IField.R);
+            else
+                return null;
+        }
+        
+        nextField = nextField.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            if (dirs == IField.L)
+                return canMoveKnightUD(isBlack, to, IField.R);
+            else
+                return null;
+        }
+        
+        IField nextFieldL = nextField.nextField(IField.U);
+        IFigure figure;
+        
+        if (nextFieldL != null)
+        {
+            if (!nextFieldL.isEmpty())     
+            {
+                figure = nextFieldL.getFigure();
+                
+                if (figure.getType() == IFigure.Type.Knight && figure.isBlack() == isBlack)
+                    return nextFieldL;
+            }
+        }
+        
+        IField nextFieldR = nextField.nextField(IField.D);
+        
+        if (nextFieldR != null)
+        {
+            if (!nextFieldR.isEmpty())
+            {
+                figure = nextFieldR.getFigure();
+                
+                if (figure.getType() == IFigure.Type.Knight && figure.isBlack() == isBlack)
+                    return nextFieldR;
+            }
+        } 
+        
+        if (dirs == IField.L)
+            return canMoveKnightUD(isBlack, to, IField.R);
+        else
+            return null;
     }
     
     private IField canMoveKnight(boolean isBlack, IField to)
     {
-        IField from = canMoveKnightR(isBlack, to);
+        IField from = canMoveKnightUD(isBlack, to, IField.Direction.U);
         if (from != null)
             return from;
         else
-            return canMoveKnightL(isBlack, to);
+            return canMoveKnightLR(isBlack, to, IField.Direction.L);
     }
     
     private IField canMovePawnForward(boolean isBlack, IField to)
