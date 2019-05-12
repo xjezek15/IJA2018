@@ -26,13 +26,14 @@ import java.util.List;
 
 public class Input implements IInput
 {
-    private final List<MoveDisplay> list;
+    private List<MoveDisplay> list;
     private int movesCounter = 1;
     private final char[] figures = new char[] {'K', 'D', 'V', 'S', 'J', 'p'};
+    private File file = null;
     
-    public Input(File file) throws IOException 
+    public Input(File file)
     {
-        this.list = loadMoves(file);
+        this.file = file;
     }
     
     @Override
@@ -51,28 +52,28 @@ public class Input implements IInput
         return this.list;
     }
     
-    private List<MoveDisplay> loadMoves(File file) throws IOException 
+    @Override
+    public void loadMoves() throws IOException 
     {
         IBoard board = new Board(8);
-        IGame game = GameFactory.createChessGame(board);  
         List<MoveDisplay> moveDisplayList = new ArrayList<>();
         
-        FileInputStream fileInputStream = new FileInputStream(file);
+        FileInputStream fileInputStream = new FileInputStream(this.file);
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream))) 
         {
             String line;
             while ((line = bufferedReader.readLine()) != null) 
             {
                 String[] components = line.split(" ");
-                if (components.length != 3) return null;
+                if (components.length != 3) return;
 
                 // check if number is correct
-                if (components[0].charAt(components[0].length() - 1) != '.') return null;
-                if (this.movesCounter != Integer.parseInt(components[0].substring(0, components[0].length() - 1))) return null;
+                if (components[0].charAt(components[0].length() - 1) != '.') return;
+                if (this.movesCounter != Integer.parseInt(components[0].substring(0, components[0].length() - 1))) return;
 
                 ParsedMove whiteMove = parseMove(components[1]);
                 ParsedMove blackMove = parseMove(components[2]);                                                            
-                if (whiteMove == null || blackMove == null) return null;
+                if (whiteMove == null || blackMove == null) return;
                                
                 moveDisplayList.add(new MoveDisplay(line, whiteMove, blackMove));
 
@@ -80,7 +81,7 @@ public class Input implements IInput
             }
         }
             
-        return moveDisplayList;
+        this.list = moveDisplayList;
     }
     
     private static enum State
@@ -88,7 +89,7 @@ public class Input implements IInput
         START, 
         FROM_FIGURE_TYPE, FROM_FIGURE_COLUMN, FROM_FIGURE_ROW, 
         SHORT_END, 
-        TO_FIGURE_TYPE, TO_FIGURE_COLUMN, TO_FIGURE_ROW,
+        TO_FIGURE, TO_FIGURE_COLUMN, TO_FIGURE_ROW,
     }
     
     private Type figureExists(char element)
@@ -162,8 +163,10 @@ public class Input implements IInput
                     }
                     else if (element == 'x')
                     {
-                        if (capture) return null;
-                            else capture = true;
+                        if (capture) 
+                            return null;
+                        else 
+                            capture = true;
                     }   
                     else return null;
                     break;
@@ -186,20 +189,13 @@ public class Input implements IInput
                             mate = true;
                             state = State.SHORT_END;
                             break;
-                        default:
-                            if (capture) return null;
-                            
-                            figureTypeTo = figureExists(element);
-                            if (figureTypeTo == null)
-                            {
-                                figureTypeTo = IFigure.PAWN;
-                                index--;
-                            }
-                            state = State.TO_FIGURE_TYPE;
+                        default:                            
+                            state = State.TO_FIGURE;
+                            index--;
                             break;
                     }
                     break;
-                case TO_FIGURE_TYPE:
+                case TO_FIGURE:
                     if (element >= 'a' && element <= 'h')
                     {
                         columnTo = element;
@@ -207,10 +203,13 @@ public class Input implements IInput
                     }
                     else if (element == 'x')
                     {                   
-                        if (capture) return null;
-                            else capture = true;
+                        if (capture) 
+                            return null;
+                        else 
+                            capture = true;
                     }   
-                    else return null;
+                    else 
+                        return null;
                     break;
                 case TO_FIGURE_COLUMN:
                     if (element >= '1' && element <= '8')
