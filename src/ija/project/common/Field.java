@@ -2,18 +2,29 @@
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 
 package ija.project.common;
 
 import ija.project.utilities.Location;
 
+/**
+ * Class implementing functionality of one field.
+ * @author xjezek15
+ */
 public class Field extends java.lang.Object implements IField
 {
     private IFigure figure;
     private final IField surroundingFields[];
     private final Location location;
     
+    /**
+     * Creates new Location from col and row.
+     * Adds surroundingFields to null.
+     * @param col
+     * @param row
+     */
     public Field(int col, int row)
     {
         this.figure = null;
@@ -21,18 +32,30 @@ public class Field extends java.lang.Object implements IField
         this.location = new Location(col, row);
     }
    
+    /**
+     * 
+     * @return isEmpty
+     */
     @Override
     public boolean isEmpty()
     {
         return this.figure == null;
     }
 
+    /**
+     *
+     * @return location (col, row)
+     */
     @Override
     public Location getLocation()
     {
         return this.location;
     }
 
+    /**
+     *
+     * @return figure
+     */
     @Override
     public IFigure getFigure()
     {
@@ -46,6 +69,11 @@ public class Field extends java.lang.Object implements IField
         }
     }
     
+    /**
+     *
+     * @param figure
+     * @return true if success
+     */
     @Override
     public boolean putFigure(IFigure figure)
     {
@@ -60,6 +88,11 @@ public class Field extends java.lang.Object implements IField
         }
     }
 
+    /**
+     *
+     * @param figure
+     * @return true if success
+     */
     @Override
     public boolean removeFigure(IFigure figure)
     {
@@ -72,6 +105,11 @@ public class Field extends java.lang.Object implements IField
         return true;
     }
 
+    /**
+     * Adds field into surroundingFields of this in said dirs.
+     * @param dirs
+     * @param field
+     */
     @Override
     public void addNextField(IField.Direction dirs, IField field)
     {
@@ -81,6 +119,11 @@ public class Field extends java.lang.Object implements IField
         }
     }
 
+    /**
+     * Returns field in said dirs.
+     * @param dirs
+     * @return field
+     */
     @Override
     public IField nextField(IField.Direction dirs)
     {
@@ -126,6 +169,10 @@ public class Field extends java.lang.Object implements IField
         return -1;
     }
     
+    /**
+     * For testing.
+     * @return string color, figureType, location
+     */
     @Override
     public String getState()
     {
