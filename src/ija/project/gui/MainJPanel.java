@@ -852,10 +852,10 @@ public class MainJPanel extends javax.swing.JPanel {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
         moves = input.getMoves();
-        for(MoveDisplay move : moves)
+        moves.forEach((move) -> 
         {
             jTextArea1.append(move.getMoveText() + "\n");
-        }
+        });
     }//GEN-LAST:event_LoadButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
@@ -1210,7 +1210,7 @@ public class MainJPanel extends javax.swing.JPanel {
 
         String from = this.FromButton.getName().toLowerCase();
         String to = this.ToButton.getName().toLowerCase();
-        String figure = "";
+        String figure;
         Icon icon = this.FromButton.getIcon();
         
         if(whiteon)
