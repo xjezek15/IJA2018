@@ -248,7 +248,7 @@ public class MainJPanel extends javax.swing.JPanel {
         });
 
         textField1.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        textField1.setText("2000");
+        textField1.setText("1000");
 
         jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
@@ -1356,8 +1356,8 @@ public class MainJPanel extends javax.swing.JPanel {
         }          
         else
         {
-            resultMove += "\n"; 
             fullMove += resultMove; 
+            resultMove += "\n";
             whiteon = true;
             blackMove = move;
             if(blackCheck)
@@ -1391,8 +1391,8 @@ public class MainJPanel extends javax.swing.JPanel {
             }
         }     
         
-        //if(whiteon)
-        //    input.addMove(new MoveDisplay(fullMove, whiteMove, blackMove));
+        if(whiteon)
+            input.addMove(new MoveDisplay(fullMove, whiteMove, blackMove));
         
         print(resultMove);
         FromButton = ToButton = null;

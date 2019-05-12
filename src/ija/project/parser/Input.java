@@ -87,6 +87,8 @@ public class Input implements IInput
     @Override
     public boolean addMove(MoveDisplay move)
     {
+        if(list == null)
+            list = new ArrayList<>();
         return list.add(move);
        
     }   
