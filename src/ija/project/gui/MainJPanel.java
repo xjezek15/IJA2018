@@ -45,7 +45,7 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private JButton FromButton;
     private JButton ToButton;
-    private JButton checkButton;
+    private JButton checkButton = null;
     
     private Color oldColor;
     
@@ -906,6 +906,8 @@ public class MainJPanel extends javax.swing.JPanel {
        canmove = false;
        whiteon = true;
        moves = null;
+       if(checkButton != null)
+           checkButton.setBackground(oldColor);
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
@@ -1480,10 +1482,37 @@ public class MainJPanel extends javax.swing.JPanel {
         return false;
     }
     
+    private boolean isCheckPawn(IField from, boolean isBlack)
+    {
+        IField nextField;
+        if(isBlack)
+        {
+            nextField = from.nextField(IField.Direction.LD);
+            if(isKing(nextField, isBlack))
+                return true;
+            nextField = from.nextField(IField.Direction.RD);
+            if(isKing(nextField, isBlack))
+                return true;
+        }
+        else
+        {
+            nextField = from.nextField(IField.Direction.LU);
+            if(isKing(nextField, isBlack))
+                return true;
+            nextField = from.nextField(IField.Direction.RU);
+            if(isKing(nextField, isBlack))
+                return true;
+        }
+        return false;
+    }
+    
     private boolean isCheck(IField from, boolean isBlack, IFigure.Type type, IField.Direction dirs)
     {
         if(type == IFigure.Type.Knight)
             return isCheckKnight(from, isBlack, dirs);
+        
+        if(type == IFigure.Type.Pawn)
+            return isCheckPawn(from, isBlack);
         
         IField nextField = from.nextField(dirs);
         
