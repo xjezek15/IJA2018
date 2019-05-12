@@ -1195,9 +1195,6 @@ public class MainJPanel extends javax.swing.JPanel {
             canmove = true;
         }
     }
-     
-    private ParsedMove whiteMove, blackMove;
-    private String fullMove;
     
     private void Move()
     {
