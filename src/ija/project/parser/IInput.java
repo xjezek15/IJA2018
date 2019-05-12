@@ -19,4 +19,5 @@ public interface IInput
     void loadMoves() throws IOException;
     List<MoveDisplay> getMoves();
     ParsedMove parseMove(String move);
+    boolean addMove(MoveDisplay move);
 }

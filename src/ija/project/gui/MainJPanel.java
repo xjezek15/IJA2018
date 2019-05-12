@@ -8,6 +8,7 @@ import ija.project.game.Board;
 import ija.project.game.IBoard;
 import ija.project.parser.IInput;
 import ija.project.parser.Input;
+import ija.project.utilities.AutoPlayTimer;
 import ija.project.utilities.Location;
 import ija.project.utilities.MoveDisplay;
 import ija.project.utilities.ParsedMove;
@@ -25,6 +26,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import java.util.Timer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -77,6 +79,8 @@ public class MainJPanel extends javax.swing.JPanel {
     private final ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
     
     private IInput input = null;
+    private Timer timer;
+    private AutoPlayTimer te;
     
     /**
      * Creates new form MainJPanel
@@ -87,6 +91,14 @@ public class MainJPanel extends javax.swing.JPanel {
         loadPositions(true);
         addAction();
         input = new Input(new File(path + "/data/input.txt"));
+    }
+
+    public Timer getTimer() {
+        return timer;
+    }
+
+    public AutoPlayTimer getTe() {
+        return te;
     }
 
     /**
@@ -222,6 +234,11 @@ public class MainJPanel extends javax.swing.JPanel {
         });
 
         StopButton.setLabel("Stop");
+        StopButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StopButtonActionPerformed(evt);
+            }
+        });
 
         AutoPlayButton.setLabel("Autoplay");
         AutoPlayButton.addActionListener(new java.awt.event.ActionListener() {
@@ -925,15 +942,16 @@ public class MainJPanel extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_jTextArea1MouseClicked
-
+    
     private void AutoPlayButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoPlayButtonActionPerformed
         int sleep = Integer.parseInt(textField1.getText());
         jTextArea1.getHighlighter().removeAllHighlights();
         
-        for(int i = 0; i < moves.size(); i++)
-        {
-            Next();
-        }
+        
+        timer = new Timer();
+        te = new AutoPlayTimer(this, jTextArea1.getLineCount());
+        
+        timer.scheduleAtFixedRate(te, 0, sleep);
     }//GEN-LAST:event_AutoPlayButtonActionPerformed
 
     private void SaveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveButtonActionPerformed
@@ -943,6 +961,12 @@ public class MainJPanel extends javax.swing.JPanel {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_SaveButtonActionPerformed
+
+    private void StopButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StopButtonActionPerformed
+        te.cancel();
+        timer.cancel();
+        timer.purge();
+    }//GEN-LAST:event_StopButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1367,6 +1391,9 @@ public class MainJPanel extends javax.swing.JPanel {
             }
         }     
         
+        //if(whiteon)
+        //    input.addMove(new MoveDisplay(fullMove, whiteMove, blackMove));
+        
         print(resultMove);
         FromButton = ToButton = null;
         canmove = false;
@@ -1423,7 +1450,7 @@ public class MainJPanel extends javax.swing.JPanel {
         return false;
     }
     
-    private void Next()
+    public void Next()
     {
         if(moves == null || moves.size() <= moveCounter || moves.isEmpty())
         {
@@ -1474,7 +1501,7 @@ public class MainJPanel extends javax.swing.JPanel {
         loadPositions(false);
     }
     
-    private void highlight(int line)
+    public void highlight(int line)
     {
         jTextArea1.getHighlighter().removeAllHighlights();
         try {

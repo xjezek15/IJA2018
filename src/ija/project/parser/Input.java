@@ -84,6 +84,13 @@ public class Input implements IInput
         this.list = moveDisplayList;
     }
     
+    @Override
+    public boolean addMove(MoveDisplay move)
+    {
+        return list.add(move);
+       
+    }   
+    
     private static enum State
     {
         START, 
