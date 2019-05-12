@@ -99,6 +99,7 @@ public class Game extends java.lang.Object implements IGame
         }
         else if (type == IFigure.KNIGHT)
         {
+            from = canMoveKnight();
             throw new UnsupportedOperationException("Move with Knight not implemented");
         }
 
@@ -145,6 +146,51 @@ public class Game extends java.lang.Object implements IGame
         }
 
         return false;
+    }
+    
+    private IField canMoveKnightR(boolean isBlack, IField to, IField.Direction dirs)
+    {
+        IField nextField;
+        
+        nextField = to.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            dirs = determineNextDirection(IFigure.Type.Knight, dirs);
+            if (dirs == null) 
+                return null;
+            else
+                return canMoveKnightR(isBlack, to, dirs);
+        }
+        
+        nextField = nextField.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            dirs = determineNextDirection(IFigure.Type.Knight, dirs);
+            if (dirs == null) 
+                return null;
+            else
+                return canMoveKnightR(isBlack, to, dirs);
+        }
+        
+        
+        
+        return null;
+    }
+    
+    private IField canMoveKnightL(boolean isBlack, IField to)
+    {
+        return null;
+    }
+    
+    private IField canMoveKnight(boolean isBlack, IField to)
+    {
+        IField from = canMoveKnightR(isBlack, to);
+        if (from != null)
+            return from;
+        else
+            return canMoveKnightL(isBlack, to);
     }
     
     private IField canMovePawnForward(boolean isBlack, IField to)
@@ -266,7 +312,7 @@ public class Game extends java.lang.Object implements IGame
 
     private IField.Direction determineNextDirection(IFigure.Type type, IField.Direction dirs)
     {
-        if (type.equals(IFigure.ROOK))
+        if (type.equals(IFigure.ROOK) || type.equals(IFigure.KNIGHT))
         {
             if (dirs == IField.D)
             {
