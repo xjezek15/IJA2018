@@ -45,6 +45,8 @@ public class MainJPanel extends javax.swing.JPanel {
     private boolean first = true;
     private boolean canmove = false;
     private boolean whiteon = true;
+    private ParsedMove whiteMove, blackMove;
+    private String fullMove;
     
     private IGame game;
     private IBoard board;
@@ -180,6 +182,7 @@ public class MainJPanel extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
+        labelVypis = new javax.swing.JLabel();
 
         UndoButton.setLabel("Undo");
         UndoButton.addActionListener(new java.awt.event.ActionListener() {
@@ -776,6 +779,8 @@ public class MainJPanel extends javax.swing.JPanel {
                         .addGap(26, 26, 26))))
         );
 
+        labelVypis.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -807,15 +812,19 @@ public class MainJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel1)))
                         .addGap(10, 10, 10)
                         .addComponent(StopButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1)))
+                    .addComponent(jScrollPane1)
+                    .addComponent(labelVypis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(labelVypis, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 517, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(UndoButton, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -853,7 +862,12 @@ public class MainJPanel extends javax.swing.JPanel {
        loadPositions(true);
        jTextArea1.setText("");
        jTextArea1.setForeground(Color.black);
+       labelVypis.setText("");
        moveCounter = 0;
+       FromButton = ToButton = null;
+       first = true;
+       canmove = false;
+       whiteon = true;
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
@@ -990,14 +1004,21 @@ public class MainJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    public javax.swing.JLabel labelVypis;
     private java.awt.TextField textField1;
     // End of variables declaration//GEN-END:variables
 
     
     private void printErr(String err)
     {
-        jTextArea1.setForeground(Color.red);
-        jTextArea1.setText(err);
+        labelVypis.setForeground(Color.red);
+        labelVypis.setText(err);
+    }
+    
+    private void printNotice(String notice)
+    {
+        labelVypis.setForeground(Color.black);
+        labelVypis.setText(notice);
     }
     
     private void print(String text)
@@ -1177,11 +1198,7 @@ public class MainJPanel extends javax.swing.JPanel {
             canmove = true;
         }
     }
-    
-    
-    private ParsedMove whiteMove, blackMove;
-    private String fullMove;
-    
+              
     private void Move()
     {
         if(!canmove)
@@ -1209,7 +1226,7 @@ public class MainJPanel extends javax.swing.JPanel {
            else if(icon.equals(imgPawnWhite))       figure = "p"; 
            else
            {
-               System.err.println("White is on turn!");
+               printErr("White is on turn!");
                canmove = false;
                FromButton = ToButton = null;
                return;
@@ -1224,7 +1241,7 @@ public class MainJPanel extends javax.swing.JPanel {
            else if(icon.equals(imgPawnBlack))       figure = "p"; 
            else
            {
-               System.err.println("Black is on turn!");
+               printErr("Black is on turn!");
                canmove = false;
                FromButton = ToButton = null;
                return;
@@ -1245,7 +1262,7 @@ public class MainJPanel extends javax.swing.JPanel {
         
         if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
         {
-          System.err.println("Wrong turn!");
+          printErr("Wrong turn!");
           canmove = false;
           FromButton = ToButton = null;
           return;
@@ -1363,6 +1380,7 @@ public class MainJPanel extends javax.swing.JPanel {
             {
                 JButton button = (JButton) component;
                 button.addActionListener((ActionEvent e) -> {
+                    labelVypis.setText("");
                     saveButtons((JButton) e.getSource());
                     Move();
                 });

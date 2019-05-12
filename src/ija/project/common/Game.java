@@ -137,13 +137,63 @@ public class Game extends java.lang.Object implements IGame
             {
                 if (to.putFigure(fromFigure))
                 {
-                    IMove move = new Move(fromFigure, from, to, capturedFigure);
+                    boolean check = isCheck(to, to.getFigure().isBlack(), to.getFigure().getType(), IField.Direction.D);
+                    IMove move = new Move(fromFigure, from, to, capturedFigure, check);
                     this.moveStack.push(move);
                     return true;
                 }
             }
         }
 
+        return false;
+    }
+    
+    private boolean isCheck(IField from, boolean isBlack, IFigure.Type type, IField.Direction dirs)
+    {
+        if(type == IFigure.Type.Bishop)
+            dirs = IField.Direction.LD;
+        
+        IField nextField = from.nextField(dirs);
+        
+        if (nextField == null)
+        {
+            dirs = determineNextDirection(type, dirs);
+            if (dirs == null) 
+                return false;
+            return isCheck(from, isBlack, type, dirs);
+        }
+        
+        while(dirs != null)
+        {
+            nextField = from.nextField(dirs);
+            
+            while(nextField != null)
+            {
+                if(nextField.isEmpty())
+                    nextField = nextField.nextField(dirs);
+                else
+                    break;
+            }
+
+            if(nextField == null)
+            {
+                dirs = determineNextDirection(type, dirs);
+                continue;
+            }
+
+            if(nextField.getFigure().getType() == IFigure.Type.King)
+            {
+                if(isBlack != nextField.getFigure().isBlack())
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                dirs = determineNextDirection(type, dirs);
+            }
+        }
+        
         return false;
     }
     
