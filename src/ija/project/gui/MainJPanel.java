@@ -67,15 +67,6 @@ public class MainJPanel extends javax.swing.JPanel {
     private final ImageIcon imgEmpty = new ImageIcon(path + "/lib/icons/empty.png");
     
     private IInput input = null;
-        
-    private void setInput()
-    {
-        try {
-            input = new Input(new File(path + "/data/input.txt"));
-        } catch (IOException ex) {
-            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
     
     /**
      * Creates new form MainJPanel
@@ -85,7 +76,7 @@ public class MainJPanel extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         loadPositions(true);
         addAction();
-        setInput();
+        input = new Input(new File(path + "/data/input.txt"));
     }
 
     /**
@@ -846,6 +837,11 @@ public class MainJPanel extends javax.swing.JPanel {
 
         jTextArea1.setText("");
         jTextArea1.setForeground(Color.black);
+        try {
+            input.loadMoves();
+        } catch (IOException ex) {
+            Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+        }
         moves = input.getMoves();
         for(MoveDisplay move : moves)
         {
@@ -1004,7 +1000,7 @@ public class MainJPanel extends javax.swing.JPanel {
         jTextArea1.setText(err);
     }
     
-    private void vypis(String text)
+    private void print(String text)
     {
         jTextArea1.append(text);
     }
@@ -1185,7 +1181,9 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private ParsedMove whiteMove, blackMove;
     private String fullMove;
-    private void Move(){
+    
+    private void Move()
+    {
         if(!canmove)
             return;
         
@@ -1198,35 +1196,35 @@ public class MainJPanel extends javax.swing.JPanel {
 
         String from = this.FromButton.getName().toLowerCase();
         String to = this.ToButton.getName().toLowerCase();
-        String s = "";
+        String figure = "";
         Icon icon = this.FromButton.getIcon();
         
         if(whiteon)
         {
-           if(icon.equals(imgBishopWhite))          s = "S";
-           else if(icon.equals(imgRookWhite))       s = "V";
-           else if(icon.equals(imgKingWhite))       s = "K";
-           else if(icon.equals(imgQueenWhite))      s = "D"; 
-           else if(icon.equals(imgKnightWhite))     s = "J";
-           else if(icon.equals(imgPawnWhite))       s = "p"; 
+           if(icon.equals(imgBishopWhite))          figure = "S";
+           else if(icon.equals(imgRookWhite))       figure = "V";
+           else if(icon.equals(imgKingWhite))       figure = "K";
+           else if(icon.equals(imgQueenWhite))      figure = "D"; 
+           else if(icon.equals(imgKnightWhite))     figure = "J";
+           else if(icon.equals(imgPawnWhite))       figure = "p"; 
            else
            {
-               System.err.println("Na tahu je bieli!");
+               System.err.println("White is on turn!");
                canmove = false;
                FromButton = ToButton = null;
                return;
            }
         }
         else{
-           if(icon.equals(imgBishopBlack))          s = "S";
-           else if(icon.equals(imgRookBlack))       s = "V"; 
-           else if(icon.equals(imgKingBlack))       s = "K";
-           else if(icon.equals(imgQueenBlack))      s = "D"; 
-           else if(icon.equals(imgKnightBlack))     s = "J";
-           else if(icon.equals(imgPawnBlack))       s = "p"; 
+           if(icon.equals(imgBishopBlack))          figure = "S";
+           else if(icon.equals(imgRookBlack))       figure = "V"; 
+           else if(icon.equals(imgKingBlack))       figure = "K";
+           else if(icon.equals(imgQueenBlack))      figure = "D"; 
+           else if(icon.equals(imgKnightBlack))     figure = "J";
+           else if(icon.equals(imgPawnBlack))       figure = "p"; 
            else
            {
-               System.err.println("Na tahu je čierny!");
+               System.err.println("Black is on turn!");
                canmove = false;
                FromButton = ToButton = null;
                return;
@@ -1234,20 +1232,20 @@ public class MainJPanel extends javax.swing.JPanel {
         }
         
         icon = this.ToButton.getIcon();
-        String sx = "x";
+        String capturing = "x";
         if(icon.equals(imgEmpty))
-            sx = "";
-               
-        s = s + sx + from + to;
+            capturing = "";
+                       
+        String resultMove = figure + from + capturing + to;
         
-        ParsedMove move =  input.parseMove(s);
+        ParsedMove move =  input.parseMove(resultMove);
         
         Location locationFrom = move.getLocationFrom();
         Location  locationTo = move.getLocationTo();
         
         if(!game.move(board.getField(locationFrom.getCol(), locationFrom.getRow()), board.getField(locationTo.getCol(), locationTo.getRow())))
         {
-          System.err.println("Nepovoleny tah!");
+          System.err.println("Wrong turn!");
           canmove = false;
           FromButton = ToButton = null;
           return;
@@ -1255,16 +1253,16 @@ public class MainJPanel extends javax.swing.JPanel {
         
         if(whiteon)
         {
-            s = ++moveCounter + ". " + s + " ";  // POZOR NA MOVECOUNTER NEZVYSUJE SA PRI TAHU !!!
-            fullMove = s;
+            resultMove = ++moveCounter + ". " + resultMove + " ";  // POZOR NA MOVECOUNTER NEZVYSUJE SA PRI TAHU !!!
+            fullMove = resultMove;
             whiteon = false;
             whiteMove = move;
         }
             
         else
         {
-            s += "\n"; 
-            fullMove += s; 
+            resultMove += "\n"; 
+            fullMove += resultMove; 
             whiteon = true;
             blackMove = move;
             //TODO
@@ -1280,7 +1278,7 @@ public class MainJPanel extends javax.swing.JPanel {
 //        }
         
         
-        vypis(s);
+        print(resultMove);
         FromButton = ToButton = null;
         canmove = false;
         

@@ -230,42 +230,42 @@ public class Game extends java.lang.Object implements IGame
                 return null;
         }
         
-        IField nextFieldL = nextField.nextField(IField.U);
+        IField nextFieldU = nextField.nextField(IField.U);
         IFigure figure;
         
-        if (nextFieldL != null)
+        if (nextFieldU != null)
         {
-            if (!nextFieldL.isEmpty())     
+            if (!nextFieldU.isEmpty())     
             {
-                figure = nextFieldL.getFigure();
+                figure = nextFieldU.getFigure();
                 
                 if (figure.getType() == IFigure.Type.Knight && figure.isBlack() == isBlack)
-                    return nextFieldL;
+                    return nextFieldU;
             }
         }
         
-        IField nextFieldR = nextField.nextField(IField.D);
+        IField nextFieldD = nextField.nextField(IField.D);
         
-        if (nextFieldR != null)
+        if (nextFieldD != null)
         {
-            if (!nextFieldR.isEmpty())
+            if (!nextFieldD.isEmpty())
             {
-                figure = nextFieldR.getFigure();
+                figure = nextFieldD.getFigure();
                 
                 if (figure.getType() == IFigure.Type.Knight && figure.isBlack() == isBlack)
-                    return nextFieldR;
+                    return nextFieldD;
             }
         } 
         
         if (dirs == IField.L)
-            return canMoveKnightUD(isBlack, to, IField.R);
+            return canMoveKnightLR(isBlack, to, IField.R);
         else
             return null;
     }
     
     private IField canMoveKnight(boolean isBlack, IField to)
     {
-        IField from = canMoveKnightUD(isBlack, to, IField.Direction.U);
+        IField from = canMoveKnightUD(isBlack, to, IField.Direction.D);
         if (from != null)
             return from;
         else
