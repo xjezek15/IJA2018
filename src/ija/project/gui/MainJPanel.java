@@ -1402,9 +1402,88 @@ public class MainJPanel extends javax.swing.JPanel {
         loadPositions(false);
     }
     
+    private IField KnightCheck2Move(IField nextField, IField.Direction dir)
+    {
+        for(int i  = 0; i < 2; i++)
+        {
+            if(nextField == null)
+                return null;
+            
+            nextField = nextField.nextField(dir);
+        }
+        return nextField;
+    }
+    
+    private boolean isKing(IField fieldKing, boolean isBlack)
+    {
+        if(fieldKing == null)
+            return false;
+        if(fieldKing.isEmpty())
+            return false;
+        IFigure figure = fieldKing.getFigure();
+        if(figure.getType() == IFigure.Type.King)
+            if(figure.isBlack() != isBlack)
+                return true;
+        return false;
+    }
+    
+    private boolean isCheckKnight(IField from, boolean isBlack, IField.Direction dir)
+    {
+        IFigure.Type type = IFigure.Type.Knight;
+        IField nextField;
+        
+        while(dir != null)
+        {
+            nextField = KnightCheck2Move(from, dir);
+            if(dir == IField.Direction.D || dir == IField.Direction.U)
+            {
+                if(nextField == null)
+                {
+                    dir = game.determineNextDirection(type, dir);
+                    continue;
+                }
+                
+                IField save = nextField;
+                nextField = nextField.nextField(IField.Direction.R);
+
+                if(isKing(nextField, isBlack))
+                    return true;
+
+                nextField = save.nextField(IField.Direction.L);
+
+                if(isKing(nextField, isBlack))
+                    return true;
+            }
+            else
+            {
+                if(nextField == null)
+                {
+                    dir = game.determineNextDirection(type, dir);
+                    continue;
+                }
+                    
+                IField save = nextField;
+               nextField = nextField.nextField(IField.Direction.U);
+
+                if(isKing(nextField, isBlack))
+                    return true;
+
+                nextField = save.nextField(IField.Direction.D);
+
+                if(isKing(nextField, isBlack))
+                    return true; 
+            }
+            
+            dir = game.determineNextDirection(type, dir);
+        }
+        
+        return false;
+    }
+    
     private boolean isCheck(IField from, boolean isBlack, IFigure.Type type, IField.Direction dirs)
     {
-        
+        if(type == IFigure.Type.Knight)
+            return isCheckKnight(from, isBlack, dirs);
         
         IField nextField = from.nextField(dirs);
         

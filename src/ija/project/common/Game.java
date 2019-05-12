@@ -392,6 +392,7 @@ public class Game extends java.lang.Object implements IGame
         }
     }
 
+    @Override
     public IField.Direction determineNextDirection(IFigure.Type type, IField.Direction dirs)
     {
         if (type.equals(IFigure.ROOK) || type.equals(IFigure.KNIGHT))
