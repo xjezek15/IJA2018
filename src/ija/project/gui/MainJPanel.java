@@ -881,6 +881,8 @@ public class MainJPanel extends javax.swing.JPanel {
             else if(selected_row <= moveCounter)
                 for(int i = moveCounter; i > selected_row; i--)
                     Undo();
+            
+            whiteon = true;
         } catch (BadLocationException ex) {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1007,8 +1009,6 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private void chooseImgType(IFigure fig, JButton button)
     {
-        
-        
         if(fig == null)
         {
             button.setIcon(imgEmpty);
@@ -1036,7 +1036,6 @@ public class MainJPanel extends javax.swing.JPanel {
             else if(type.equals(IFigure.ROOK))     button.setIcon(imgRookWhite);
         }
     }
-    
     
     private void chooseImgCol(int col, IFigure fig, JButton buttons[])
     {
@@ -1071,8 +1070,7 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private JButton[][] fillButtons()
     {
-        JButton[][] buttons = new JButton[8][8];
-       
+        JButton[][] buttons = new JButton[8][8];   
         
         for(int i = 0; i < 8; i++)
         {
@@ -1101,8 +1099,7 @@ public class MainJPanel extends javax.swing.JPanel {
                     break;
                 case 7:
                     buttons[i] = new JButton[] {H1,H2,H3,H4,H5,H6,H7,H8};
-                    break;
-                    
+                    break;                   
             }
         }
         
@@ -1117,7 +1114,7 @@ public class MainJPanel extends javax.swing.JPanel {
             game =  GameFactory.createChessGame(board);
         }   
         
-            JButton[][] buttons = fillButtons();
+           JButton[][] buttons = fillButtons();
             
            for(int col = 1; col <= 8; col++){
                for(int row = 1; row <= 8; row++){
@@ -1177,8 +1174,7 @@ public class MainJPanel extends javax.swing.JPanel {
             canmove = true;
         }
     }
-    
-    
+     
     private ParsedMove whiteMove, blackMove;
     private String fullMove;
     
@@ -1257,26 +1253,30 @@ public class MainJPanel extends javax.swing.JPanel {
             fullMove = resultMove;
             whiteon = false;
             whiteMove = move;
-        }
-            
+        }          
         else
         {
             resultMove += "\n"; 
             fullMove += resultMove; 
             whiteon = true;
             blackMove = move;
-            //TODO
-            //vymazat list po uroven kliknutia
-            //nefuguje
-            //moves.add(new MoveDisplay(fullMove, whiteMove, blackMove));
         }
         
-//        jTextArea1.setText("");
-//        for(MoveDisplay x : moves)
-//        {
-//            jTextArea1.append(x.getMoveText() + "\n");
-//        }
+        int lineIndex = jTextArea1.getLineCount();
         
+        if (moveCounter < lineIndex)
+        {
+            for (int index = lineIndex; index >= moveCounter - 1; index--) 
+            {
+                try {
+                    int start = jTextArea1.getLineStartOffset(index);
+                    int end = jTextArea1.getLineEndOffset(index);
+                    jTextArea1.replaceRange("", start, end);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
+                }               
+            }
+        }     
         
         print(resultMove);
         FromButton = ToButton = null;
