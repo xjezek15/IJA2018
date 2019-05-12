@@ -2,6 +2,7 @@
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 
 package ija.project.game;
@@ -10,11 +11,19 @@ import ija.project.common.Field;
 import ija.project.common.IField;
 import ija.project.common.IFigure;
 
+/**
+ * Implements functionality for game board.
+ * @author xjezek15
+ */
 public class Board extends java.lang.Object implements IBoard
 {
     private final int size;
     private final IField board[][];
 
+    /**
+     * Initializes all surrounding fields.
+     * @param size
+     */
     public Board(int size) 
     {
         this.size = size;
@@ -77,12 +86,25 @@ public class Board extends java.lang.Object implements IBoard
         }
     }
 
+    /**
+     * Adds figure to field.
+     * @param col
+     * @param row
+     * @param figure
+     * @return true if success
+     */
     @Override
     public boolean addFigure(int col, int row, IFigure figure)
     {
         return this.board[col][row].putFigure(figure);
     }
 
+    /**
+     * Input is from 1 to 8.
+     * @param col
+     * @param row
+     * @return field
+     */
     @Override
     public IField getField(int col, int row)
     {
@@ -101,6 +123,10 @@ public class Board extends java.lang.Object implements IBoard
         }
     }
 
+    /**
+     *
+     * @return size of board
+     */
     @Override
     public int getSize()
     {
