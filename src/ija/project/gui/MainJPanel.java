@@ -90,7 +90,6 @@ public class MainJPanel extends javax.swing.JPanel {
         jTextArea1.setEditable(false);
         loadPositions(true);
         addAction();
-        input = new Input(new File(path + "/data/input.txt"));
     }
 
     public Timer getTimer() {
@@ -227,6 +226,14 @@ public class MainJPanel extends javax.swing.JPanel {
         });
 
         LoadButton.setLabel("Load");
+        LoadButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                LoadButtonMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                LoadButtonMouseReleased(evt);
+            }
+        });
         LoadButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadButtonActionPerformed(evt);
@@ -819,7 +826,6 @@ public class MainJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, 0)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -872,19 +878,33 @@ public class MainJPanel extends javax.swing.JPanel {
                     .addComponent(textField1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(AutoPlayButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGap(5, 5, 5))
         );
 
         SaveButton.getAccessibleContext().setAccessibleName("Save");
     }// </editor-fold>//GEN-END:initComponents
-
+    
     private void LoadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoadButtonActionPerformed
-        ResetButtonActionPerformed(evt);
-
+        Reset();
+        
+        PoPupFrame pop = new PoPupFrame();
+        pop.setVisible(true);
+        
+        File f = new File(path + "/data/" + pop.getName());
         
         jTextArea1.setText("");
         jTextArea1.setForeground(Color.black);
+        
+        while(pop.isVisible())
+            try{
+                Thread.sleep(2500);
+            }catch(Exception e){
+                
+            }
+                
+        
         try {
+            input = new Input(f);
             input.loadMoves();
         } catch (IOException ex) {
             Logger.getLogger(MainJPanel.class.getName()).log(Level.SEVERE, null, ex);
@@ -897,19 +917,7 @@ public class MainJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_LoadButtonActionPerformed
 
     private void ResetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetButtonActionPerformed
-       loadPositions(true);
-       jTextArea1.setText("");
-       jTextArea1.setForeground(Color.black);
-       labelVypis.setText("");
-       moveCounter = 0;
-       FromButton = ToButton = null;
-       first = true;
-       canmove = false;
-       whiteon = true;
-       moves = null;
-       if(checkButton != null)
-           checkButton.setBackground(oldColor);
-       endGame(false);
+       Reset();
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
@@ -972,6 +980,30 @@ public class MainJPanel extends javax.swing.JPanel {
         timer.purge();
     }//GEN-LAST:event_StopButtonActionPerformed
 
+    private void LoadButtonMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadButtonMouseReleased
+        
+    }//GEN-LAST:event_LoadButtonMouseReleased
+
+    private void LoadButtonMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_LoadButtonMousePressed
+        
+    }//GEN-LAST:event_LoadButtonMousePressed
+
+    public void Reset()
+    {
+        loadPositions(true);
+       jTextArea1.setText("");
+       jTextArea1.setForeground(Color.black);
+       labelVypis.setText("");
+       moveCounter = 0;
+       FromButton = ToButton = null;
+       first = true;
+       canmove = false;
+       whiteon = true;
+       moves = null;
+       if(checkButton != null)
+           checkButton.setBackground(oldColor);
+       endGame(false);
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton A1;
@@ -1311,6 +1343,9 @@ public class MainJPanel extends javax.swing.JPanel {
             capturing = "";
                        
         String resultMove = figure + from + capturing + to;
+        
+        if(input == null)
+            input = new Input();
         
         ParsedMove move =  input.parseMove(resultMove);
         
