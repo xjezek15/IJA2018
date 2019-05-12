@@ -868,16 +868,19 @@ public class MainJPanel extends javax.swing.JPanel {
        first = true;
        canmove = false;
        whiteon = true;
+       moves = null;
     }//GEN-LAST:event_ResetButtonActionPerformed
 
     private void UndoButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UndoButtonActionPerformed
         Undo();     
-        highlight(moveCounter);
+        if (moveCounter != 0)
+            highlight(moveCounter);
     }//GEN-LAST:event_UndoButtonActionPerformed
 
     private void NextButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NextButtonActionPerformed
         Next();  
-        highlight(moveCounter);
+        if (moveCounter != 0)
+            highlight(moveCounter);
     }//GEN-LAST:event_NextButtonActionPerformed
     private void jTextArea1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea1MouseClicked
         try {
@@ -1306,9 +1309,8 @@ public class MainJPanel extends javax.swing.JPanel {
     
     private void Next()
     {
-        if(moves.size() <= moveCounter || moves.isEmpty() )
+        if(moves == null || moves.size() <= moveCounter || moves.isEmpty())
         {
-            printErr("ERROR: Overfloat moves stack");
             return;
         }
         
