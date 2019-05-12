@@ -354,9 +354,9 @@ public class Game extends java.lang.Object implements IGame
         IField nextField = to.nextField(dirs);
         
         if (nextField != null)
-            if (nextField.getFigure() != null)
+            if (!nextField.isEmpty())
                 if (nextField.getFigure().getType() == IFigure.KING && nextField.getFigure().isBlack() == isBlack)
-                    return null;
+                    return nextField;
         
         
         dirs = determineNextDirection(IFigure.KING, dirs);
