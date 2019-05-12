@@ -2,6 +2,7 @@
  * IJA 2018/2019
  * Projekt
  * @author Jan Ježek (xjezek15)
+ * @author Šimon Šesták (xsesta06)
  */
 
 package ija.project.common;
@@ -9,15 +10,26 @@ package ija.project.common;
 import static java.lang.Math.abs;
 import java.util.Stack;
 
+/**
+ * Functionality for moving figure.
+ * @author janje
+ */
 public class Game extends java.lang.Object implements IGame
 {
     Stack<IMove> moveStack;
 
+    /**
+     * Initialize stack.
+     */
     public Game()
     {
         moveStack = new Stack<>();
     }
     
+    /**
+     *
+     * @return move
+     */
     @Override
     public IMove getLastMove()
     {
@@ -27,6 +39,10 @@ public class Game extends java.lang.Object implements IGame
         return moveStack.lastElement();
     }
 
+    /**
+     * Gets last move from move stack.
+     * Return state of game to that before this move.
+     */
     @Override
     public void undo()
     {
@@ -44,12 +60,25 @@ public class Game extends java.lang.Object implements IGame
         }           
     }
     
+    /**
+     * Decorator for testing if move can be done.
+     * @param isBlack
+     * @param type
+     * @param to
+     * @return true if success
+     */
     @Override
     public boolean move(boolean isBlack, Figure.Type type, IField to)
     {
         return doMove(isBlack, type, to);
     }
 
+    /**
+     * Decorator for testing if move can be done.
+     * @param from
+     * @param to
+     * @return true if success
+     */
     @Override
     public boolean move(IField from, IField to)
     {
@@ -392,6 +421,12 @@ public class Game extends java.lang.Object implements IGame
         }
     }
 
+    /**
+     * Based on figure type, determines next direction for recursive search.
+     * @param type
+     * @param dirs
+     * @return next direction
+     */
     @Override
     public IField.Direction determineNextDirection(IFigure.Type type, IField.Direction dirs)
     {

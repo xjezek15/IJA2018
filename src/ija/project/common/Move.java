@@ -8,7 +8,7 @@
 package ija.project.common;
 
 /**
- * Implements functionality for moving figures.
+ * Implements functionality for move.
  * @author xjezek15
  */
 public class Move extends java.lang.Object implements IMove
